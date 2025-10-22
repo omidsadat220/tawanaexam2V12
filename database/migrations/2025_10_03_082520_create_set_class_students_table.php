@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('set_class_students', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            // $table->unsignedBigInteger('department_id')->Nullable();
+            $table->unsignedBigInteger('department_id')->Nullable();
             $table->unsignedBigInteger('subject_id')->nullable();
             $table->timestamps();
             $table->foreign('user_id')

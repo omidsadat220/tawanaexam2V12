@@ -42,6 +42,13 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('backend/assets/css/style.css') }}" rel="stylesheet" />
 
+{{-- <script>
+    window.onload = function () {
+        history.pushState(null, null, location.href);
+        history.forward();
+    };
+</script> --}}
+
     {{-- {{asset('backend/assets/')}} --}}
   </head>
 
@@ -140,6 +147,14 @@
             }
         @endif
     </script>
+
+    <script>
+    // Disable the browser Back button (works in Chrome)
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function () {
+        window.history.pushState(null, "", window.location.href);
+    };
+</script>
     <!-- Template Javascript -->
     <script src="{{ asset('backend/assets/js/main.js') }}"></script>
     <script src="{{ asset('backend/assets/js/myjs.js') }}"></script>

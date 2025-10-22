@@ -4,6 +4,45 @@
     <meta charset="UTF-8">
     <title>Exam Results - Tawana Technology</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- <script>
+    // Disable the browser back button
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+</script> --}}
+
+    
+<style>
+.dashboard-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #007bff, #0056d2);
+    color: #fff !important;
+    padding: 10px 22px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 91, 234, 0.3);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.dashboard-btn:hover {
+    background: linear-gradient(135deg, #0056d2, #0041a8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 91, 234, 0.4);
+}
+
+.dashboard-btn:active {
+    transform: scale(0.97);
+}
+</style>
+
+
 </head>
 <body class="bg-gray-900 text-white min-h-screen py-8 px-4">
 
@@ -56,6 +95,10 @@
                 Your Score: {{ $totalScore }} / {{ $userAnswers->count() }}
             </p>
         </div>
+
+       <a href="{{ route('user.dashboard') }}" class="dashboard-btn">
+    <i class="fas fa-tachometer-alt me-2"></i> Go To Dashboard
+</a>
     </div>
 
 </body>

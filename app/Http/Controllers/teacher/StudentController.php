@@ -19,33 +19,40 @@ class StudentController extends Controller
         return view('teacher.backend.student.manage_student', compact('students'));
     }
 
-    public function SetClass($id) {
-            $student = User::find($id);
-            $subjects = DepartmentSubject::latest()->get();
-
-
-            $setClass = SetClassStudent::where('user_id', $id)->latest()->first();
-            $student->department_id = $setClass ? $setClass->department_id : null;
-
-            return view('teacher.backend.student.set_class', compact('student', 'subjects'));
-
-    } 
-
-    public function StoreSetClass(Request $request)
+public function SetClass($id)
 {
-    $setClass = SetClassStudent::where('user_id', $request->user_id)->latest()->first();
+    $student = User::findOrFail($id);
+    $subjects = DepartmentSubject::latest()->get();
+    $departments = Department::all();
 
-    if($setClass) {
-        $setClass->subject_id = $request->subject_id;
-        $setClass->save();
-    } else {
-        SetClassStudent::create([
-            'user_id' => $request->user_id,
-            'subject_id' => $request->subject_id,
-        ]);
+    $setClass = SetClassStudent::where('user_id', $id)->latest()->first();
 
+    if ($setClass) {
+        $student->department_id = $setClass->department_id;
+        $student->subject_id = $setClass->subject_id;
     }
 
-    return redirect()->route('manage.student');
+    return view('teacher.backend.student.set_class', compact('student', 'subjects', 'departments'));
 }
+
+
+public function StoreSetClass(Request $request)
+{
+    $request->validate([
+        'user_id' => 'required|integer',
+        'department_id' => 'required|integer',
+        'subject_id' => 'required|integer',
+    ]);
+
+    $setClass = SetClassStudent::firstOrNew(['user_id' => $request->user_id]);
+
+    $setClass->department_id = $request->department_id;
+    $setClass->subject_id = $request->subject_id;
+    $setClass->save();
+
+    return redirect()->route('manage.student')->with('success', 'Class set successfully.');
+}
+
+
+
 }
