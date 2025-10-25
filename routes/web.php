@@ -172,6 +172,29 @@ Route::middleware(['auth', 'role:teacher'])->group(function () {
 
     });
 
+    Route::controller(add_examController::class)->group(function() {
+        Route::get('/all/teacher/new/question' , 'AllTeacherNewQuestion')->name('all.teacher.new.question');
+        Route::get('/add/teacher/new/question' , 'AddTeacherNewQuestion')->name('add.teacher.new.question');
+        Route::post('store/teacher/new/question' , 'StoreTeacherNewQuestion')->name('store.teacher.new.question');
+        Route::get('/edit/teacher/new/question/{id}' , 'EditTeacherNewQuestion')->name('edit.teacher.new.question');
+        Route::post('update/teacher/new/question/{id}' , 'UpdateTeacherNewQuestion')->name('update.teacher.new.question');
+        Route::get('all/teacher/delete/question/{id}', 'DeleteTeacherNewQuestion')->name('delete.teacher.new.question');
+    });
+
+    Route::controller(add_examController::class)->group(function() {
+        Route::get('/all/teacher/set/exam' , 'AllTeacherSetExam')->name('all.teacher.set.exam');
+        Route::get('/add/teacher/set/exam' , 'AddTeacherSetExam')->name('add.teacher.set.exam');
+        Route::post('store/teacher/set/exam' , 'StoreTeacherSetExam')->name('store.teacher.set.exam');
+        Route::get('/edit/teacher/set/exam/{id}' , 'EditTeacherSetExam')->name('edit.teacher.set.exam');
+        Route::post('/update/teacher/set/exam/{id}','UpdateTeacherSetExam')->name('update.teacher.set.exam');
+        Route::get('/delete/teacher/set/exam/{id}', 'DeleteTeacherSetExam')->name('delete.teacher.set.exam');
+
+        Route::get('/get-questions/{subject_id}','getQuestions');
+        Route::post('/assign-questions-to-exam', 'AssignQuestionsToExam')->name('assign.questions.exam');
+
+
+    });
+
 });
 
 
