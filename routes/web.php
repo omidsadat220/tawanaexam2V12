@@ -209,6 +209,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/user/uprofile/userprofile', [UserController::class, 'UserProfile'])->name('user.uprofile.userprofile');
     Route::get('/user/uprofile/usereditprofile', [UserController::class, 'UserEditprofile'])->name('user.uprofile.usereditprofile');
     Route::post('/user/uprofile/update', [UserController::class, 'UserProfileUpdate'])->name('user.uprofile.update');
+    Route::post('/user/select-teacher', [App\Http\Controllers\user\UserController::class, 'selectTeacher'])
+     ->name('user.selectTeacher');
     Route::get('/user/uprofile/change-password', [UserController::class, 'UserChangepassword'])->name('user.uprofile.change-password');
 
     Route::post('/user/uprofile/update-password', [UserController::class, 'UserPasswordUpdate'])->name('user.uprofile.updatepassword');

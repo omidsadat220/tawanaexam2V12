@@ -31,11 +31,11 @@ class ExamController extends Controller
     public function StoreTeacherExam(Request $request)
     {
 
-        $validated = $request->validate([
-            'department_id' => 'required|exists:departments,id',
-            'subject_id' => 'required|exists:department_subjects,id',
-            'exam_title' => 'required|string|max:255',
-            'start_time' => 'required|date_format:H:i'
+        $request->validate([
+            'department_id' => 'required',
+            'subject_id' => 'required',
+            'exam_title' => 'required',
+            'start_time' => 'required|integer',
         ]);
 
 
@@ -43,7 +43,7 @@ class ExamController extends Controller
             'department_id' => $request->department_id,
             'subject_id' => $request->subject_id,
             'exam_title' => $request->exam_title,
-            'start_time' => $request->start_time
+            'start_time' => $request->start_time,
         ]);
 
         $notification = [

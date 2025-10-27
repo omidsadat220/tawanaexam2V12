@@ -16,7 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('subject_id')->nullable();
             $table->string('exam_title');
-            $table->time('start_time')->nullable();
+            // $table->time('start_time')->nullable();
+            $table->integer('start_time')->nullable();
             $table->timestamps();
 
             // Foreign key constraints

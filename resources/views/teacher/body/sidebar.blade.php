@@ -88,7 +88,7 @@
                 </div>
               </div>
 
-              <div class="nav-item dropdown">
+              {{-- <div class="nav-item dropdown">
                 <a
                   href="#"
                   class="nav-link dropdown-toggle"
@@ -100,7 +100,7 @@
                             <a href="students.html" class="dropdown-item">Students</a> -->
                   <a href="{{route('all.teacher.qestion')}}" class="dropdown-item">all Qestion</a>
                 </div>
-              </div>
+              </div> --}}
 
                 <div class="nav-item dropdown">
 

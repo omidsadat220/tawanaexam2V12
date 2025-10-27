@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./bootstrap5/css/bootstrap.min.css" />
 
     <!-- locle bootstrap 5 cdn js -->
-    <link rel="stylesheet" href="./bootstrap5/js/bootstrap.bundle.min.js" />
+    {{-- <link rel="stylesheet" href="./bootstrap5/js/bootstrap.bundle.min.js" /> --}}
 
     <!-- Bootstrap 5 CSS CDN -->
 
@@ -730,10 +730,52 @@
                             class="mt-2 px-4 py-1 rounded-lg bg-green-500 text-white font-semibold shadow hover:bg-green-600 transition flex items-center gap-2">
                             Change Password
                         </a>
+                        <!-- Button trigger modal -->
+                        <button type="button" 
+                                class="mt-2 px-4 py-1 rounded-lg bg-green-500 text-white font-semibold shadow hover:bg-green-600 transition flex items-center gap-2"
+                                data-bs-toggle="modal" 
+                                data-bs-target="#staticBackdrop">
+                            Select Teacher
+                        </button>
+
+
                     </div>
                 </div>
             </div>
             <!-- Profile Card -->
+        </div>
+
+       <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Select Teacher</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form id="selectTeacherForm" action="{{ route('user.selectTeacher') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <label for="teacherSelect" class="form-label">Choose a teacher:</label>
+                        <select id="teacherSelect" name="teacher_id" class="form-select" required>
+                            <option value="" disabled {{ empty($selectedTeacher) ? 'selected' : '' }}>Select teacher</option>
+                            @foreach($teachers as $teacher)
+                                <option value="{{ $teacher->id }}"
+                                    {{ (!empty($selectedTeacher) && $selectedTeacher->teacher_id == $teacher->id) ? 'selected' : '' }}>
+                                    {{ $teacher->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+                </div>
+            </div>
         </div>
 
 

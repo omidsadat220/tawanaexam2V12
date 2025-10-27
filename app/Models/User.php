@@ -41,4 +41,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function selectedTeacher()
+{
+    return $this->hasOne(\App\Models\SelectTeacher::class, 'student_id', 'id');
+}
 }

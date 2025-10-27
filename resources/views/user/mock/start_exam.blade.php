@@ -63,6 +63,10 @@
                         <div class="flex items-center">
                             <div class="w-3 h-3 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                             <span class="text-sm text-green-400">Online</span>
+                            <div class="timer-container mb-4 text-center">
+                                <h3>Time Left: <span id="exam-timer">00:00</span></h3>
+                            </div>
+
                         </div>
                         {{-- <div class="text-gray-400 text-sm">
                             <i class="far fa-clock mr-1"></i> <span id="timer">45:00</span>
@@ -199,6 +203,42 @@
     <div class="floating-particles" id="particles"></div>
 
     <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // مقدار زمان از سرور (دقیقه) - فرضاً از exam.start_time
+        let durationMinutes = {{ $exam->start_time ?? 30 }}; // اگر start_time در دقیقه ذخیره شده
+        let time = durationMinutes * 60; // تبدیل به ثانیه
+
+        const timerElement = document.getElementById('exam-timer');
+        const examForm = document.getElementById('exam-form');
+
+        // بروزرسانی تایمر
+        function updateTimer() {
+            let minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+
+            // فرمت 2 رقمی
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            timerElement.textContent = `${minutes}:${seconds}`;
+
+            if (time <= 0) {
+                clearInterval(timerInterval);
+                // ارسال خودکار فرم
+                alert('Time is over! Your answers will be submitted.');
+                examForm.submit();
+            }
+
+            time--;
+        }
+
+        updateTimer(); // شروع تایمر فوراً
+        const timerInterval = setInterval(updateTimer, 1000);
+    });
+
+
+
         // Timer
         function startTimer(duration, display) {
             let timer = duration, minutes, seconds;

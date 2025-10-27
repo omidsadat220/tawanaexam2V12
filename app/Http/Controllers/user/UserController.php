@@ -13,6 +13,7 @@ use App\Models\Exam;
 use App\Models\ExamQuestion;
 use App\Models\NewQuestion;
 use App\Models\qestion;
+use App\Models\SelectTeacher;
 use App\Models\UserAnswer;
 use App\Models\SetClassStudent;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,10 @@ class UserController extends Controller
     public function UserProfile()
     {
         $user = auth()->user();
-        return view('user.uprofile.userprofile', compact('user'));
+        $teachers = \App\Models\User::where('role', 'teacher')->get();
+
+        $selectedTeacher = \App\Models\SelectTeacher::where('student_id', $user->id)->first();
+        return view('user.uprofile.userprofile', compact('user','teachers','selectedTeacher'));
     }
 
     public function UserEditprofile()
@@ -110,7 +114,19 @@ class UserController extends Controller
         ]);
     }
 
+    public function selectTeacher(Request $request) {
+        $request->validate([
+            'teacher_id' => 'required|exists:users,id',
+        ]);
 
+        // ذخیره انتخاب کاربر
+        SelectTeacher::updateOrCreate(
+            ['student_id' => auth()->id()],
+            ['teacher_id' => $request->teacher_id]
+        );
+
+        return redirect()->back()->with('success', 'Teacher selected successfully!');
+    }
 
 
 

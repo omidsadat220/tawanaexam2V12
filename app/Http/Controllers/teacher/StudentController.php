@@ -14,10 +14,16 @@ use function PHPUnit\Framework\returnSelf;
 class StudentController extends Controller
 {
    public function AllStudent()
-    {
-        $students = User::where('role', 'user')->get();
-        return view('teacher.backend.student.manage_student', compact('students'));
-    }
+{
+    $teacher_id = auth()->id(); // استاد فعلی
+    $students = User::where('role', 'user')
+        ->whereHas('selectedTeacher', function ($query) use ($teacher_id) {
+            $query->where('teacher_id', $teacher_id);
+        })
+        ->get();
+
+    return view('teacher.backend.student.manage_student', compact('students'));
+}
 
 public function SetClass($id)
 {

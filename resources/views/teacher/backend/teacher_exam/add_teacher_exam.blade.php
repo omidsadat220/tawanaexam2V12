@@ -69,14 +69,41 @@
 
                                 <div class="col-md-6">
                                     <div class="row">
-                                        <label class="col-4 col-form-label">time</label>
+                                        <label class="col-4 col-form-label">Time</label>
                                         <div class="col-8">
-                                            <input class="form-control" name="start_time" type="time"
-                                                placeholder="paid_date">
+                                            <select name="start_time" class="form-select" required>
+                                                <option value="5">5 Minutes</option>
+                                                <option value="10">10 Minutes</option>
+                                                <option value="20">20 Minutes</option>
+                                                <option value="30">30 Minutes</option>
+                                                <option value="40">40 Minutes</option>
+                                                <option value="50">50 Minutes</option>
+                                                <option value="60">60 Minutes</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
+
+                            {{-- <div class="row mb-3 pt-3 align-items-center">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label class="col-4 col-form-label">Duration</label>
+                                        <div class="col-8">
+                                            <select name="duration" id="duration" class="form-select" required>
+                                                <option value="5">5 Minutes</option>
+                                                <option value="10">10 Minutes</option>
+                                                <option value="20">20 Minutes</option>
+                                                <option value="30">30 Minutes</option>
+                                                <option value="40">40 Minutes</option>
+                                                <option value="50">50 Minutes</option>
+                                                <option value="60">60 Minutes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
 
 
                             <div class="row">
