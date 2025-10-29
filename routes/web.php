@@ -116,7 +116,7 @@ Route::controller(qestioncontroller::class)->group(function() {
         Route::post('/update/set/exam/{id}','UpdateSetExam')->name('update.set.exam');
         Route::get('/delete/set/exam/{id}', 'DeleteSetExam')->name('delete.set.exam');
 
-        Route::get('/get-questions/{subject_id}','getQuestions');
+        Route::get('/get-question/{subject_id}','getQuestion');
         Route::post('/assign-questions-to-exam', 'AssignQuestionsToExam')->name('assign.questions.exam');
 
 

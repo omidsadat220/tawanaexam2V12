@@ -338,7 +338,7 @@ public function UpdateQestion(Request $request)
         return view('admin.backend.set_exam.add', compact('depart', 'firstDepartId', 'subjects', 'exams'));
     }
 
-public function getQuestions($subject_id)
+public function getQuestion($subject_id)
 {
     $questions = \App\Models\NewQuestion::where('subject_id', $subject_id)->get();
 
