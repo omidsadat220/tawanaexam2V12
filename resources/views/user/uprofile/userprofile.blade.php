@@ -690,7 +690,7 @@
                 class="profile-card bg-dark rounded-2xl shadow-xl p-8 flex flex-col md:flex-row items-center gap-8 relative">
                 <!-- Profile Picture -->
                 <div class="relative">
-                    <img src="{{asset(Auth::user()->photo)}}"
+                    <img src="{{ Auth::user()->photo ? asset(Auth::user()->photo) : 'https://th.bing.com/th/id/OIP._2BZkavfXr6pfto8yAasPgHaHg?w=173&h=180&c=7&r=0&o=7&dpr=1.4&pid=1.7&rm=3' }}" 
                         class="rounded-full w-40 h-40 border-4 border-green-400 shadow-lg" />
                     <span
                         class="absolute bottom-2 right-2 w-5 h-5 bg-green-500 border-2 border-white rounded-full animate-pulse"></span>
@@ -787,7 +787,7 @@
                     <i class="bi bi-calendar-check me-2"></i>
                     Coming Soon
                 </h2>
-
+{{-- 
                 <div class="exam-grid">
                     <!-- Banner section with image and text block -->
                     <div class="banner-container shadow-sm">
@@ -983,7 +983,7 @@
                             <!-- card end-->
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

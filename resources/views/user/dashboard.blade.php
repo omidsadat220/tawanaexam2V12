@@ -667,7 +667,7 @@
                     {{-- when we create the image folder you can incomment --}}
                     {{-- <img class="rounded-circle header-profile-user"
                         src="{{ (!empty($profileData->photo)) ? url('upload/client_images/'.$profileData->photo) : url('upload/no_image.jpg') }}"
-                        --}} <img src="{{ asset($profileData->photo) }}" class="avatar-img" id="userAvatar" />
+                        --}} <img  src="{{ Auth::user()->photo ? asset(Auth::user()->photo) : 'https://th.bing.com/th/id/OIP._2BZkavfXr6pfto8yAasPgHaHg?w=173&h=180&c=7&r=0&o=7&dpr=1.4&pid=1.7&rm=3' }}" class="avatar-img" id="userAvatar" />
                 </div>
                 <div class="dropdown-menu" id="userDropdown">
                     <div class="dropdown-item">
