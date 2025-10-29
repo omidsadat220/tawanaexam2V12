@@ -1,5 +1,5 @@
-@extends('admin.admin_dashboard')
-@section('admin')
+@extends('teacher.teacher_dashboard')
+@section('teacher')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -10,7 +10,7 @@
             <div class="col-12 text-center">
                 <div class="form-container container-form" id="add-category-page" style="display: block;">
                     <div class="d-flex flex-row justify-content-around">
-                        <h3 class="text-white">Add New Exam</h3>
+                        <h3 class="text-white">Add Student Exam</h3>
                         <a href="{{ route('all.exam') }}" class="back-link d-block text-start" id="backBtn">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg" style="cursor: pointer">
@@ -23,55 +23,89 @@
 
                     <form action="{{ route('store.exam') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-
                         <div class="container text-start p-4 bg-secondary rounded ">
+                        
+                            <div class="row mb-3 pt-3 align-items-center">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label class="col-4 col-form-label" for="department-dropdown">Department</label>
+                                        <div class="col-8">
+                                            <select name="department_id" class="form-select" id="department-dropdown">
+                                                <option value="">Select</option>
+                                                @foreach ($depart as $info)
+                                                    <option value="{{ $info->id }}">{{ $info->depart_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label class="col-4 col-form-label">Subject</label>
+                                        <div class="col-8">
+                                            <select name="subject_id" class="form-select" id="subject-dropdown">
+                                                <option value="">Select Subject</option>
+                                                @foreach ($subjects as $subject)
+                                                    <option value="{{ $subject->id }}">{{ $subject->subject_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row mb-3 pt-3 align-items-center">
-                                <label for="department-dropdown"
-                                    class="col-sm-2 col-form-label text-white">Department</label>
-                                <div class="col-sm-10">
-                                    <select name="department_id" id="department-dropdown" class="form-select">
-                                        <option value="">Select</option>
-                                        @foreach ($depart as $info)
-                                            <option value="{{ $info->id }}">{{ $info->depart_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label class="col-4 col-form-label">exam_title</label>
+                                        <div class="col-8">
+                                            <input class="form-control" id="exam_title" name="exam_title" type="text"
+                                                placeholder="Exam Title">
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label class="col-4 col-form-label">Time</label>
+                                        <div class="col-8">
+                                            <select name="start_time" class="form-select" required>
+                                                <option value="5">5 Minutes</option>
+                                                <option value="10">10 Minutes</option>
+                                                <option value="20">20 Minutes</option>
+                                                <option value="30">30 Minutes</option>
+                                                <option value="40">40 Minutes</option>
+                                                <option value="50">50 Minutes</option>
+                                                <option value="60">60 Minutes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
-
-                            <div class="row mb-3 pt-3 align-items-center">
-                                <label for="subject-dropdown" class="col-sm-2 col-form-label text-white">Subject</label>
-                                <div class="col-sm-10">
-                                    <select name="subject_id" class="form-select" id="subject-dropdown">
-                                        <option value="">Select Subject</option>
-                                        @foreach ($subjects as $subject)
-                                            <option value="{{ $subject->id }}">{{ $subject->subject_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                            {{-- <div class="row mb-3 pt-3 align-items-center">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label class="col-4 col-form-label">Duration</label>
+                                        <div class="col-8">
+                                            <select name="duration" id="duration" class="form-select" required>
+                                                <option value="5">5 Minutes</option>
+                                                <option value="10">10 Minutes</option>
+                                                <option value="20">20 Minutes</option>
+                                                <option value="30">30 Minutes</option>
+                                                <option value="40">40 Minutes</option>
+                                                <option value="50">50 Minutes</option>
+                                                <option value="60">60 Minutes</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="row mb-3 align-items-center">
-                                <label for="exam_title" class="col-sm-2 col-form-label text-white">exam_title</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" id="exam_title" name="exam_title" type="text"
-                                        placeholder="Enter Exam Title">
-                                </div>
-                            </div>
+                            </div> --}}
 
 
-                            <div class="row mb-3 align-items-center">
-                                <label for="time" class="col-sm-2 col-form-label text-white">time</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" name="start_time" type="time" id="time"
-                                        placeholder="Exam duration">
-                                </div>
-                            </div>
-                     
-                     
                             <div class="row">
                                 <div class="col-12 text-end">
                                     <button style="--clr: #39ff14" type="submit" class="button-styleee">
@@ -79,11 +113,15 @@
                                     </button>
                                 </div>
                             </div>
+
                         </div>
-                    </form>
+                </div>
+                </form>
             </div>
         </div>
-</div>
+    </div>
+    </div>
+
 
     <!-- Select2 Initialization Script -->
     <script>
@@ -127,7 +165,7 @@
 
                 if (depart_id) {
                     $.ajax({
-                        url: "/get-subjects/" + depart_id,
+                        url: "/get-teacher_subjects/" + depart_id,
                         type: "GET",
                         success: function(res) {
                             $('#subject-dropdown').html(

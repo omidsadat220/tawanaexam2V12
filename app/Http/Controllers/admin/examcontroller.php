@@ -14,16 +14,14 @@ use Illuminate\Support\Facades\DB;
 class examcontroller extends Controller
 {
 
-    public function AllExam()
-    
-    {
-        $departments = Department::with(['subjects', 'subjects.exams'])->get();
-        $exams = Exam::with(['department', 'subject'])->latest()->get();
+    public function AllExam() {
+        $departments = department::with(['subjects', 'subjects.exams'])->get();
+        $exams = Exam::with(['department', 'subject'])->get();
 
         return view('admin.backend.exam.all_exam', compact('departments', 'exams'));
     }
 
-    public function AddExam()
+      public function AddExam()
     {
         $depart = Department::all();
         $firstDepartId = Department::first()->id ?? null;
@@ -32,15 +30,14 @@ class examcontroller extends Controller
         return view('admin.backend.exam.add_exam', compact('depart', 'subjects'));
     }
 
-
     public function StoreExam(Request $request)
     {
 
-        $validated = $request->validate([
-            'department_id' => 'required|exists:departments,id',
-            'subject_id' => 'required|exists:department_subjects,id',
-            'exam_title' => 'required|string|max:255',
-            'start_time' => 'required|date_format:H:i'
+        $request->validate([
+            'department_id' => 'required',
+            'subject_id' => 'required',
+            'exam_title' => 'required',
+            'start_time' => 'required|integer',
         ]);
 
 
@@ -48,7 +45,7 @@ class examcontroller extends Controller
             'department_id' => $request->department_id,
             'subject_id' => $request->subject_id,
             'exam_title' => $request->exam_title,
-            'start_time' => $request->start_time
+            'start_time' => $request->start_time,
         ]);
 
         $notification = [
@@ -59,7 +56,7 @@ class examcontroller extends Controller
         return redirect()->route('all.exam')->with($notification);
     }
 
-    public function EditExam($id)
+     public function EditExam($id)
     {
         $exam = Exam::with(['department', 'subject'])->findOrFail($id);
 
@@ -69,7 +66,6 @@ class examcontroller extends Controller
 
         return view('admin.backend.exam.edit_exam', compact('exam', 'departments', 'subjects'));
     }
-
 
     public function UpdateExam(Request $request)
     {
@@ -85,7 +81,7 @@ class examcontroller extends Controller
                 }),
             ],
             'exam_title' => 'required|string|max:255',
-            'start_time' => 'required|date_format:H:i',
+            // 'start_time' => 'required|date_format:H:i',
         ], [
             'subject_id.exists' => 'Selected subject does not belong to the chosen department.'
         ]);

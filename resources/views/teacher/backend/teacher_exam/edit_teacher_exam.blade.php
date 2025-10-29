@@ -83,18 +83,23 @@
                                             </div>
                                     </div>
 
-                                     <div class="col-md-6">
+                                    <div class="col-md-6">
                                         <div class="row">
-                                            <label class="col-4 col-form-label">Start Time</label>
+                                            <label class="col-4 col-form-label">Time</label>
                                             <div class="col-8">
-                                                <input type="time" name="start_time" class=" form-control"
-                                                    value="{{ $exam->start_time }}">
-                                                @error('start_time')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
+                                                <select name="start_time" class="form-select" required>
+                                                    <option value="5" {{ $exam->start_time == 5 ? 'selected' : '' }}>5 Minutes</option>
+                                                    <option value="10" {{ $exam->start_time == 10 ? 'selected' : '' }}>10 Minutes</option>
+                                                    <option value="20" {{ $exam->start_time == 20 ? 'selected' : '' }}>20 Minutes</option>
+                                                    <option value="30" {{ $exam->start_time == 30 ? 'selected' : '' }}>30 Minutes</option>
+                                                    <option value="40" {{ $exam->start_time == 40 ? 'selected' : '' }}>40 Minutes</option>
+                                                    <option value="50" {{ $exam->start_time == 50 ? 'selected' : '' }}>50 Minutes</option>
+                                                    <option value="60" {{ $exam->start_time == 60 ? 'selected' : '' }}>60 Minutes</option>
+                                                </select>
                                             </div>
                                         </div>
-                                    </div>    
+                                    </div>
+  
                                 </div>
 
                                 <div class="col-12 d-flex align-items-end w-100 justify-content-end">
