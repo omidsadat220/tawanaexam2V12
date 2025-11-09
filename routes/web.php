@@ -118,8 +118,12 @@ Route::controller(qestioncontroller::class)->group(function() {
 
         Route::get('/get-question/{subject_id}','getQuestion');
         Route::post('/assign-questions-to-exam', 'AssignQuestionsToExam')->name('assign.questions.exam');
+    });
 
-
+    Route::controller(classcategoryController::class)->group(function () {
+        Route::get('/all/set/students', 'AllSetStudents')->name('all.set.students');
+        Route::get('/set/teacher/{id}', 'SetTeacher')->name('set.teacher');
+        Route::post('/update/set/teacher', 'UpdateSetTeacher')->name('update.set.teacher');
     });
 
 });
