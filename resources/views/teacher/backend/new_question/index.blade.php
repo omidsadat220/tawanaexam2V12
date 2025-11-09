@@ -57,8 +57,13 @@
                                         <td>{{ \Illuminate\Support\Str::limit($data->option4, 10) }}...</td>
                                         <td>{{ \Illuminate\Support\Str::limit($data->correct_answer, 10) }}...</td>
                                         {{-- <td>{{ $data->user_id}}</td> --}}
-                                        <td style="width: 70px; height: 70px; background-color: {{ $data->image ? 'green' : 'red' }};">
-                                        </td>   
+                                        <td style="text-align: center;">
+                                            @if($data->image)
+                                                <i class="fas fa-check-circle" style="color: green; font-size: 20px;"></i>
+                                            @else
+                                                <i class="fas fa-times-circle" style="color: red; font-size: 20px;"></i>
+                                            @endif
+                                        </td> 
                                     
                                         <td>
                                             <a title="Edit" href="{{ route('edit.teacher.new.question', $data->id) }}"
