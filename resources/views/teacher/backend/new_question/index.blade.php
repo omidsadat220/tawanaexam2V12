@@ -25,7 +25,7 @@
                     </div>
 
 
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
                         <table class="paginated table table-bordered" id="datatable">
                             <thead>
                                 <tr>
@@ -50,15 +50,15 @@
                                         <td scope="row">{{ $data->id }}</td>
                                         <td>{{ $data->department_id }}</td>
                                         <td>{{ $data->subject_id }}</td>
-                                        <td>{{ $data->question }}</td>
-                                        <td>{{ $data->option1 }}</td>
-                                        <td>{{ $data->option2 }}</td>
-                                        <td>{{ $data->option3 }}</td>
-                                        <td>{{ $data->option4 }}</td>
-                                        <td>{{ $data->correct_answer }}</td>
-                                        <td>{{ $data->user_id}}</td>
-                                        <td> <img src="{{ asset($data->image) }}" style="width: 70px; height: 70px;"></td>
-
+                                        <td>{{ \Illuminate\Support\Str::limit($data->question, 15) }}...</td>
+                                        <td>{{ \Illuminate\Support\Str::limit($data->option1, 10) }}...</td>
+                                        <td>{{ \Illuminate\Support\Str::limit($data->option2, 10) }}...</td>
+                                        <td>{{ \Illuminate\Support\Str::limit($data->option3, 10) }}...</td>
+                                        <td>{{ \Illuminate\Support\Str::limit($data->option4, 10) }}...</td>
+                                        <td>{{ \Illuminate\Support\Str::limit($data->correct_answer, 10) }}...</td>
+                                        {{-- <td>{{ $data->user_id}}</td> --}}
+                                        <td style="width: 70px; height: 70px; background-color: {{ $data->image ? 'green' : 'red' }};">
+                                        </td>   
                                     
                                         <td>
                                             <a title="Edit" href="{{ route('edit.teacher.new.question', $data->id) }}"
