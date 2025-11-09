@@ -303,10 +303,6 @@
             nextBtn.addEventListener("click", () => {
                 const curBlock = blocks[current];
                 const chosen = curBlock.querySelector('input[type="radio"]:checked');
-                if (!chosen) {
-                    alert("Please select an answer before proceeding.");
-                    return;
-                }
 
                 curBlock.style.display = "none";
                 current++;
