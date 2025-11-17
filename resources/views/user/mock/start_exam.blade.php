@@ -57,15 +57,14 @@
                         <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-400 to-green-700 bg-clip-text text-transparent">
                             Tawana Technology Exam Center
                         </h1>
-                        <p class="text-gray-400 mt-2">Specialized Web Programming Questions </p>
+                        <p class="text-gray-400 mt-2">{{ $exam->subject->subject_name ?? 'N/A' }}</p>
+
                     </div>
                     <div class="flex items-center space-x-4 mt-4 md:mt-0">
                         <div class="flex items-center">
                             <div class="w-3 h-3 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                             <span class="text-sm text-green-400">Online</span>
-                            <div class="timer-container mb-4 text-center">
-                                <h3>Time Left: <span id="exam-timer">00:00</span></h3>
-                            </div>
+                            
 
                         </div>
                         {{-- <div class="text-gray-400 text-sm">
@@ -150,11 +149,16 @@
                     <div class="lg:col-span-3 order-2 lg:order-2">
                         <div class="relative sticky top-6 rounded-2xl bg-[#0f172a] shadow-md">
                             <div class="p-5 rounded-2xl bg-[#0f172a]"> <!-- فقط p-5 به جای p-4 -->
-                                <h3 class="text-sm font-semibold mb-3 flex items-center text-gray-100">
-                                    <i class="fas fa-list-ol text-purple-300 mr-2"></i>
-                                    Questions
-                                </h3>
-
+                                <div class="d-flex justify-content-between align-items-center mb-5">
+                                    <h3 class="text-sm font-weight-semibold mb-0">
+                                        <i class="fas fa-list-ol text-purple-300 mr-2"></i>
+                                        Questions
+                                    </h3>
+                                    <div class="timer-container text-right" style="margin-top: -20px;">
+                                        <h3 class="mb-0">Time Left: <span id="exam-timer">00:00</span></h3>
+                                    </div>
+                                </div>
+                                
                                 <!-- Numbers -->
                                 <div class="grid grid-cols-5 gap-2 mb-3">
                                     @foreach($questions as $index => $item)
@@ -282,15 +286,23 @@
         }
 
         // Option click style
-        document.querySelectorAll("label").forEach((label) => {
-            label.addEventListener("click", function() {
-                const parent = this.closest(".space-y-4");
-                parent.querySelectorAll(".option-hover div > div").forEach((el) => {
-                    el.style.opacity = "0";
-                });
-                this.querySelector("div > div").style.opacity = "1";
-            });
+        // وقتی گزینه انتخاب شد، کل باکس و دایره سبز شود
+document.querySelectorAll('.option-hover input[type="radio"]').forEach((radio) => {
+    radio.addEventListener('change', function() {
+        const allOptions = this.closest('.space-y-4').querySelectorAll('.option-hover');
+        allOptions.forEach(option => {
+            option.classList.remove('bg-green-600'); // حذف رنگ سبز از کل باکس
+            const circle = option.querySelector('.w-3');
+            if (circle) circle.style.opacity = '0'; // دایره خاموش شود
         });
+
+        const selectedOption = this.closest('.option-hover');
+        selectedOption.classList.add('bg-green-600'); // کل باکس سبز شود
+        const circle = selectedOption.querySelector('.w-3');
+        if (circle) circle.style.opacity = '1'; // دایره سبز شود
+    });
+});
+
 
         // Next and Previous Button
         document.addEventListener("DOMContentLoaded", function() {
