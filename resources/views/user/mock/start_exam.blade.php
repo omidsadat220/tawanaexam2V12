@@ -61,9 +61,9 @@
 
                     </div>
                     <div class="flex items-center space-x-4 mt-4 md:mt-0">
-                        <div class="flex items-center">
-                            <div class="w-3 h-3 bg-green-400 rounded-full mr-2 animate-pulse"></div>
-                            <span class="text-sm text-green-400">Online</span>
+                        <div class="flex items-center mt-5">
+                            <div class="w-3 h-3 bg-green-400 rounded-full mr-2 mt-5 animate-pulse"></div>
+                            <span class="text-sm text-green-400 mt-5">Online</span>
                             
 
                         </div>
