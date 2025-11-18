@@ -9,6 +9,44 @@
             <a href="#" class="sidebar-toggler flex-shrink-0">
               <i class="fa fa-bars"></i>
             </a>
+
+             <div class="d-none d-lg-flex align-items-center ms-3">
+                <div class="nav-item dropdown me-3">
+                    <a href="{{route('teacher.dashboard')}}" class="nav-item nav-link"
+                  ><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a
+                >
+                </div>
+
+                <div class="nav-item dropdown me-3">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        student
+                    </a>
+                    <div class="dropdown-menu bg-secondary border-0 m-0">
+                        <a href="{{route('manage.student')}}" class="dropdown-item">all student</a>
+                    </div>
+                </div>
+
+                <div class="nav-item dropdown me-3">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        Exam
+                    </a>
+                    <div class="dropdown-menu bg-secondary border-0 m-0">
+                  <a href="{{route('all.teacher.exam')}}" class="dropdown-item">all Exam</a>
+                    </div>
+                </div>
+
+                <div class="nav-item dropdown me-3">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        all new questions
+                    </a>
+                    <div class="dropdown-menu bg-secondary border-0 m-0">
+                        <a href="{{route('all.teacher.new.question')}}" class="dropdown-item">All New</a>
+                        <a href="{{route('all.teacher.set.exam')}}" class="dropdown-item">All Set Exam</a>
+                    </div>
+                </div>
+
+            </div>
+
             <!-- <form class="d-none d-md-flex ms-4">
                     <input class="form-control bg-dark border-0" type="search" placeholder="Search">
                 </form> -->
