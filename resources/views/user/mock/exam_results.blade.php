@@ -198,11 +198,17 @@
         @php
             $q = $answer->question;
             if(!$q) continue;
+
             $isCorrect = $answer->selected_answer === $q->correct_answer;
-            if ($isCorrect) $totalScore++;
+            if ($isCorrect) {
+                $totalScore++;
+                continue; // ✅ فقط سوال‌های اشتباه نمایش داده نشوند
+            }
+
             $options = [$q->option1, $q->option2, $q->option3, $q->option4];
         @endphp
 
+        {{-- فقط سوال‌های اشتباه --}}
         <div class="question-block gradient-border rounded-xl p-6 bg-gray-900">
             <h3 class="text-lg font-semibold text-white mb-4">
                 Question: {{ $q->question }}
@@ -236,11 +242,7 @@
 
             <p class="mt-4 font-bold text-white">
                 Result: 
-                @if($isCorrect)
-                    <span class="text-green-300">Correct ✅</span>
-                @else
-                    <span class="text-red-300">Wrong ❌</span>
-                @endif
+                <span class="text-red-300">Wrong ❌</span>
             </p>
         </div>
     @endforeach

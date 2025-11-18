@@ -286,22 +286,34 @@
         }
 
         // Option click style
-        // وقتی گزینه انتخاب شد، کل باکس و دایره سبز شود
-document.querySelectorAll('.option-hover input[type="radio"]').forEach((radio) => {
-    radio.addEventListener('change', function() {
-        const allOptions = this.closest('.space-y-4').querySelectorAll('.option-hover');
-        allOptions.forEach(option => {
-            option.classList.remove('bg-green-600'); // حذف رنگ سبز از کل باکس
-            const circle = option.querySelector('.w-3');
-            if (circle) circle.style.opacity = '0'; // دایره خاموش شود
-        });
+  // وقتی روی کل باکس گزینه کلیک شد، رادیو انتخاب شود
+document.querySelectorAll('.option-hover').forEach(box => {
+    box.addEventListener('click', function(e) {
+        // جلوگیری از double toggle اگر روی input خود رادیو کلیک شد
+        if (e.target.tagName.toLowerCase() === 'input') return;
 
-        const selectedOption = this.closest('.option-hover');
-        selectedOption.classList.add('bg-green-600'); // کل باکس سبز شود
-        const circle = selectedOption.querySelector('.w-3');
-        if (circle) circle.style.opacity = '1'; // دایره سبز شود
+        const radio = this.querySelector('input[type="radio"]');
+        if (radio) {
+            radio.checked = true;
+
+            // اعمال استایل سبز روی باکس انتخاب شده
+            const allOptions = this.closest('.space-y-4').querySelectorAll('.option-hover');
+            allOptions.forEach(option => {
+                option.classList.remove('bg-green-600');
+                const circle = option.querySelector('.w-3');
+                if (circle) circle.style.opacity = '0';
+            });
+
+            this.classList.add('bg-green-600');
+            const circle = this.querySelector('.w-3');
+            if (circle) circle.style.opacity = '1';
+
+            // بروزرسانی stats
+            updateStats();
+        }
     });
 });
+
 
 
         // Next and Previous Button
