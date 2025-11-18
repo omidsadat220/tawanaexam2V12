@@ -675,6 +675,87 @@
         #profile-card {
             background-color: rgb(38, 38, 38);
         }
+        /* Modal Background Blur */
+.custom-green-modal .modal-dialog {
+    transform: translateY(80px);
+    transition: all 0.35s ease-out;
+}
+
+.custom-green-modal.show .modal-dialog {
+    transform: translateY(0);
+}
+
+/* Modal Content */
+.custom-modal-content {
+    background: #0d0d0d;
+    color: white;
+    border-radius: 18px;
+    border: 2px solid #11c54d;
+    box-shadow: 0 0 25px rgba(17, 197, 77, 0.4);
+}
+
+/* Header */
+.custom-modal-header {
+    background: #0f280f;
+    border-bottom: 1px solid #11c54d;
+    color: #11c54d;
+}
+
+/* Close Button */
+.custom-btn-close {
+    filter: brightness(0) invert(1);
+}
+
+/* Select Input */
+.custom-select {
+    background: #1a1a1a;
+    border: 1px solid #11c54d;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.custom-select:focus {
+    border-color: #11ff66;
+    box-shadow: 0 0 10px rgba(17, 255, 102, 0.5);
+}
+
+/* Label */
+.custom-label {
+    color: #11c54d;
+    font-weight: bold;
+}
+
+/* Footer */
+.custom-modal-footer {
+    border-top: 1px solid #11c54d;
+}
+
+/* Buttons */
+.custom-btn-primary {
+    background: #11c54d;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.custom-btn-primary:hover {
+    background: #0fa542;
+    transform: translateY(-2px);
+}
+
+.custom-btn-secondary {
+    background: #333;
+    color: white;
+    border-radius: 10px;
+}
+
+.custom-btn-secondary:hover {
+    background: #444;
+}
     </style>
 </head>
 
@@ -745,38 +826,39 @@
             <!-- Profile Card -->
         </div>
 
-       <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Select Teacher</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <!-- Modal -->
+     <div class="modal fade custom-green-modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content custom-modal-content">
+                
+                <div class="modal-header custom-modal-header">
+                    <h5 class="modal-title">Select Teacher</h5>
+                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <form id="selectTeacherForm" action="{{ route('user.selectTeacher') }}" method="POST">
                     @csrf
+
                     <div class="modal-body">
-                        <label for="teacherSelect" class="form-label">Choose a teacher:</label>
-                        <select id="teacherSelect" name="teacher_id" class="form-select" required>
-                            <option value="" disabled {{ empty($selectedTeacher) ? 'selected' : '' }}>Select teacher</option>
+                        <label class="form-label custom-label">Choose a teacher:</label>
+
+                        <select id="teacherSelect" name="teacher_id" class="form-select custom-select" required>
+                            <option value="">Select teacher</option>
                             @foreach($teachers as $teacher)
-                                <option value="{{ $teacher->id }}"
-                                    {{ (!empty($selectedTeacher) && $selectedTeacher->teacher_id == $teacher->id) ? 'selected' : '' }}>
-                                    {{ $teacher->name }}
-                                </option>
+                                <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                             @endforeach
                         </select>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                    <div class="modal-footer custom-modal-footer">
+                        <button type="button" class="btn btn-secondary custom-btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn custom-btn-primary">Save</button>
                     </div>
                 </form>
-                </div>
+
             </div>
         </div>
+    </div>
 
 
         <!-- Profile Content -->
