@@ -838,7 +838,6 @@
 
                 <form id="selectTeacherForm" action="{{ route('user.selectTeacher') }}" method="POST">
                     @csrf
-
                     <div class="modal-body">
                         <label class="form-label custom-label">Choose a teacher:</label>
 
@@ -849,17 +848,14 @@
                             @endforeach
                         </select>
                     </div>
-
                     <div class="modal-footer custom-modal-footer">
                         <button type="button" class="btn btn-secondary custom-btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn custom-btn-primary">Save</button>
                     </div>
                 </form>
-
             </div>
         </div>
-    </div>
-
+   </div>
 
         <!-- Profile Content -->
         <div class="profile-content">
