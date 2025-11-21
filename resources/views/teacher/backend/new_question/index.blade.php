@@ -17,7 +17,7 @@
 
                                 <a href="{{ route('add.teacher.new.question') }}">
                                     <button style="--clr: #39ff14" class="button-styleee">
-                                        <span>Create Exam</span><i></i>
+                                        <span>New Quation</span><i></i>
                                     </button>
                                 </a>
                             </div>

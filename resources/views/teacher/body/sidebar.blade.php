@@ -35,104 +35,25 @@
               </div>
             </div>
             <div class="navbar-nav w-100">
-             <a href="{{route('teacher.dashboard')}}" class="nav-item nav-link"
+             <a href="{{route('teacher.dashboard')}}" class="nav-item nav-link {{ request()->routeIs('teacher.dashboard') ? 'active' : '' }}"
                 ><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a
               >
-              {{-- <div class="nav-item dropdown">
-                <a href="teachers.html" class="nav-item nav-link"
-                  ><i class="fa fa-laptop me-2"></i>Teachers</a
-                >
-                <a href="students.html" class="nav-item nav-link"
-                  ><i class="fa fa-laptop me-2"></i>Students</a
-                >
-                <a href="Catagory.html" class="nav-item nav-link"
-                  ><i class="fa fa-laptop me-2"></i>Catagory</a
-                >
-                <a href="subCatagory.html" class="nav-item nav-link"
-                  ><i class="fa fa-laptop me-2"></i>SubCatagory</a
-                >
-                <a href="questionanswer.html" class="nav-item nav-link"
-                  ><i class="fa fa-laptop me-2"></i>Q/A</a
-                >
-                <a href="exam.html" class="nav-item nav-link"
-                  ><i class="fa fa-laptop me-2"></i>Exam</a
-                >
-              </div> --}}
 
-              
-              <div class="nav-item dropdown">
-                <a
-                  href="#"
-                  class="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  ><i class="far fa-file-alt me-2"></i>student</a
-                >
-                <div class="dropdown-menu bg-transparent border-0">
-                  <!-- <a href="teachers.html" class="dropdown-item">Teachers</a>
-                            <a href="students.html" class="dropdown-item">Students</a> -->
-                  <a href="{{route('manage.student')}}" class="dropdown-item">all student</a>
-                </div>
-              </div>
+               <a href="{{route('manage.student')}}" class="nav-item nav-link {{ request()->routeIs('manage.student') ? 'active' : '' }}"
+                ><i class="fa fa-tachometer-alt me-2"></i>Mangae Student</a
+              >
 
-                <div class="nav-item dropdown">
-                <a
-                  href="#"
-                  class="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  ><i class="far fa-file-alt me-2"></i>Exam</a
-                >
-                <div class="dropdown-menu bg-transparent border-0">
-                  <!-- <a href="teachers.html" class="dropdown-item">Teachers</a>
-                            <a href="students.html" class="dropdown-item">Students</a> -->
-                  <a href="{{route('all.teacher.exam')}}" class="dropdown-item">all Exam</a>
-                </div>
-              </div>
+               <a href="{{route('all.teacher.exam')}}" class="nav-item nav-link {{ request()->routeIs('all.teacher.exam') ? 'active' : '' }}"
+                ><i class="fa fa-tachometer-alt me-2"></i>Mangae Exam</a
+              >
 
-              {{-- <div class="nav-item dropdown">
-                <a
-                  href="#"
-                  class="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  ><i class="far fa-file-alt me-2"></i>Question</a
-                >
-                <div class="dropdown-menu bg-transparent border-0">
-                  <!-- <a href="teachers.html" class="dropdown-item">Teachers</a>
-                            <a href="students.html" class="dropdown-item">Students</a> -->
-                  <a href="{{route('all.teacher.qestion')}}" class="dropdown-item">all Qestion</a>
-                </div>
-              </div> --}}
+               <a href="{{route('all.teacher.set.exam')}}" class="nav-item nav-link {{ request()->routeIs('all.teacher.set.exam') ? 'active' : '' }}"
+                ><i class="fa fa-tachometer-alt me-2"></i>Set Exam</a 
+              >
 
-                <div class="nav-item dropdown">
-
-                <a
-                  href="#"
-                  class="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  ><i class="far fa-file-alt me-2"></i>all new questions</a
-                >
-                 <div class="dropdown-menu bg-transparent border-0">
-                   <a href="{{route('all.teacher.new.question')}}" class="nav-item nav-link"
-                  ><i class="fa fa-laptop me-2"></i> All New</a
-                >
-                <a href="{{route('all.teacher.set.exam')}}" class="nav-item nav-link"
-                  ><i class="fa fa-laptop me-2"></i> All Set Exam</a
-                >
-                </div>
-
-              {{-- <div class="nav-item dropdown">
-                <a
-                  href="#"
-                  class="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  ><i class="far fa-file-alt me-2"></i>add exam</a
-                >
-                <div class="dropdown-menu bg-transparent border-0">
-                  <!-- <a href="teachers.html" class="dropdown-item">Teachers</a>
-                            <a href="students.html" class="dropdown-item">Students</a> -->
-                  <a href="{{route('all.add.exam')}}" class="dropdown-item">Add Exam</a>
-                </div>
-              </div> --}}
-
+              <a href="{{route('all.teacher.new.question')}}" class="nav-item nav-link {{ request()->routeIs('all.teacher.new.question') ? 'active' : '' }}"
+                ><i class="fa fa-tachometer-alt me-2"></i>New Quation</a
+              >
             </div>
           </nav>
         </div>

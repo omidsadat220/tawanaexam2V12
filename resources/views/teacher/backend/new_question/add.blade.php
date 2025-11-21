@@ -104,7 +104,7 @@
                             <div class="row">
                                 <div class="col-12 text-end">
                                     <button style="--clr: #39ff14" type="submit" class="button-styleee">
-                                        <span>Add exam</span><i></i>
+                                        <span>Add Quation</span><i></i>
                                     </button>
                                 </div>
                             </div>
