@@ -88,7 +88,11 @@
                                         data-index="{{ $index }}"
                                         style="{{ $index == 0 ? '' : 'display:none;' }}">
                                         <div class="bg-in-gray rounded-xl p-6">
-                                            <h2 class="text-xl font-semibold text-white mb-4">{{ $item->question }}</h2>
+                                            <h2 class="text-xl font-semibold text-white mb-4">
+                                                <span class="text-green-400 font-bold">Q{{ $index + 1 }}.</span>
+                                                {{ $item->question }}
+                                            </h2>
+
 
                                             @if($item->image)
                                                 <img src="{{ asset($item->image) }}"
