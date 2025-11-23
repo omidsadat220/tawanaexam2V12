@@ -156,7 +156,11 @@
 
                 if (depart_id) {
                     $.ajax({
+<<<<<<< HEAD
                          url: "/get-teacher_subjects/" + depart_id,
+=======
+                        url: "/get-teacher_subjects/" + depart_id,
+>>>>>>> 00dca5008a8490a851d19d735cd060003b7fa35c
                         type: "GET",
                         success: function(res) {
                             $('#subject-dropdown').html(

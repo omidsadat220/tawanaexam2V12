@@ -116,7 +116,7 @@ $(document).ready(function() {
         $('#subject-dropdown').html('<option value="">Loading...</option>');
         if (depart_id) {
             $.ajax({
-                url: "/get-subjects/" + depart_id,
+                url: "/get-teacher_subjects/" + depart_id,
                 type: "GET",
                 success: function(res) {
                     $('#subject-dropdown').html('<option value="">Select Subject</option>');

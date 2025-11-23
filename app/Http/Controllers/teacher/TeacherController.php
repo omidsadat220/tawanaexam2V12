@@ -8,6 +8,10 @@ use App\Models\Exam;
 use App\Models\UserAnswer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 00dca5008a8490a851d19d735cd060003b7fa35c
 
 class TeacherController extends Controller
 {

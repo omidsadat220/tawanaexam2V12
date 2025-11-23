@@ -486,11 +486,11 @@ document.addEventListener("DOMContentLoaded", function() {
         updateStats();
     });
 
-    // کلیک روی شماره سوال‌ها
+   // کلیک روی شماره سوال‌ها
     const qNumbers = document.querySelectorAll(".q-number");
     qNumbers.forEach((num, index) => {
         num.addEventListener("click", () => {
-            blocks[current].style.display = "none";
+            blocks.forEach(b => b.style.display = "none");
             current = index;
             blocks[current].style.display = "block";
 
