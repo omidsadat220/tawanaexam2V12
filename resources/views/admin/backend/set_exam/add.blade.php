@@ -156,7 +156,7 @@ $(document).ready(function() {
                                      style="width:100%; box-sizing:border-box; margin:0; padding:10px; overflow-x:hidden;">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h6 style="margin:0; padding:0;">Q${i + 1}: ${q.question}</h6>
-                                        <input type="checkbox" class="select-question form-check-input" data-id="${q.id}" data-question="${q.question}">
+                                        <input type="checkbox" class="select-question m-2 p-2 form-check-input" data-id="${q.id}" data-question="${q.question}">
                                     </div>
                                     <ul class="mt-2" style="margin:0; padding-left:20px;">
                                         ${q.options.map(o => `<li>${o}</li>`).join('')}

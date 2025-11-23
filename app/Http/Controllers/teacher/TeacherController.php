@@ -7,45 +7,43 @@ use Illuminate\Http\Request;
 use App\Models\Exam;
 use App\Models\UserAnswer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
-    public function TeacherDashboard()    {
-            $userId = Auth::id(); // اگر میخوای همه دانش‌آموزان رو ببینی، این خط نیاز نیست
-    $answers = UserAnswer::with(['user', 'exam.department', 'exam.subject'])
-                ->get(); // میتونی ->where('user_id', $userId) بذاری اگر فقط کاربر لاگین شده مدنظره
+    public function TeacherDashboard(){
+        $teacherId = Auth::id();
 
-    // گروه‌بندی بر اساس user_id و exam_id
-    $grouped = $answers->groupBy(['user_id', 'exam_id']);
+        $studentIds = DB::table('select_teachers')
+            ->where('teacher_id', $teacherId)
+            ->pluck('student_id');
 
-    $results = [];
+        $answers = UserAnswer::with(['user', 'exam.department', 'exam.subject'])
+            ->whereIn('user_id', $studentIds)
+            ->get();
 
-    foreach ($grouped as $userId => $examGroup) {
-        foreach ($examGroup as $examId => $rows) {
+        $grouped = $answers->groupBy(['user_id', 'exam_id']);
+        $results = [];
 
-            $correct = $rows->filter(function($row) {
-                return $row->selected_answer == $row->correct_answer;
-            })->count();
+        foreach ($grouped as $userId => $examGroup) {
+            foreach ($examGroup as $examId => $rows) {
 
-            $wrong = $rows->filter(function($row) {
-                return $row->selected_answer != $row->correct_answer;
-            })->count();
+                $correct = $rows->filter(fn($row) => $row->selected_answer == $row->correct_answer)->count();
+                $wrong   = $rows->filter(fn($row) => $row->selected_answer != $row->correct_answer)->count();
 
-            $score = $correct; // نمره = تعداد جواب‌های درست
-
-            $results[] = [
-                'user' => $rows->first()->user,
-                'exam' => $rows->first()->exam,
-                'department' => $rows->first()->exam->department,
-                'subject' => $rows->first()->exam->subject,
-                'correct' => $correct,
-                'wrong' => $wrong,
-                'score' => $score,
-            ];
+                $results[] = [
+                    'user' => $rows->first()->user,
+                    'exam' => $rows->first()->exam,
+                    'department' => $rows->first()->exam->department,
+                    'subject' => $rows->first()->exam->subject,
+                    'correct' => $correct,
+                    'wrong' => $wrong,
+                    'score' => $correct,
+                ];
+            }
         }
-    }
 
-    return view('teacher.index', compact('results'));
+        return view('teacher.index', compact('results'));
     }
 
     public function TeacherLogout(Request $request)

@@ -29,6 +29,28 @@
         .bg-img { background-image: url("{{ asset('assets/img/hb.png') }}"); background-position: center; background-size: cover; }
         .bg-gray { background-color: #373737; }
         .bg-in-gray { background-color: #252525; }
+
+        .option-hover {
+            display: flex;
+            align-items: center;
+            background-color: #373737;
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            position: relative; /* مهم برای دایره انتخاب */
+        }
+
+        .option-hover input[type="radio"] {
+            position: absolute; /* روی باکس مخفی شود */
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .option-hover .w-3 {
+            transition: opacity 0.2s ease;
+        }
     </style>
 </head>
 
@@ -146,9 +168,9 @@
                 </div>
 
                 <!-- Sidebar -->
-                    <div class="lg:col-span-3 order-2 lg:order-2">
-                        <div class="relative sticky top-6 rounded-2xl bg-[#0f172a] shadow-md">
-                            <div class="p-5 rounded-2xl bg-[#0f172a]"> <!-- فقط p-5 به جای p-4 -->
+                   <div class="lg:col-span-3 order-2 lg:order-2">
+                        <div class="relative sticky top-6 rounded-2xl bg-[#11860f] shadow-md">
+                            <div class="p-5 rounded-2xl bg-[#198754]"> <!-- فقط p-5 به جای p-4 -->
                                 <div class="d-flex justify-content-between align-items-center mb-5">
                                     <h3 class="text-sm font-weight-semibold mb-0">
                                         <i class="fas fa-list-ol text-purple-300 mr-2"></i>
@@ -288,29 +310,22 @@
         // Option click style
   // وقتی روی کل باکس گزینه کلیک شد، رادیو انتخاب شود
 document.querySelectorAll('.option-hover').forEach(box => {
-    box.addEventListener('click', function(e) {
-        // جلوگیری از double toggle اگر روی input خود رادیو کلیک شد
-        if (e.target.tagName.toLowerCase() === 'input') return;
-
+    box.addEventListener('click', function() {
         const radio = this.querySelector('input[type="radio"]');
-        if (radio) {
-            radio.checked = true;
+        if (radio) radio.checked = true;
 
-            // اعمال استایل سبز روی باکس انتخاب شده
-            const allOptions = this.closest('.space-y-4').querySelectorAll('.option-hover');
-            allOptions.forEach(option => {
-                option.classList.remove('bg-green-600');
-                const circle = option.querySelector('.w-3');
-                if (circle) circle.style.opacity = '0';
-            });
+        const allOptions = this.closest('.space-y-4').querySelectorAll('.option-hover');
+        allOptions.forEach(option => {
+            option.classList.remove('bg-green-600');
+            const circle = option.querySelector('.w-3');
+            if (circle) circle.style.opacity = '0';
+        });
 
-            this.classList.add('bg-green-600');
-            const circle = this.querySelector('.w-3');
-            if (circle) circle.style.opacity = '1';
+        this.classList.add('bg-green-600');
+        const circle = this.querySelector('.w-3');
+        if (circle) circle.style.opacity = '1';
 
-            // بروزرسانی stats
-            updateStats();
-        }
+        updateStats();
     });
 });
 

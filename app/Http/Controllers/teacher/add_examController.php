@@ -37,6 +37,7 @@ class add_examController extends Controller
     // end method
 
     public function StoreAddExam(Request $request) {
+        
 
         $validatedData = $request->validate([
             'user_id' => 'required',
@@ -126,9 +127,10 @@ class add_examController extends Controller
     }
 
     public function StoreTeacherNewQuestion(Request $request) {
-        $validated = $request->validate([
+         $validated = $request->validate([
             'department_id' => 'required|exists:departments,id',
             'subject_id' => 'required|exists:department_subjects,id',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png',
         ]);
 
         if ($request->file('image')) {
