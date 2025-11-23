@@ -63,10 +63,9 @@ body {
 }
 
 .dashboard-wrapper {
- transform: scale(0.8);
+ transform: scale(1);
   transform-origin: top left;
-  width: 125%;
-  height: 125%;
+  width: 100%;
 }
 
 
@@ -559,7 +558,37 @@ progress {
 }
 
 .container-form{
-  height: 98vh;
+  height: 100vh;
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+/* اسکرول برای Chrome, Edge, Safari */
+.container-form::-webkit-scrollbar {
+  width: 10px; /* ضخامت اسکرول */
+}
+
+/* پس‌زمینه اسکرول (مسیر) */
+.container-form::-webkit-scrollbar-track {
+  background: #000; /* مشکی */
+  border-radius: 10px;
+}
+
+/* قسمت قابل حرکت */
+.container-form::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #0f3d0f, #29a329); 
+  border-radius: 10px;
+  border: 2px solid #000; /* خط مشکی دور */
+}
+
+/* هنگام hover */
+.container-form::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #0b2f0b, #1f7f1f);
+}
+
+
+.container-form-question{
+  height: auto;
   padding: 20px;
 }
 
