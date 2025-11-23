@@ -129,6 +129,7 @@ class add_examController extends Controller
         $validated = $request->validate([
             'department_id' => 'required|exists:departments,id',
             'subject_id' => 'required|exists:department_subjects,id',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png',
         ]);
 
         if ($request->file('image')) {
