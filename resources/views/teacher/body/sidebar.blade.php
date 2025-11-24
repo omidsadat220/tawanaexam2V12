@@ -40,20 +40,21 @@
               >
 
                <a href="{{route('manage.student')}}" class="nav-item nav-link {{ request()->routeIs('manage.student') ? 'active' : '' }}"
-                ><i class="fa fa-tachometer-alt me-2"></i>Mangae Student</a
+                ><i class="fa fa-users-cog me-2"></i>Mangae Student</a
               >
 
                <a href="{{route('all.teacher.exam')}}" class="nav-item nav-link {{ request()->routeIs('all.teacher.exam') ? 'active' : '' }}"
-                ><i class="fa fa-tachometer-alt me-2"></i>Mangae Exam</a
-              >
-
-               <a href="{{route('all.teacher.set.exam')}}" class="nav-item nav-link {{ request()->routeIs('all.teacher.set.exam') ? 'active' : '' }}"
-                ><i class="fa fa-tachometer-alt me-2"></i>Set Exam</a 
+                ><i class="fa fa-edit me-2"></i>Mangae Exam</a
               >
 
               <a href="{{route('all.teacher.new.question')}}" class="nav-item nav-link {{ request()->routeIs('all.teacher.new.question') ? 'active' : '' }}"
-                ><i class="fa fa-tachometer-alt me-2"></i>New Quation</a
+                ><i class="fa fa-plus-circle me-2"></i>New Quation</a
               >
+
+               <a href="{{route('all.teacher.set.exam')}}" class="nav-item nav-link {{ request()->routeIs('all.teacher.set.exam') ? 'active' : '' }}"
+                ><i class="fa fa-edit me-2"></i>Set Exam</a 
+              >
+
             </div>
           </nav>
         </div>

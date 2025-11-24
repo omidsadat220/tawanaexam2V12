@@ -510,6 +510,50 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </script>
 
+{{--   Timer --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const timerElement = document.getElementById('exam-timer');
+    const examForm = document.getElementById('exam-form');
+
+    // زمان شروع (مثلاً 30 دقیقه) به ثانیه
+    const durationMinutes = {{ $exam->start_time ?? 30 }};
+    const durationSeconds = durationMinutes * 60;
+
+    // بررسی LocalStorage
+    let time = localStorage.getItem('examTime');
+    if (time === null) {
+        time = durationSeconds; // اگر صفحه تازه باز شد
+    } else {
+        time = parseInt(time); // ادامه از زمان قبل
+    }
+
+    function updateTimer() {
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        timerElement.textContent = `${minutes}:${seconds}`;
+
+        if (time <= 0) {
+            clearInterval(timerInterval);
+            localStorage.removeItem('examTime'); // پاک کردن تایمر بعد از پایان
+            alert('Time is over! Your answers will be submitted.');
+            examForm.submit();
+        } else {
+            time--;
+            localStorage.setItem('examTime', time); // ذخیره زمان باقی‌مانده
+        }
+    }
+
+    updateTimer();
+    const timerInterval = setInterval(updateTimer, 1000);
+});
+
+</script>
+
 </body>
 
 </html>

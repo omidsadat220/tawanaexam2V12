@@ -41,7 +41,7 @@ class DepartmentController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Department and subjects saved!');
+        return redirect()->route('all.depart')->with('success', 'Department and subjects saved!');
     }
 
     //end method

@@ -42,37 +42,38 @@
 
                <a href="{{route('all.category')}}" 
               class="nav-item nav-link {{ request()->routeIs('all.category') ? 'active' : '' }}">
-              <i class="fa fa-tachometer-alt me-2"></i>ّFinall Catagory</a
+              <i class="fa fa-list me-2"></i>ّFinall Catagory</a
               >
 
                <a href="{{route('all.answer')}}" 
               class="nav-item nav-link {{ request()->routeIs('all.answer') ? 'active' : '' }}">
-              <i class="fa fa-tachometer-alt me-2"></i>ّFinall Quastion</a
+              <i class="fa fa-question-circle me-2"></i>ّFinall Quastion</a
               >
 
               <a href="{{route('all.depart')}}" 
               class="nav-item nav-link {{ request()->routeIs('all.depart') ? 'active' : '' }}">
-              <i class="fa fa-tachometer-alt me-2"></i>All Department</a
+              <i class="fa fa-building me-2"></i>All Department</a
               >
 
               <a href="{{route('all.exam')}}" 
               class="nav-item nav-link {{ request()->routeIs('all.exam') ? 'active' : '' }}">
-              <i class="fa fa-tachometer-alt me-2"></i>All Exam</a
+              <i class="fa fa-file-alt me-2"></i>All Exam</a
+              >
+              
+              <a href="{{route('all.new.question')}}" 
+              class="nav-item nav-link {{ request()->routeIs('all.new.question') ? 'active' : '' }}">
+              <i class="fa fa-plus-circle me-2"></i>New Quation</a
               >
 
               <a href="{{route('all.set.exam')}}" 
               class="nav-item nav-link {{ request()->routeIs('all.set.exam') ? 'active' : '' }}">
-              <i class="fa fa-tachometer-alt me-2"></i>Set Exam</a
-              >
-
-              <a href="{{route('all.new.question')}}" 
-              class="nav-item nav-link {{ request()->routeIs('all.new.question') ? 'active' : '' }}">
-              <i class="fa fa-tachometer-alt me-2"></i>New Quation</a
+              <i class="fa fa-edit me-2"></i>Set Exam</a
               >
 
               <a href="{{route('all.set.students')}}" 
               class="nav-item nav-link {{ request()->routeIs('all.set.students') ? 'active' : '' }}">
-              <i class="fa fa-tachometer-alt me-2"></i>Set Teacher</a
+              <i class="fa fa-user-edit me-2"></i>
+Set Teacher</a
               >
 
                 </div>
