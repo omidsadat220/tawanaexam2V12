@@ -554,6 +554,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </script>
 
+<script>
+    // هشدار قبل از ترک یا رفرش صفحه
+    window.addEventListener('beforeunload', function (e) {
+        e.preventDefault();
+        e.returnValue = "You cannot refresh the page during the exam!";
+        return "You cannot refresh the page during the exam!";
+    });
+
+    // جلوگیری از رفرش با کلیدهای کیبورد
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "F5" || 
+            ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "r") || 
+            ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "r")) {
+            e.preventDefault();
+            alert("Refresh is disabled during the exam!");
+        }
+    });
+</script>
+
+
 </body>
 
 </html>

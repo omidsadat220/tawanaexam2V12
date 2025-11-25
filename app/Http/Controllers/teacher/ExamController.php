@@ -13,8 +13,21 @@ use Illuminate\Validation\Rule;
 class ExamController extends Controller
 {
     public function AllTeacherExam() {
-        $departments = department::with(['subjects', 'subjects.exams'])->get();
-        $exams = Exam::with(['department', 'subject'])->get();
+         $teacherId = auth()->id();
+
+    // Get all exams of the current teacher
+    $exams = Exam::with(['department', 'subject'])
+        ->where('teacher_id', $teacherId)
+        ->get();
+
+    // Get departments and subjects that have exams of the current teacher
+    $departments = Department::with(['subjects.exams' => function($query) use ($teacherId) {
+        $query->where('teacher_id', $teacherId);
+    }])
+    ->whereHas('subjects.exams', function ($query) use ($teacherId) {
+        $query->where('teacher_id', $teacherId);
+    })
+    ->get();
 
         return view('teacher.backend.teacher_exam.all_teacher_exam', compact('departments', 'exams'));
     }
@@ -40,6 +53,7 @@ class ExamController extends Controller
 
 
         Exam::create([
+             'teacher_id'    => auth()->id(),
             'department_id' => $request->department_id,
             'subject_id' => $request->subject_id,
             'exam_title' => $request->exam_title,
@@ -65,9 +79,7 @@ class ExamController extends Controller
         return view('teacher.backend.teacher_exam.edit_teacher_exam', compact('exam', 'departments', 'subjects'));
     }
 
-    public function UpdateTeacherExam(Request $request)
-    {
-
+    public function UpdateTeacherExam(Request $request){
         $examId = $request->id;
         // Validate the request
         $request->validate([
@@ -79,23 +91,25 @@ class ExamController extends Controller
                 }),
             ],
             'exam_title' => 'required|string|max:255',
-            // 'start_time' => 'required|date_format:H:i',
+            'start_time' => 'required|integer',
         ], [
             'subject_id.exists' => 'Selected subject does not belong to the chosen department.'
         ]);
 
-        // Find the exam
-        $exam = Exam::findOrFail($examId);
+        // Find the exam and make sure it belongs to the logged-in teacher
+        $exam = Exam::where('id', $examId)
+                    ->where('teacher_id', auth()->id())
+                    ->firstOrFail();
 
-        // Update the exam
+        // Update the exam (teacher_id is NOT updated)
         $exam->update($request->only('department_id', 'subject_id', 'exam_title', 'start_time'));
 
-        // Redirect back with success message
         return redirect()->route('all.teacher.exam')->with([
             'message' => 'Exam updated successfully',
             'alert-type' => 'success'
         ]);
     }
+
 
     public function DeleteTeacherExam($id)
     {

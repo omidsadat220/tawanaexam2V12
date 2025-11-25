@@ -268,13 +268,19 @@ public function DeleteTeacherNewQuestion($id) {
     // ----------------  All Set Exam ------------------
 
     public function AllTeacherSetExam() {
-        $examQuestions = \App\Models\ExamQuestion::with('exam')
+    $teacherId = auth()->id();
+
+    $examQuestions = \App\Models\ExamQuestion::with(['exam'])
+        ->whereHas('exam', function($query) use ($teacherId) {
+            $query->where('teacher_id', $teacherId);
+        })
         ->select('exam_id')
         ->groupBy('exam_id')
         ->get();
 
-        return view('teacher.backend.set_exam.index', compact('examQuestions'));
-    }
+    return view('teacher.backend.set_exam.index', compact('examQuestions'));
+}
+
 
     public function AddTeacherSetExam(){
         $depart = Department::all();
