@@ -139,7 +139,7 @@ $(document).ready(function() {
 
         if (subject_id) {
             $.ajax({
-                url: '/get-teacher_subjects/' + subject_id,
+                url: '/get-questions/' + subject_id,
                 type: 'GET',
                 success: function(res) {
                     if (res.length === 0) {
