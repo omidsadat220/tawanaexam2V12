@@ -40,32 +40,22 @@
                     <ul id="selected-list" class="text-start" style="padding-left:20px; margin:0;"></ul>
                 </div>
 
-                <div class="btn-group mt-3">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="btn-group mt-3" style="width: 100px;height: 40px;">
+                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                 </div>
             </form>
         </div>
 
         <!-- RIGHT SIDE -->
         <div class="col-6 text-center">
-            <div class="form-container container-form" id="add-category-page" style="display: block;">
-                <div class="d-flex flex-row justify-content-around">
-                    <h3 class="text-white"></h3>
-                    <a href="{{ route('all.new.question') }}" class="back-link d-block text-start" id="backBtn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg" style="cursor: pointer">
-                            <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"></path>
-                        </svg>
-                        Back to All Set Exam
-                    </a>
-                </div>
+            <div class="form-container container-form" id="add-category-page" style="display: block; margin-top: -18px;">
+                
 
                 <div class="container text-start p-4 bg-secondary rounded" style="overflow-x:hidden;">
                     <!-- Department -->
-                    <div class="row mb-3 pt-3 align-items-center">
-                        <label for="department-dropdown" class="col-sm-2 col-form-label text-white">Department</label>
-                        <div class="col-sm-10">
+                    <div class="row mb-3 align-items-center">
+                        <label for="department-dropdown" class="col-sm-3 col-form-label text-white">Department</label>
+                        <div class="col-sm-9">
                             <select name="department_id" id="department-dropdown" class="form-select">
                                 <option value="">Select</option>
                                 @foreach ($depart as $info)
@@ -77,8 +67,8 @@
 
                     <!-- Subject -->
                     <div class="row mb-3 pt-3 align-items-center">
-                        <label for="subject-dropdown" class="col-sm-2 col-form-label text-white">Subject</label>
-                        <div class="col-sm-10">
+                        <label for="subject-dropdown" class="col-sm-3 col-form-label text-white">Subject</label>
+                        <div class="col-sm-9">
                             <select name="subject_id" class="form-select" id="subject-dropdown">
                                 <option value="">Select Subject</option>
                                 @foreach ($subjects as $subject)
