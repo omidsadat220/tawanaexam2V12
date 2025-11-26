@@ -112,9 +112,10 @@ class add_examController extends Controller
     // ------------ teacher new question method start --------------
 
     public function AllTeacherNewQuestion() {
-        $new = NewQuestion::where('user_id', auth()->id())
-                      ->latest()
-                      ->get();
+        $new = NewQuestion::with(['department', 'subject'])
+                ->where('user_id', auth()->id())
+                ->latest()
+                ->get();
         return view('teacher.backend.new_question.index', compact('new'));
     }
 

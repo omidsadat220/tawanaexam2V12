@@ -179,4 +179,41 @@
             editCategoryPage.style.display = 'block';
         @endif
     </script>
+
+    <script>
+    // وقتی دپارتمینت تغییر کند، مضامین همان دپارتمینت را Load کن
+    document.querySelectorAll('select[name="department_id"]').forEach(function (deptSelect) {
+
+        deptSelect.addEventListener('change', function () {
+
+            let department_id = this.value;
+
+            // همان subject select مربوط به همین form
+            let subjectSelect = this.closest('.row')
+                                     .parentNode
+                                     .parentNode
+                                     .parentNode
+                                     .querySelector('select[name="subject_id"]');
+
+            subjectSelect.innerHTML = '<option value="">Loading...</option>';
+
+            // از route خودت استفاده کن
+            fetch('/get-teacher_subjects/' + department_id)
+                .then(response => response.json())
+                .then(data => {
+
+                    subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+
+                    data.forEach(subject => {
+                        subjectSelect.innerHTML += `
+                            <option value="${subject.id}">
+                                ${subject.subject_name ?? subject.name}
+                            </option>`;
+                    });
+                });
+        });
+    });
+</script>
+
+
 @endsection

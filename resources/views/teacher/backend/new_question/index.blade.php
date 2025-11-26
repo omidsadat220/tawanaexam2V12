@@ -48,8 +48,8 @@
                                 @foreach ($new as $data)
                                     <tr>
                                         <td scope="row">{{ $data->id }}</td>
-                                        <td>{{ $data->department_id }}</td>
-                                        <td>{{ $data->subject_id }}</td>
+                                        <td>{{ $data->department->depart_name ?? 'N/A' }}</td>
+                                        <td>{{ $data->subject->subject_name ?? 'N/A' }}</td>
                                         <td>{{ \Illuminate\Support\Str::limit($data->question, 15) }}...</td>
                                         <td>{{ \Illuminate\Support\Str::limit($data->option1, 10) }}...</td>
                                         <td>{{ \Illuminate\Support\Str::limit($data->option2, 10) }}...</td>
