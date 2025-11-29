@@ -167,7 +167,10 @@ public function UpdateQestion(Request $request)
     // ----------------  All New Question ------------------
 
     public function AllNewQestion() {
-        $new = NewQuestion::all();
+        $new = NewQuestion::with(['department', 'subject'])
+                ->where('user_id', auth()->id())
+                ->latest()
+                ->get();
         return view('admin.backend.new_question.index', compact('new'));
     }
 
