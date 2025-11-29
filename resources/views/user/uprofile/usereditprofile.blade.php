@@ -5,6 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit User Profile</title>
+    
+    <!-- Favicon -->
+    <link href="{{ asset('backend/assets/img/fav4.png') }}" rel="icon" />
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <style>
         /* --- استایل‌ها بدون تغییر --- */

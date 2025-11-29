@@ -13,6 +13,9 @@
     <link rel="stylesheet"
         href="https://cssanimation.io/?animation=ca__fx-clipCircleCollapseOut&category=Clip-Path&theme=dark" />
 
+    <!-- Favicon -->
+    <link href="{{ asset('backend/assets/img/fav4.png') }}" rel="icon" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
         body {

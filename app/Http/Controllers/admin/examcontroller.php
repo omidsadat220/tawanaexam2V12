@@ -138,6 +138,7 @@ class examcontroller extends Controller
 
 
         Exam::create([
+            'teacher_id'    => auth()->id(),
             'department_id' => $request->department_id,
             'subject_id' => $request->subject_id,
             'exam_title' => $request->exam_title,
@@ -183,7 +184,9 @@ class examcontroller extends Controller
         ]);
 
         // Find the exam
-        $exam = Exam::findOrFail($examId);
+        $exam = Exam::where('id', $examId)
+                    ->where('teacher_id', auth()->id())
+                    ->firstOrFail();
 
         // Update the exam
         $exam->update($request->only('department_id', 'subject_id', 'exam_title', 'start_time'));
