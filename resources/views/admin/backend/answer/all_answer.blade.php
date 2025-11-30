@@ -42,13 +42,20 @@
                             @foreach ($allData as $key => $item)
                                 <tr>
                                     <td scope="row">{{ $key + 1 }}</td>
-                                    <td>{{ $item->category->uni_name ?? 'N/A' }}</td>
-                                    <td>{{ $item->question }}</td>
-                                    <td>{{ $item->question_one }}</td>
+                                    {{-- <td>{{ $item->category->uni_name ?? 'N/A' }}</td> --}}
+                                    <td>{{ \Illuminate\Support\Str::limit($item->category->uni_name ?? 'N/A', 13) }}...</td>
+                                    {{-- <td>{{ $item->question }}</td> --}}
+                                    <td>{{ \Illuminate\Support\Str::limit($item->question, 10) }}...</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($item->question_one, 10) }}...</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($item->question_two, 10) }}...</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($item->question_three, 10) }}...</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($item->question_four, 10) }}...</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($item->correct_answer, 10) }}...</td>
+                                    {{-- <td>{{ $item->question_one }}</td>
                                     <td>{{ $item->question_two }}</td>
                                     <td>{{ $item->question_three }}</td>
                                     <td>{{ $item->question_four }}</td>
-                                    <td>{{ $item->correct_answer }}</td>
+                                    <td>{{ $item->correct_answer }}</td> --}}
 
                                     <td>
                                         <a title="Edit" href="{{ route('edit.answer', $item->id) }}"
