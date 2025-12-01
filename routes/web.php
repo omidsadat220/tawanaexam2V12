@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\classcategoryController;
 use App\Http\Controllers\admin\classsubjectController;
 use App\Http\Controllers\admin\DepartmentController;
 use App\Http\Controllers\admin\examcontroller;
+use App\Http\Controllers\admin\FinallStudentController;
 use App\Http\Controllers\admin\qestioncontroller;
 use App\Http\Controllers\admin\SubjectController;
 use App\Http\Controllers\admin\Uni_answer_qController;
@@ -47,6 +48,20 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/edit/answer/{id}', 'EditAnswer')->name('edit.answer');
         Route::post('/update/answer', 'UpdateAnswer')->name('update.answer');
         Route::get('/delete/answer/{id}', 'DeleteAnswer')->name('delete.answer');
+    });
+
+     Route::controller(FinallStudentController::class)->group(function () {
+        Route::get('all/finall/student', 'AllFinallStudent')->name('all.finallStudent');
+        // show all students
+        Route::get('all/finall/student',  'AllFinallStudent')->name('all.finallStudent');
+        // generate voucher
+        // Route::get('generate/voucher/{user_id}', 'GenerateVoucher')->name('generate.voucher');
+        // show voucher list for a student
+        Route::get('show/voucher/{user_id}',  'ShowVoucher')->name('show.voucher');
+
+        Route::post('/generate-voucher',  'createVoucher')->name('generate.voucher');
+
+        Route::post('send-voucher/{voucher}',  'sendVoucher')->name('admin.send.voucher');
     });
 
     Route::controller(classsubjectController::class)->group(function() {
@@ -220,12 +235,22 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/user/uprofile/update-password', [UserController::class, 'UserPasswordUpdate'])->name('user.uprofile.updatepassword');
 
     Route::get('/user/uni/unicode', [UserController::class, 'UserUnicode'])->name('user.unicode');
-    Route::get('/user/uni/uniexam/{id}', [UserController::class, 'UserUniexam'])->name('user.uniexam');
-    Route::post('user/varifycode', [UserController::class, 'UserVarifyCode'])->name('user.varifycode');
+
+    // Route::get('/user/uni/uniexam/{id}', [UserController::class, 'UserUniexam'])->name('user.uniexam');
+   Route::get('/user/uni/uniexam/{id}', [UserController::class, 'UserUniexam'])
+    ->name('user.uniexam')
+    ->middleware(['auth', 'check.voucher']);
+
+
+    Route::post('/user/varifycode', [UserController::class, 'UserVarifyCode'])->name('user.varifycode');
 
     Route::post('submit/exam', [UserController::class, 'SubmitExam'])->name('exam.submit');
     Route::get('/user/examresult', [UserController::class, 'UserExamResult'])->name('user.examresult');
     Route::get('/user/certificate', [UserController::class, 'UserCertificate'])->name('user.certificate');
+
+
+    //loginwithvoucher
+    // Route::post('/voucher-login', [UserController::class, 'loginWithVoucher'])->name('voucher.login');
 
     // Mock Exam
 

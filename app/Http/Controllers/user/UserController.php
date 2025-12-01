@@ -19,6 +19,7 @@ use App\Models\SetClassStudent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\uni_answer_q;
+use App\Models\VoucherCode;
 
 class UserController extends Controller
 {
@@ -130,10 +131,41 @@ class UserController extends Controller
 
 
 
+   
     public function UserUnicode()
     {
-        return view('user.uni.unicode');
+        $categories = Category::all(); // fetch categories
+        return view('user.uni.unicode', compact('categories'));
     }
+
+    // login with voucher
+
+    public function loginWithVoucher(Request $request)
+    {
+        $request->validate([
+            'code' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $voucher = VoucherCode::where('code', $request->code)
+                    ->where('category_id', $request->category_id)
+                    ->where('is_used', false)
+                    ->first();
+
+        if (!$voucher) {
+            return back()->with('error', 'Invalid or used voucher for this category.');
+        }
+
+        // Log in the user
+        Auth::loginUsingId($voucher->user_id);
+
+        // Mark voucher as used (or delete if you want one-time)
+        $voucher->delete();
+
+        // Redirect to selected exam route
+        return redirect()->route('user.uniexam', ['category_id' => $request->category_id]);
+    }
+
 
     //Exam Page
     public function UserUniexam($id)
@@ -167,36 +199,50 @@ class UserController extends Controller
     // userVaryfucode
     public function UserVarifyCode(Request $request)
     {
+    $request->validate([
+        'code' => 'required|string',
+        'category_id' => 'required|exists:categories,id',
+    ]);
 
-        $request_code = $request->input('code');
+    $voucher = VoucherCode::where('code', $request->code)
+        ->where('category_id', $request->category_id)
+        ->where('is_used', false)
+        ->first();
 
-        $category = Category::where('code', $request_code)->first();
-
-        if ($category) {
-
-            return redirect()->route('user.uniexam', ['id' => $category->id]);
-        } else {
-
-            return redirect()->back()->with('error', 'Invalid voucher code!');
-        }
+    if (!$voucher) {
+        return back()->with('error', 'Invalid or already used voucher for this category.');
     }
 
-    //SubmitExam
-    public function SubmitExam(Request $request)
-    {
-        $userId = auth()->id() ?? 1;
-        foreach ($request->answers as $questionId => $answer) {
-            $question = \App\Models\uni_answer_q::find($questionId);
+    // Optional: log in the user
+    $user = User::find($voucher->user_id);
+    if ($user) {
+        Auth::login($user);
+    }
 
-            \App\Models\CorrectAns::create([
-                'user_id' => $userId,
-                'question' => $question->question,
-                'correct_answer' => $answer,
-            ]);
+    // Mark voucher as used
+    $voucher->is_used = true;
+    $voucher->save();
+
+    // Correct redirect to match route parameter
+    return redirect()->route('user.uniexam', ['id' => $request->category_id]);
         }
 
-        return redirect()->route('user.examresult');
-    }
+        //SubmitExam
+        public function SubmitExam(Request $request)
+        {
+            $userId = auth()->id() ?? 1;
+            foreach ($request->answers as $questionId => $answer) {
+                $question = \App\Models\uni_answer_q::find($questionId);
+
+                \App\Models\CorrectAns::create([
+                    'user_id' => $userId,
+                    'question' => $question->question,
+                    'correct_answer' => $answer,
+                ]);
+            }
+
+            return redirect()->route('user.examresult');
+        }
     //End Method
 
     //Start UserExamResult

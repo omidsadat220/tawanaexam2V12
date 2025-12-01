@@ -187,22 +187,24 @@
     </style>
   </head>
   <body>
-    <?php
-      use App\Models\Category;
-
-     
-      $category = Category::first();
-      $uni_name = $category ? $category->uni_name : 'No University Found';
-      ?>
+   
     <div class="container">
-      <h1><?php echo $uni_name; ?></h1>
+      <form action="{{ route('user.varifycode') }}" method="POST">
+       @csrf
+      <h1>
+         <select name="category_id" id="category_id" class="form-control mb-3" required>
+            <option value="">Select Category</option>
+            @foreach($categories as $cat)
+                <option value="{{ $cat->id }}">{{ $cat->uni_name }}</option>
+            @endforeach
+        </select>
+      </h1>
       <p class="description">
         Enter your voucher code below to check its validity and applicable
         benefits
       </p>
 
-      <form action="{{ route('user.varifycode') }}" method="POST">
-        @csrf
+     
       <div class="input-group">
         <label for="voucher">University Code || <a href="{{ route('user.dashboard') }}" style="text-decoration: none; color:red"><span >Back</span></a></label>
         <div class="input-wrapper">
@@ -214,11 +216,12 @@
             </svg>
           </span>
           <input
-            type="text"
-            id="voucher"
-            name="code"
-            placeholder="Enter voucher code"
-            autocomplete="off"
+              type="text"
+              id="voucher"
+              name="code"
+              placeholder="Enter voucher code"
+              class="form-control mb-3"
+              required
           />
         </div>
       </div>
