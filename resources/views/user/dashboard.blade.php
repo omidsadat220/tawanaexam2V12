@@ -665,18 +665,37 @@
                 <div class="user-avatar">
                     <span class="user-name">{{ $profileData->name }} |</span>
 
+                        @php
+                        use App\Models\VoucherCode;
+
+                        $newVoucherCount = VoucherCode::where('user_id', Auth::id())
+                                            ->where('is_used', false)
+                                            ->count();
+                        @endphp
 
 
                     {{-- when we create the image folder you can incomment --}}
                     {{-- <img class="rounded-circle header-profile-user"
                         src="{{ (!empty($profileData->photo)) ? url('upload/client_images/'.$profileData->photo) : url('upload/no_image.jpg') }}"
-                        --}} <img  src="{{ Auth::user()->photo ? asset(Auth::user()->photo) : 'https://th.bing.com/th/id/OIP._2BZkavfXr6pfto8yAasPgHaHg?w=173&h=180&c=7&r=0&o=7&dpr=1.4&pid=1.7&rm=3' }}" class="avatar-img" id="userAvatar" />
+                        --}} <div class="user-avatar position-relative">
+                                <img src="{{ Auth::user()->photo ? asset(Auth::user()->photo) : 'https://th.bing.com/th/id/OIP._2BZkavfXr6pfto8yAasPgHaHg?w=173&h=180&c=7&r=0&o=7&dpr=1.4&pid=1.7&rm=3' }}" class="avatar-img" id="userAvatar" class="avatar-img" id="userAvatar" />
+                                
+                                @if($newVoucherCount > 0)
+                                    <!-- red dot -->
+                                    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                                @endif
+                            </div>
+
                 </div>
                 <div class="dropdown-menu" id="userDropdown">
                     <div class="dropdown-item">
+                        @if($newVoucherCount > 0)
+                            <span class="p-1 bg-danger rounded-circle"></span>
+                        @endif
                         <i class="fa-solid fa-user"></i>
-                        <a href="{{ route('user.uprofile.userprofile') }}">Profile</a>
+                        <a href="{{ route('user.uprofile.userprofile') }}">Profile  </a>
                     </div>
+                     
                     <div class="dropdown-item">
                         <i class="bi bi-gear"></i>
                         <a href="{{ route('user.uprofile.usereditprofile') }}">Settings</a>

@@ -168,6 +168,52 @@
         font-size: 14px;
       }
 
+      /* Modern Select Style */
+      select.form-control {
+        background-color: #2c2c2c;
+        color: var(--text-primary);
+        border: 1px solid #333;
+        padding: 14px 15px;
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        appearance: none;
+        outline: none;
+        cursor: pointer;
+        transition: border 0.3s, box-shadow 0.3s;
+        width: 100%;
+        box-shadow: var(--box-shadow);
+        position: relative;
+      }
+
+      /* Hover & Focus */
+      select.form-control:hover {
+        border-color: var(--accent-color);
+      }
+
+      select.form-control:focus {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+      }
+
+      /* Wrapper for Fake Arrow */
+      .select-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      /* Custom Arrow */
+      .select-wrapper::after {
+        content: "▼";
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--accent-color);
+        font-size: 14px;
+        pointer-events: none;
+      }
+
+
       @media (max-width: 480px) {
         .container {
           padding: 20px;
@@ -192,13 +238,16 @@
       <form action="{{ route('user.varifycode') }}" method="POST">
        @csrf
       <h1>
-         <select name="category_id" id="category_id" class="form-control mb-3" required>
+        <div class="select-wrapper">
+          <select name="category_id" id="category_id" class="form-control" required>
             <option value="">Select Category</option>
             @foreach($categories as $cat)
-                <option value="{{ $cat->id }}">{{ $cat->uni_name }}</option>
+              <option value="{{ $cat->id }}">{{ $cat->uni_name }}</option>
             @endforeach
-        </select>
+          </select>
+        </div>
       </h1>
+
       <p class="description">
         Enter your voucher code below to check its validity and applicable
         benefits
@@ -206,7 +255,7 @@
 
      
       <div class="input-group">
-        <label for="voucher">University Code || <a href="{{ route('user.dashboard') }}" style="text-decoration: none; color:red"><span >Back</span></a></label>
+        <label for="voucher">Voucher Code || <a href="{{ route('user.dashboard') }}" style="text-decoration: none; color:red"><span >Back</span></a></label>
         <div class="input-wrapper">
           <span class="icon">
             <svg class="svg-icon" viewBox="0 0 24 24">
@@ -296,6 +345,50 @@
             }
           }, 800);
         });
+
+        // Validation
     </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          const voucherInput = document.getElementById("voucher");
+
+          if (!voucherInput) {
+              console.error("Input ID 'voucher' not found!");
+              return;
+          }
+
+          // گرفتن parent اصلی (input-group)
+          const inputGroup = voucherInput.closest(".input-group");
+
+          // ایجاد پیام خطا زیر input
+          const liveError = document.createElement("p");
+          liveError.id = "live-error";
+          liveError.style.color = "red";
+          liveError.style.marginTop = "5px";
+          liveError.style.fontSize = "14px";
+          liveError.style.display = "none";
+
+          inputGroup.appendChild(liveError);
+
+          // فقط حروف
+          const validPattern = /^[A-Za-z]*$/;
+
+          voucherInput.addEventListener("input", function () {
+              const value = voucherInput.value;
+
+              if (!validPattern.test(value)) {
+                  liveError.style.display = "block";
+                  liveError.textContent =
+                      "Only letters A–Z and a–z are allowed. Numbers and symbols are not allowed.";
+              } else {
+                  liveError.style.display = "none";
+                  liveError.textContent = "";
+              }
+          });
+      });
+</script>
+
+
   </body>
 </html>

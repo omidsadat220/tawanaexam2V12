@@ -868,7 +868,7 @@
                     <i class="bi bi-calendar-check me-2"></i>
                     Coming Soon
                 </h2>
-{{-- 
+
                 <div class="exam-grid">
                     <!-- Banner section with image and text block -->
                     <div class="banner-container shadow-sm">
@@ -1064,7 +1064,7 @@
                             <!-- card end-->
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
