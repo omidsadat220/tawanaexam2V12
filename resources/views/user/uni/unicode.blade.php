@@ -372,7 +372,7 @@
           inputGroup.appendChild(liveError);
 
           // فقط حروف
-          const validPattern = /^[A-Za-z]*$/;
+          const validPattern = /^[A-Za-z0-9]*$/;
 
           voucherInput.addEventListener("input", function () {
               const value = voucherInput.value;

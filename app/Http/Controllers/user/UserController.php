@@ -42,18 +42,26 @@ class UserController extends Controller
     }
 
     public function UserProfile()
-    {
-        $user = auth()->user();
+{
+    $user = auth()->user();
 
-         VoucherCode::where('user_id', $user->id)
-               ->where('is_used', false)
-               ->update(['is_used' => true]);
+    // گرفتن وچرهای جدید کاربر (is_used = 0)
+    $vouchers = VoucherCode::where('user_id', $user->id)
+                           ->where('is_used', false)
+                           ->get();
 
-        $teachers = \App\Models\User::where('role', 'teacher')->get();
+    // همهٔ آن‌ها را به حالت استفاده شده تغییر بده
+    // VoucherCode::where('user_id', $user->id)
+    //            ->where('is_used', false)
+    //            ->update(['is_used' => true]);
 
-        $selectedTeacher = \App\Models\SelectTeacher::where('student_id', $user->id)->first();
-        return view('user.uprofile.userprofile', compact('user','teachers','selectedTeacher'));
-    }
+    // داده‌های مورد نیاز view
+    $teachers = \App\Models\User::where('role', 'teacher')->get();
+    $selectedTeacher = \App\Models\SelectTeacher::where('student_id', $user->id)->first();
+
+    return view('user.uprofile.userprofile', compact('user','teachers','selectedTeacher','vouchers'));
+}
+
 
     public function UserEditprofile()
     {

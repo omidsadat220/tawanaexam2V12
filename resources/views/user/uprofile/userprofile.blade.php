@@ -866,206 +866,88 @@
             <div class="exam-history-section">
                 <h2 class="section-title">
                     <i class="bi bi-calendar-check me-2"></i>
-                    Coming Soon
+                    @if($vouchers->count() > 0)
+                        Your Vouchers
+                    @else
+                        Coming Soon
+                    @endif
                 </h2>
 
                 <div class="exam-grid">
-                    <!-- Banner section with image and text block -->
                     <div class="banner-container shadow-sm">
-                        <!-- Exam Cards -->
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <!-- card start-->
-                            <div class="rounded-xl bg-dark shadow-md overflow-hidden exam-card" id="subject_card">
-                                <div class="bg-gradient-to-r from-green-500 to-green-400 h-2"></div>
-                                <div class="p-6">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <h3 class="text-lg font-bold text-gray-800 text-white">
-                                            Front End
-                                        </h3>
-                                        <div
-                                            class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
-                                            coming soon
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-600 mb-4 text-white" style="height: 50px; overflow: auto">
-                                        html ,css, bootstrap , javascript , react ,
-                                    </p>
-                                    <div class="flex items-center mb-4">
-                                        <i class="fas fa-calendar-alt text-green-400 mr-2"></i>
-                                        <span class="text-sm text-white-500">April 10, 2024 - 10:00 AM</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-check-circle text-green-400 mr-2"></i>
-                                        <span class="text-sm text-white-500">Score: 93/100</span>
-                                    </div>
-                                    <div class="mt-6">
-                                        <div class="flex justify-between mb-1">
-                                            <span class="text-sm font-sm text-white-500">Performance</span>
-                                            <span class="text-sm font-sm text-white-500">97%</span>
-                                        </div>
-                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 97%"></div>
-                                        </div>
-                                    </div>
+                            @if($vouchers->count() > 0)
+                                @foreach($vouchers as $voucher)
+                                    <div class="rounded-xl bg-dark shadow-md overflow-hidden exam-card" id="subject_card">
+                                        <div class="bg-gradient-to-r from-green-500 to-green-400 h-2"></div>
+                                        <div class="p-6">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <h3 class="text-lg font-bold text-white">Voucher Code</h3>
+                                                <div class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                                    @if($voucher->category)
+                                                        {{ $voucher->category->name }}
+                                                    @else
+                                                        General
+                                                    @endif
+                                                </div>
+                                            </div>
 
-                                    <div class="mt-6 flex space-x-3">
-                                        <button
-                                            class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                                            Review
-                                        </button>
-                                        <button
-                                            class="p-2 text-green-500 hover:bg-gray-100 rounded-lg focus:outline-none">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </button>
+                                            <p class="text-white mb-4" style="font-size:1.1rem; word-break:break-all;">
+                                                <strong>Code:</strong> {{ $voucher->code }}
+                                            </p>
+
+                                            @if($voucher->expired_at)
+                                                <div class="flex items-center mb-2">
+                                                    <i class="fas fa-calendar-alt text-green-400 mr-2"></i>
+                                                    <span class="text-sm text-white-500">Expires:
+                                                        {{ \Carbon\Carbon::parse($voucher->expired_at)->format('Y-m-d H:i') }}
+                                                    </span>
+                                                </div>
+                                            @endif
+
+                                            <div class="mt-4">
+                                                <span class="text-sm text-white-500">Status:
+                                                    @if($voucher->is_used)
+                                                        <span class="text-success">Used</span>
+                                                    @else
+                                                        <span class="text-warning">New</span>
+                                                    @endif
+                                                </span>
+                                            </div>
+
+                                            <div class="mt-6 flex space-x-3">
+                                                {{-- اگر می‌خواهی دکمه‌ای برای کپی کردن کد اضافه کنی --}}
+                                                <button onclick="navigator.clipboard.writeText('{{ $voucher->code }}')"
+                                                        class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                                                    Copy Code
+                                                </button>
+
+                                                {{-- دکمه نمایش جزئیات یا رفتن به آزمون مرتبط --}}
+                                                {{-- @if($voucher->category_id)
+                                                   <a href="{{ route('user.unicode') }}"
+                                                        class="px-4 py-2 border rounded-lg text-blue-500 hover:bg-white/5">
+                                                        View Exam
+                                                        </a>
+
+                                                @endif --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                {{-- اگر وچر نیست کارت‌های «coming soon» قبلی بمانند --}}
+                                <div class="rounded-xl bg-dark shadow-md overflow-hidden exam-card">
+                                    <div class="p-6">
+                                        <h3 class="text-lg font-bold text-white">Coming Soon</h3>
+                                        <p class="text-white mt-3">No vouchers yet. When admin generates voucher, it will appear here.</p>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- card end-->
-                            <!-- card start-->
-                            <div class="rounded-xl bg-dark shadow-md overflow-hidden exam-card" id="subject_card">
-                                <div class="bg-gradient-to-r from-green-500 to-green-400 h-2"></div>
-                                <div class="p-6">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <h3 class="text-lg font-bold text-gray-800 text-white">
-                                            Back End
-                                        </h3>
-                                        <div
-                                            class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
-                                            coming soon
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-600 mb-4 text-white" style="height: 50px; overflow: auto">
-                                        Mysql , PhP , Laravel
-                                    </p>
-                                    <div class="flex items-center mb-4">
-                                        <i class="fas fa-calendar-alt text-green-400 mr-2"></i>
-                                        <span class="text-sm text-white-500">April 10, 2024 - 10:00 AM</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-check-circle text-green-400 mr-2"></i>
-                                        <span class="text-sm text-white-500">Score: 93/100</span>
-                                    </div>
-                                    <div class="mt-6">
-                                        <div class="flex justify-between mb-1">
-                                            <span class="text-sm font-sm text-white-500">Performance</span>
-                                            <span class="text-sm font-sm text-white-500">97%</span>
-                                        </div>
-                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 97%"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-6 flex space-x-3">
-                                        <button
-                                            class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                                            Review
-                                        </button>
-                                        <button
-                                            class="p-2 text-green-500 hover:bg-gray-100 rounded-lg focus:outline-none">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- card end-->
-                            <!-- card start-->
-                            <div class="rounded-xl bg-dark shadow-md overflow-hidden exam-card" id="subject_card">
-                                <div class="bg-gradient-to-r from-green-500 to-green-400 h-2"></div>
-                                <div class="p-6">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <h3 class="text-lg font-bold text-gray-800 text-white">
-                                            Front End
-                                        </h3>
-                                        <div
-                                            class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
-                                            coming soon
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-600 mb-4 text-white" style="height: 50px; overflow: auto">
-                                        html ,css, bootstrap , javascript , react ,
-                                    </p>
-                                    <div class="flex items-center mb-4">
-                                        <i class="fas fa-calendar-alt text-green-400 mr-2"></i>
-                                        <span class="text-sm text-white-500">April 10, 2024 - 10:00 AM</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-check-circle text-green-400 mr-2"></i>
-                                        <span class="text-sm text-white-500">Score: 93/100</span>
-                                    </div>
-                                    <div class="mt-6">
-                                        <div class="flex justify-between mb-1">
-                                            <span class="text-sm font-sm text-white-500">Performance</span>
-                                            <span class="text-sm font-sm text-white-500">97%</span>
-                                        </div>
-                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 97%"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-6 flex space-x-3">
-                                        <button
-                                            class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                                            Review
-                                        </button>
-                                        <button
-                                            class="p-2 text-green-500 hover:bg-gray-100 rounded-lg focus:outline-none">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- card end-->
-                            <!-- card start-->
-                            <div class="rounded-xl bg-dark shadow-md overflow-hidden exam-card" id="subject_card">
-                                <div class="bg-gradient-to-r from-green-500 to-green-400 h-2"></div>
-                                <div class="p-6">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <h3 class="text-lg font-bold text-gray-800 text-white">
-                                            Back End
-                                        </h3>
-                                        <div
-                                            class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
-                                            coming soon
-                                        </div>
-                                    </div>
-                                    <p class="text-gray-600 mb-4 text-white" style="height: 50px; overflow: auto">
-                                        Mysql , PhP , Laravel
-                                    </p>
-                                    <div class="flex items-center mb-4">
-                                        <i class="fas fa-calendar-alt text-green-400 mr-2"></i>
-                                        <span class="text-sm text-white-500">April 10, 2024 - 10:00 AM</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <i class="fas fa-check-circle text-green-400 mr-2"></i>
-                                        <span class="text-sm text-white-500">Score: 93/100</span>
-                                    </div>
-                                    <div class="mt-6">
-                                        <div class="flex justify-between mb-1">
-                                            <span class="text-sm font-sm text-white-500">Performance</span>
-                                            <span class="text-sm font-sm text-white-500">97%</span>
-                                        </div>
-                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 97%"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-6 flex space-x-3">
-                                        <button
-                                            class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                                            Review
-                                        </button>
-                                        <button
-                                            class="p-2 text-green-500 hover:bg-gray-100 rounded-lg focus:outline-none">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- card end-->
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <!-- Bootstrap 5 JavaScript Bundle -->

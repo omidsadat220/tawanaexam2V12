@@ -24,7 +24,7 @@ class CheckVoucher
         // Find a voucher for this user and category that is NOT used
         $voucher = VoucherCode::where('user_id', $user->id)
                     ->where('category_id', $category_id)
-                    ->where('is_used', 0)   // Only check unused vouchers
+                    ->where('is_used', 1)   // Only check unused vouchers
                     ->first();
 
         if (!$voucher) {
