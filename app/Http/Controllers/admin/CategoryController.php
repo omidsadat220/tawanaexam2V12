@@ -31,8 +31,8 @@ class CategoryController extends Controller
         Category::insert([
             'uni_name' => $request->uni_name,
             'category_slug' => strtolower(str_replace(' ', '-', $request->uni_name)),
-            'code' => $request->code,
-
+            // 'code' => $request->code,
+            'timer' => $request->timer,
         ]);
 
         $notification = array(
@@ -62,7 +62,8 @@ class CategoryController extends Controller
         $category->update([
             'uni_name' => $request->uni_name,
             'category_slug' => strtolower(str_replace(' ', '-', $request->uni_name)),
-            'code' => $request->code,
+            // 'code' => $request->code,
+            'timer' => $request->timer,
         ]);
 
         $notification = [

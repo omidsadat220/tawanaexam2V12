@@ -57,7 +57,7 @@ body { background-color: rgb(38,38,38); color: #e2e8f0; min-height: 100vh; }
 
 <!-- Questions -->
 <div class="lg:col-span-9 order-1">
-<form method="POST" action="{{ route('exam.submit') }}">
+<form method="POST" action="{{ route('exam.submit') }}" id="examForm">
     @csrf
 
 <div class="gradient-border">
@@ -265,7 +265,8 @@ qNumbers.forEach((num,i)=>{
 showQuestion(current);
 
 // Timer (45 min)
-let duration = 45*60;
+let duration = {{ $timer }} * 60; // دقیقه × 60 = ثانیه
+startTimer(duration, document.getElementById('exam-timer'));
 function startTimer(duration, display){
     let timer = duration;
     const interval = setInterval(()=>{
@@ -278,6 +279,25 @@ function startTimer(duration, display){
     }, 1000);
 }
 startTimer(duration, timerEl);
+
+// submit the data do db when time finished
+function startTimer(duration, display){
+    let timer = duration;
+    const interval = setInterval(()=>{
+        let minutes = Math.floor(timer/60);
+        let seconds = timer % 60;
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        seconds = seconds < 10 ? '0'+seconds : seconds;
+        display.textContent = minutes + ":" + seconds;
+
+        if(timer-- <= 0){
+            clearInterval(interval);
+            // فرم خودکار submit شود
+            document.getElementById('examForm').submit();
+        }
+    }, 1000);
+}
+
 </script>
 
 

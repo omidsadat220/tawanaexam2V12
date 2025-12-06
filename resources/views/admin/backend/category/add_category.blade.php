@@ -28,24 +28,37 @@
                                             placeholder="Enter category name...">
                                     </div>
 
-                                    <label for="code" class="col-sm-2 col-form-label">Code</label>
+                                    <label for="timer" class="col-sm-2 col-form-label">Timer (Minutes)</label>
+                                    <div class="col-sm-10 col-lg-4">
+                                        <select name="timer" id="timer" class="form-select catinput">
+                                            <option value="10">5 Minutes</option>
+                                            <option value="10">10 Minutes</option>
+                                            <option value="20">20 Minutes</option>
+                                            <option value="30">30 Minutes</option>
+                                            <option value="40">40 Minutes</option>
+                                            <option value="50">50 Minutes</option>
+                                            <option value="60">60 Minutes</option>
+                                        </select>
+                                    </div>
+
+                                    {{-- <label for="code" class="col-sm-2 col-form-label">Code</label>
                                     <div class="col-sm-10 col-lg-4">
                                         <input class="form-control catinput" type="text" id="code" name="code"
                                             placeholder="Enter category code...">
-                                    </div>
+                                    </div> --}}
                                 </div>
 
-                                <div class="row mb-3">
-                                    <legend class="col-form-label col-sm-2 pt-0">Active</legend>
+                                <div class="row">
+                                    {{-- <legend class="col-form-label col-sm-2 pt-0">Active</legend>
                                     <div class="col-4">
                                         <div class="form-check">
                                             <input class="form-check-input catinput" type="checkbox" id="active"
                                                 name="active" value="1">
                                             <label class="form-check-label" for="active">Yes</label>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="col-4 text-end">
+                                    <div class="col-12 text-end">
                                         <button style="--clr: #39ff14" type="submit" class="button-styleee">
                                             <span>Save Category</span><i></i>
                                         </button>

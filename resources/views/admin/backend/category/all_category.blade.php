@@ -30,7 +30,7 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">Category</th>
                                     <th scope="col">Category_slug</th>
-                                    <th scope="col">code</th>
+                                    <th scope="col">Timer</th>
                                     <th scope="col" class="action">Action</th>
                                 </tr>
                             </thead>
@@ -41,7 +41,7 @@
                                         <td>{{ $item->uni_name }}</td>
                                         <td>{{ $item->category_slug }}</td>
                                         <td>
-                                            {{ $item->code }}
+                                            {{ $item->timer }}
                                         </td>
                                         <td>
                                             <a title="Edit" href="{{ route('edit.category', $item->id) }}"

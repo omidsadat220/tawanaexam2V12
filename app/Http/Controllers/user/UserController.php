@@ -185,7 +185,8 @@ class UserController extends Controller
     {
 
         $category = Category::findOrFail($id);
-        return view('user.uni.uniexam', compact('category'));
+        $timer = $category->timer;
+        return view('user.uni.uniexam', compact('category', 'timer'));
     }
 
     public function UpdateExam(Request $request)

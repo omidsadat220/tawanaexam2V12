@@ -34,28 +34,40 @@
                                             required>
                                     </div>
 
-                                    <label for="code" class="col-sm-2 col-form-label fw-semibold">Code</label>
+                                    <label for="timer" class="col-sm-2 col-form-label">Timer (Minutes)</label>
+                                    <div class="col-sm-10 col-lg-4">
+                                        <select name="timer" id="timer" class="form-select catinput">
+                                            <option value="5" {{ $category->timer == 5 ? 'selected' : '' }}>5 Minutes</option>
+                                            <option value="10" {{ $category->timer == 10 ? 'selected' : '' }}>10 Minutes</option>
+                                            <option value="20" {{ $category->timer == 20 ? 'selected' : '' }}>20 Minutes</option>
+                                            <option value="30" {{ $category->timer == 30 ? 'selected' : '' }}>30 Minutes</option>
+                                            <option value="40" {{ $category->timer == 40 ? 'selected' : '' }}>40 Minutes</option>
+                                            <option value="50" {{ $category->timer == 50 ? 'selected' : '' }}>50 Minutes</option>
+                                            <option value="60" {{ $category->timer == 60 ? 'selected' : '' }}>60 Minutes</option>
+                                        </select>
+                                    </div>
+
+                                    {{-- <label for="code" class="col-sm-2 col-form-label fw-semibold">Code</label>
                                     <div class="col-sm-10 col-lg-4">
                                         <input class="form-control catinput" type="text" id="code" name="code"
                                             value="{{ $category->code }}" placeholder="Enter category code..." required>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
-                                <div class="row align-items-center mb-4">
-                                    <label class="col-sm-2 col-form-label fw-semibold" for="active">Active</label>
+                                <div class="row">
+                                    {{-- <label class="col-sm-2 col-form-label fw-semibold" for="active">Active</label>
                                     <div class="col-sm-4">
                                         <div class="form-check">
                                             <input class="form-check-input catinput" type="checkbox" id="active"
                                                 name="active" value="1" {{ $category->active ? 'checked' : '' }}>
                                             <label class="form-check-label" for="active">Yes</label>
                                         </div>
+                                    </div> --}}
+                                    <div class="col-12 text-end">
+                                        <button style="--clr: #39ff14" type="submit" class="button-styleee">
+                                            <span>Save Category</span><i></i>
+                                        </button>
                                     </div>
-                                </div>
-
-                                <div class="text-end">
-                                    <button style="--clr: #39ff14" type="submit" class="button-styleee px-4 py-2">
-                                        <span>Update Category</span><i></i>
-                                    </button>
                                 </div>
                             </form>
                         </div>

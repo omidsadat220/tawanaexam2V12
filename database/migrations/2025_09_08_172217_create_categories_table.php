@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('uni_name');
             $table->string('category_slug');
-            $table->integer('code');
+            // $table->integer('code');
+            $table->integer('timer');
             $table->timestamps();
         });
     }
