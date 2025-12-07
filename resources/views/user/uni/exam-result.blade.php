@@ -55,20 +55,21 @@ $currectAnsower = App\Models\CorrectAns::where('correct_answer', 'correct_answer
         <p class="flex justify-between"><span>Score:</span><span>{{ $score }}%</span></p>
     </div>
 
-    @if($wrong > 0)
-        <div class="bg-red-700 text-white p-6 rounded-xl text-center mb-8">
-            <h3 class="text-xl font-bold mb-2">You got {{ $wrong }} answers wrong.</h3>
-            <p class="text-yellow-300 font-semibold">Mistakes help you learn — keep going! 🚀</p>
+    {{-- PASS / FAIL MESSAGE --}}
+    @if($score >= 50)
+        <div class="bg-green-700 text-white p-6 rounded-xl text-center mb-8">
+            🎉 Congratulations! You passed the exam with {{ $score }}%!
         </div>
     @else
-        <div class="bg-green-700 text-white p-6 rounded-xl text-center mb-8">
-            🎉 Excellent! You answered everything correctly!
+        <div class="bg-red-700 text-white p-6 rounded-xl text-center mb-8">
+            ❌ Unfortunately, you did not pass the exam. Your score is {{ $score }}%.
+            <p class="text-yellow-300 mt-2">Don’t give up — try again and improve! 🚀</p>
         </div>
     @endif
 
 
     {{-- WRONG QUESTIONS LIST --}}
-    @foreach($wrongQuestions as $item)
+    {{-- @foreach($wrongQuestions as $item)
         <div class="bg-gray-900 p-6 rounded-xl mb-6 border border-gray-700">
             <h3 class="text-xl font-semibold text-white mb-3">
                 Question: {{ $item->question }}
@@ -91,19 +92,22 @@ $currectAnsower = App\Models\CorrectAns::where('correct_answer', 'correct_answer
                 <span class="text-green-400">{{ $item->real_answer }}</span>
             </p>
         </div>
-    @endforeach
+    @endforeach --}}
 
 
     {{-- BUTTONS --}}
-    <div class="flex justify-between mt-10">
+   <div class="flex justify-between mt-10">
 
         <a href="{{ route('user.dashboard') }}" class="dashboard-btn">
             ⬅ Back to Dashboard
         </a>
 
-        <a href="{{ route('user.certificate') }}" class="dashboard-btn">
-            🎓 Download Certificate
-        </a>
+        {{-- SHOW CERTIFICATE ONLY IF SCORE >= 50 --}}
+        @if($score >= 50)
+            <a href="{{ route('user.certificate') }}" class="dashboard-btn">
+                🎓 Download Certificate
+            </a>
+        @endif
 
     </div>
 

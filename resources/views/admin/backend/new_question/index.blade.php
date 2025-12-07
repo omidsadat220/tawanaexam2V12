@@ -25,7 +25,7 @@
                     </div>
 
 
-                    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                    <div class="table-responsive" style="max-height: 700px; overflow-y: auto;">
                         <table class="paginated table table-bordered" id="datatable">
                             <thead>
                                 <tr>

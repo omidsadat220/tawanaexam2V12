@@ -261,28 +261,41 @@ class UserController extends Controller
 
     //Start UserExamResult
 
-    public function UserExamResult()
-    {
-        $userId = Auth::id(); // current logged in user id
+    public function UserExamResult(){
+        $userId = Auth::id();
 
-        // Total questions answered by this user
-        $totalQuestions = CorrectAns::where('user_id', $userId)->count();
+        // 1️⃣ آخرین زمان امتحان کاربر را بگیر
+        $lastExamTime = CorrectAns::where('user_id', $userId)
+            ->latest('created_at')
+            ->value('created_at');
 
-        // Correct answers count
+        // اگر هیچ امتحانی انجام نشده بود
+        if (!$lastExamTime) {
+            return back()->with('error', 'No exam found!');
+        }
+
+        // 2️⃣ محاسبه تعداد کل سؤالات در آخرین امتحان
+        $totalQuestions = CorrectAns::where('user_id', $userId)
+            ->where('created_at', $lastExamTime)
+            ->count();
+
+        // 3️⃣ تعداد جواب‌های درست
         $correct = CorrectAns::join('uni_answer_qs', 'correct_ans.question', '=', 'uni_answer_qs.question')
             ->where('correct_ans.user_id', $userId)
+            ->where('correct_ans.created_at', $lastExamTime)
             ->whereColumn('correct_ans.correct_answer', 'uni_answer_qs.correct_answer')
             ->count();
 
-        // Wrong answers count
+        // 4️⃣ جواب‌های اشتباه
         $wrong = $totalQuestions - $correct;
 
-        // Score percentage
+        // 5️⃣ درصد نمره
         $score = $totalQuestions > 0 ? round(($correct / $totalQuestions) * 100, 2) : 0;
 
-        // Wrong questions detail (for review section)
+        // 6️⃣ لیست سؤالات اشتباه
         $wrongQuestions = CorrectAns::join('uni_answer_qs', 'correct_ans.question', '=', 'uni_answer_qs.question')
             ->where('correct_ans.user_id', $userId)
+            ->where('correct_ans.created_at', $lastExamTime)
             ->whereColumn('correct_ans.correct_answer', '!=', 'uni_answer_qs.correct_answer')
             ->select(
                 'uni_answer_qs.question',
@@ -295,6 +308,7 @@ class UserController extends Controller
             )
             ->get();
 
+        // پایان → ارسال به ویو
         return view('user.uni.exam-result', compact(
             'totalQuestions',
             'correct',
@@ -303,6 +317,7 @@ class UserController extends Controller
             'wrongQuestions'
         ));
     }
+
 
     //UserCertificate
     public function UserCertificate()
