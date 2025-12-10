@@ -62,6 +62,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/generate-voucher',  'createVoucher')->name('generate.voucher');
 
         Route::post('send-voucher/{voucher}',  'sendVoucher')->name('admin.send.voucher');
+
+        // All Passed Students
+        Route::get('/all/passed/students', 'AllPassedStudents')->name('all.passed.students');
     });
 
     Route::controller(classsubjectController::class)->group(function() {

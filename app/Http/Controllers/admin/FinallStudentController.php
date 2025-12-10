@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\FinalExamResult;
 use App\Models\VoucherCode;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -95,4 +96,12 @@ class FinallStudentController extends Controller
             'priority' => 'high',
         ]);
     }
+
+    // All Passed Students
+    public function AllPassedStudents() {
+        $passed = FinalExamResult::with(['user', 'category'])->get();
+        return view('admin.backend.passed_students.index', compact('passed'));
+    }
+
+
 }
