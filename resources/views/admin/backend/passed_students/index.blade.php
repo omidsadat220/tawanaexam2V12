@@ -14,11 +14,11 @@
                                     <input class="form-control bg-dark border-0 " type="search" placeholder="Search" />
                                 </form>
 
-                                <a href="{{ route('add.category') }}">
+                                {{-- <a href="{{ route('add.category') }}">
                                     <button style="--clr: #39ff14" class="button-styleee">
                                         <span>Add Catagory</span><i></i>
                                     </button>
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                                     <th scope="col">Department</th>
                                     <th scope="col">Score</th>
                                     <th scope="col">Passed</th>                                    
-                                    {{-- <th scope="col" class="action">Action</th> --}}
+                                    <th scope="col" class="action">Certificate</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,16 +49,12 @@
                                                 <i class="fas fa-times-circle" style="color: red; font-size: 20px;"></i>
                                             @endif
                                         </td>
-                                        {{-- <td>
-                                            <a title="Edit" href="{{ route('edit.category', $item->id) }}"
+                                        <td>
+                                            <a title="set certificate" href="{{ route('set.certificate', $item->id) }}"
                                                 class="btn btn-success btn-sm"> <span
-                                                    class="mdi mdi-book-edit mdi-18px">edit</span>
+                                                    class="mdi mdi-book-edit mdi-18px">Set Certificate</span>
                                             </a>
-
-                                            <a title="Delete" href="{{ route('delete.category', $item->id) }}"
-                                                class="btn btn-danger btn-sm" id="delete"><span
-                                                    class="mdi mdi-delete-circle  mdi-18px">delete</span></a>
-                                        </td> --}}
+                                        </td>
                                     </tr>
                                 @endforeach
 

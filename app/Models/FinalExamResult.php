@@ -17,4 +17,8 @@ class FinalExamResult extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function certificate() {
+        return $this->hasOne(Certificate::class, 'final_result_id');
+    }
 }

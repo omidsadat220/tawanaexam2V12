@@ -65,6 +65,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
         // All Passed Students
         Route::get('/all/passed/students', 'AllPassedStudents')->name('all.passed.students');
+        Route::get('/set/certificate/{id}', 'SetCertificate')->name('set.certificate');
+        Route::post('/store/certificate/{id}', 'StoreCertificate')->name('store.certificate');
+        Route::post('/update/certificate/{id}', 'UpdateCertificate')->name('update.certificate');
+        Route::get('/certificate/delete/{id}','DeleteCertificate')->name('delete.certificate');
     });
 
     Route::controller(classsubjectController::class)->group(function() {
