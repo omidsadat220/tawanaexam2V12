@@ -11,6 +11,7 @@ use App\Models\department;
 use App\Models\DepartmentSubject;
 use App\Models\Exam;
 use App\Models\ExamQuestion;
+use App\Models\Certificate;
 use App\Models\NewQuestion;
 use App\Models\qestion;
 use App\Models\SelectTeacher;
@@ -482,4 +483,17 @@ public function MockExamStart($exam_id)
 
     return view('user.mock.exam_results', compact('exam', 'userAnswers', 'latestAttempt'));
         }
+
+    // User Get Certificate
+    public function UserGetCertificate(){
+        $userId = Auth::id();
+
+        // گرفتن Certificateها برای کاربر فعلی
+        $certificates = Certificate::whereHas('result', function($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->get();
+
+        return view('user.certificate.index', compact('certificates'));
+    }
+
 }

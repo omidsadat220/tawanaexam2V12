@@ -751,7 +751,7 @@
             <!-- Card 3: Test History -->
             <div class="card-custom" role="button" tabindex="0" aria-label="Test History">
                 <div class="card-text">
-                    <a href= "{{ route('mock.exam') }}">Certificate</a>
+                    <a href= "{{ route('user.get.certificate') }}">Certificate</a>
                     <span class="arrow-icon">↻</span>
                 </div>
                 <div class="icon-container" aria-hidden="true">

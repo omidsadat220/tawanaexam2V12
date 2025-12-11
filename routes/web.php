@@ -254,6 +254,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('submit/exam', [UserController::class, 'SubmitExam'])->name('exam.submit');
     Route::get('/user/examresult', [UserController::class, 'UserExamResult'])->name('user.examresult');
     Route::get('/user/certificate', [UserController::class, 'UserCertificate'])->name('user.certificate');
+    // User Certificate
+    Route::get('/user/get/certificate', [UserController::class, 'UserGetCertificate'])->name('user.get.certificate');
 
 
     //loginwithvoucher
