@@ -677,13 +677,17 @@
                     {{-- when we create the image folder you can incomment --}}
                     {{-- <img class="rounded-circle header-profile-user"
                         src="{{ (!empty($profileData->photo)) ? url('upload/client_images/'.$profileData->photo) : url('upload/no_image.jpg') }}"
-                        --}} <div class="user-avatar position-relative">
+                        --}} <div class="position-relative">
                                 <img src="{{ Auth::user()->photo ? asset(Auth::user()->photo) : 'https://th.bing.com/th/id/OIP._2BZkavfXr6pfto8yAasPgHaHg?w=173&h=180&c=7&r=0&o=7&dpr=1.4&pid=1.7&rm=3' }}" class="avatar-img" id="userAvatar" class="avatar-img" id="userAvatar" />
                                 
                                 @if($newVoucherCount > 0)
-                                    <!-- red dot -->
-                                    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                                    <div
+                                class="bg-danger rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1" >
+                                </div>
+
                                 @endif
+
+                               
                             </div>
 
                 </div>
