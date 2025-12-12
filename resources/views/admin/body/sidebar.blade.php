@@ -56,6 +56,11 @@
               <i class="fa fa-question-circle me-2"></i>Student Finall</a
               >
 
+              <a href="{{route('all.passed.students')}}" 
+              class="nav-item nav-link {{ request()->routeIs('all.passed.students') ? 'active' : '' }}">
+              <i class="fa fa-question-circle me-2"></i>Passed Students</a
+              >
+
               <a href="{{route('all.depart')}}" 
               class="nav-item nav-link {{ request()->routeIs('all.depart') ? 'active' : '' }}">
               <i class="fa fa-building me-2"></i>All Department</a

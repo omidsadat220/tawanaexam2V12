@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\Certificate;
+use App\Models\FinalExamResult;
 use App\Models\VoucherCode;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -95,4 +97,81 @@ class FinallStudentController extends Controller
             'priority' => 'high',
         ]);
     }
+
+    // All Passed Students
+    public function AllPassedStudents() {
+        $passed = FinalExamResult::with(['user', 'category'])->get();
+        return view('admin.backend.passed_students.index', compact('passed'));
+    }
+
+    // Set Certificate
+    public function SetCertificate($id){
+        $result = FinalExamResult::with(['user', 'certificate'])->findOrFail($id);
+        return view('admin.backend.passed_students.set_certificate', compact('result'));
+    }
+
+    // Store Certificate
+    public function StoreCertificate(Request $request, $id){
+        $result = FinalExamResult::findOrFail($id);
+
+        if ($result->certificate) {
+            return redirect()->back()->with('error', 'Certificate already exists. You can only edit it.');
+        }
+
+        $pdfName = time().'_'.$request->pdf->getClientOriginalName();
+        $request->pdf->move(public_path('upload/certificates'), $pdfName);
+
+        Certificate::create([
+            'final_result_id' => $result->id,
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'date' => $request->date,
+            'pdf' => $pdfName,
+            'description' => $request->description,
+        ]);
+
+        return back()->with('success', 'Certificate added successfully');
+    }
+
+    // Update Certificate
+    public function UpdateCertificate(Request $request, $id){
+        $certificate = Certificate::where('final_result_id', $id)->firstOrFail();
+
+        if ($request->hasFile('pdf')) {
+            $pdfName = time().'_'.$request->pdf->getClientOriginalName();
+            $request->pdf->move(public_path('uploads/certificates'), $pdfName);
+            $certificate->pdf = $pdfName;
+        }
+
+        $certificate->update([
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'date' => $request->date,
+            'description' => $request->description,
+        ]);
+
+        return back()->with('success', 'Certificate updated successfully');
+    }
+
+    // Delete Certificate
+    public function DeleteCertificate($id){
+        $certificate = Certificate::findOrFail($id);
+
+        // delete pdf file if exists
+        if($certificate->pdf){
+            $pdfPath = public_path('upload/certificates/' . $certificate->pdf);
+            if(file_exists($pdfPath)){
+                unlink($pdfPath);
+            }
+        }
+
+        // delete database row
+        $certificate->delete();
+
+        return redirect()->back()->with('success', 'Certificate Deleted successfully');
+    }
+
+
+
+
 }

@@ -11,10 +11,12 @@ use App\Models\department;
 use App\Models\DepartmentSubject;
 use App\Models\Exam;
 use App\Models\ExamQuestion;
+use App\Models\Certificate;
 use App\Models\NewQuestion;
 use App\Models\qestion;
 use App\Models\SelectTeacher;
 use App\Models\UserAnswer;
+use App\Models\FinalExamResult;
 use App\Models\SetClassStudent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -262,61 +264,74 @@ class UserController extends Controller
     //Start UserExamResult
 
     public function UserExamResult(){
-        $userId = Auth::id();
+    $userId = Auth::id();
 
-        // 1️⃣ آخرین زمان امتحان کاربر را بگیر
-        $lastExamTime = CorrectAns::where('user_id', $userId)
-            ->latest('created_at')
-            ->value('created_at');
+    // 1️⃣ آخرین زمان امتحان کاربر
+    $lastExamTime = CorrectAns::where('user_id', $userId)
+        ->latest('created_at')
+        ->value('created_at');
 
-        // اگر هیچ امتحانی انجام نشده بود
-        if (!$lastExamTime) {
-            return back()->with('error', 'No exam found!');
-        }
-
-        // 2️⃣ محاسبه تعداد کل سؤالات در آخرین امتحان
-        $totalQuestions = CorrectAns::where('user_id', $userId)
-            ->where('created_at', $lastExamTime)
-            ->count();
-
-        // 3️⃣ تعداد جواب‌های درست
-        $correct = CorrectAns::join('uni_answer_qs', 'correct_ans.question', '=', 'uni_answer_qs.question')
-            ->where('correct_ans.user_id', $userId)
-            ->where('correct_ans.created_at', $lastExamTime)
-            ->whereColumn('correct_ans.correct_answer', 'uni_answer_qs.correct_answer')
-            ->count();
-
-        // 4️⃣ جواب‌های اشتباه
-        $wrong = $totalQuestions - $correct;
-
-        // 5️⃣ درصد نمره
-        $score = $totalQuestions > 0 ? round(($correct / $totalQuestions) * 100, 2) : 0;
-
-        // 6️⃣ لیست سؤالات اشتباه
-        $wrongQuestions = CorrectAns::join('uni_answer_qs', 'correct_ans.question', '=', 'uni_answer_qs.question')
-            ->where('correct_ans.user_id', $userId)
-            ->where('correct_ans.created_at', $lastExamTime)
-            ->whereColumn('correct_ans.correct_answer', '!=', 'uni_answer_qs.correct_answer')
-            ->select(
-                'uni_answer_qs.question',
-                'uni_answer_qs.correct_answer as real_answer',
-                'correct_ans.correct_answer as user_answer',
-                'uni_answer_qs.question_one',
-                'uni_answer_qs.question_two',
-                'uni_answer_qs.question_three',
-                'uni_answer_qs.question_four'
-            )
-            ->get();
-
-        // پایان → ارسال به ویو
-        return view('user.uni.exam-result', compact(
-            'totalQuestions',
-            'correct',
-            'wrong',
-            'score',
-            'wrongQuestions'
-        ));
+    if (!$lastExamTime) {
+        return back()->with('error', 'No exam found!');
     }
+
+    // 2️⃣ گرفتن category_id از uni_answer_qs (چون در correct_ans وجود ندارد)
+    $categoryId = CorrectAns::join('uni_answer_qs', 'correct_ans.question', '=', 'uni_answer_qs.question')
+        ->where('correct_ans.user_id', $userId)
+        ->where('correct_ans.created_at', $lastExamTime)
+        ->value('uni_answer_qs.category_id');
+
+    // 3️⃣ تعداد کل سوالات
+    $totalQuestions = CorrectAns::where('user_id', $userId)
+        ->where('created_at', $lastExamTime)
+        ->count();
+
+    // 4️⃣ تعداد جواب‌های درست
+    $correct = CorrectAns::join('uni_answer_qs', 'correct_ans.question', '=', 'uni_answer_qs.question')
+        ->where('correct_ans.user_id', $userId)
+        ->where('correct_ans.created_at', $lastExamTime)
+        ->whereColumn('correct_ans.correct_answer', 'uni_answer_qs.correct_answer')
+        ->count();
+
+    // 5️⃣ جواب‌های اشتباه
+    $wrong = $totalQuestions - $correct;
+
+    // 6️⃣ درصد نمره
+    $score = $totalQuestions > 0 ? round(($correct / $totalQuestions) * 100, 2) : 0;
+
+    // 7️⃣ سوالات اشتباه
+    $wrongQuestions = CorrectAns::join('uni_answer_qs', 'correct_ans.question', '=', 'uni_answer_qs.question')
+        ->where('correct_ans.user_id', $userId)
+        ->where('correct_ans.created_at', $lastExamTime)
+        ->whereColumn('correct_ans.correct_answer', '!=', 'uni_answer_qs.correct_answer')
+        ->select(
+            'uni_answer_qs.question',
+            'uni_answer_qs.correct_answer as real_answer',
+            'correct_ans.correct_answer as user_answer',
+            'uni_answer_qs.question_one',
+            'uni_answer_qs.question_two',
+            'uni_answer_qs.question_three',
+            'uni_answer_qs.question_four'
+        )
+        ->get();
+
+    // 8️⃣ ذخیره امتیاز در final_exam_results
+    \App\Models\FinalExamResult::create([
+        'user_id' => $userId,
+        'category_id' => $categoryId,
+        'score' => $score
+    ]);
+
+    // 9️⃣ ارسال به ویو
+    return view('user.uni.exam-result', compact(
+        'totalQuestions',
+        'correct',
+        'wrong',
+        'score',
+        'wrongQuestions'
+    ));
+}
+
 
 
     //UserCertificate
@@ -468,4 +483,17 @@ public function MockExamStart($exam_id)
 
     return view('user.mock.exam_results', compact('exam', 'userAnswers', 'latestAttempt'));
         }
+
+    // User Get Certificate
+    public function UserGetCertificate(){
+        $userId = Auth::id();
+
+        // گرفتن Certificateها برای کاربر فعلی
+        $certificates = Certificate::whereHas('result', function($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->get();
+
+        return view('user.certificate.index', compact('certificates'));
+    }
+
 }

@@ -62,6 +62,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/generate-voucher',  'createVoucher')->name('generate.voucher');
 
         Route::post('send-voucher/{voucher}',  'sendVoucher')->name('admin.send.voucher');
+
+        // All Passed Students
+        Route::get('/all/passed/students', 'AllPassedStudents')->name('all.passed.students');
+        Route::get('/set/certificate/{id}', 'SetCertificate')->name('set.certificate');
+        Route::post('/store/certificate/{id}', 'StoreCertificate')->name('store.certificate');
+        Route::post('/update/certificate/{id}', 'UpdateCertificate')->name('update.certificate');
+        Route::get('/certificate/delete/{id}','DeleteCertificate')->name('delete.certificate');
     });
 
     Route::controller(classsubjectController::class)->group(function() {
@@ -247,6 +254,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('submit/exam', [UserController::class, 'SubmitExam'])->name('exam.submit');
     Route::get('/user/examresult', [UserController::class, 'UserExamResult'])->name('user.examresult');
     Route::get('/user/certificate', [UserController::class, 'UserCertificate'])->name('user.certificate');
+    // User Certificate
+    Route::get('/user/get/certificate', [UserController::class, 'UserGetCertificate'])->name('user.get.certificate');
 
 
     //loginwithvoucher
