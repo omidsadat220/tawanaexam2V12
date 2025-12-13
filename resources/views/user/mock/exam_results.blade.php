@@ -258,14 +258,16 @@
     </a>
 </div>
 
-<script>
-    // جلوگیری از برگشت با دکمه Back
-    history.pushState(null, null, location.href);
-
-    window.onpopstate = function () {
-        history.go(1);
-    };
-</script>
+ <script>
+      // Back button event (for demo purposes: alert or history back)
+      document.getElementById("backButton").addEventListener("click", () => {
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          alert("Back button pressed - implement navigation.");
+        }
+      });
+    </script>
 
 
 

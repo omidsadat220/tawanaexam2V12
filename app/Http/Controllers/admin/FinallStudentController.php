@@ -111,22 +111,47 @@ class FinallStudentController extends Controller
     }
 
     // Store Certificate
-    public function StoreCertificate(Request $request, $id){
+    public function StoreCertificate(Request $request, $id)
+    {
         $result = FinalExamResult::findOrFail($id);
 
+        // Check if certificate exists
         if ($result->certificate) {
             return redirect()->back()->with('error', 'Certificate already exists. You can only edit it.');
         }
 
-        $pdfName = time().'_'.$request->pdf->getClientOriginalName();
-        $request->pdf->move(public_path('upload/certificates'), $pdfName);
+        $pdf_path = null;
 
+        // If new PDF uploaded
+        if ($request->file('pdf')) {
+
+            // OLD PDF remove (if exists)
+            $old_pdf = $result->certificate->pdf ?? null;
+
+            if ($old_pdf && file_exists(public_path($old_pdf))) {
+                unlink(public_path($old_pdf));
+            }
+
+            // Upload new PDF
+            $pdf_file = $request->file('pdf');
+
+            // unique name
+            $name_gen = hexdec(uniqid()) . '.' . $pdf_file->getClientOriginalExtension();
+
+            // full directory path
+            $pdf_path = 'uploads/certificates/' . $name_gen;
+
+            // move file
+            $pdf_file->move(public_path('uploads/certificates'), $name_gen);
+        }
+
+        // Save to DB
         Certificate::create([
             'final_result_id' => $result->id,
             'name' => $request->name,
             'lastname' => $request->lastname,
             'date' => $request->date,
-            'pdf' => $pdfName,
+            'pdf' => $pdf_path,  // FULL PATH saved now!
             'description' => $request->description,
         ]);
 
