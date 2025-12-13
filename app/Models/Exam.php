@@ -12,6 +12,7 @@ class Exam extends Model
         'subject_id',
         'exam_title',
         'start_time',
+        'is_active',
     ];
 
     public function department()

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('exam_title');
             // $table->time('start_time')->nullable();
             $table->integer('start_time')->nullable();
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
 
             // Foreign key constraints

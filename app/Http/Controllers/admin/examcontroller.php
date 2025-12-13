@@ -143,6 +143,7 @@ class examcontroller extends Controller
             'subject_id' => $request->subject_id,
             'exam_title' => $request->exam_title,
             'start_time' => $request->start_time,
+            'is_active' => $request->has('is_active') ? 1 : 0,
         ]);
 
         $notification = [
@@ -166,8 +167,8 @@ class examcontroller extends Controller
 
     public function UpdateExam(Request $request)
     {
-
         $examId = $request->id;
+
         // Validate the request
         $request->validate([
             'department_id' => 'required|exists:departments,id',
@@ -178,6 +179,7 @@ class examcontroller extends Controller
                 }),
             ],
             'exam_title' => 'required|string|max:255',
+            'is_active' => 'nullable|boolean', // اضافه شد
             // 'start_time' => 'required|date_format:H:i',
         ], [
             'subject_id.exists' => 'Selected subject does not belong to the chosen department.'
@@ -188,8 +190,12 @@ class examcontroller extends Controller
                     ->where('teacher_id', auth()->id())
                     ->firstOrFail();
 
+        // Prepare data for update
+        $data = $request->only('department_id', 'subject_id', 'exam_title', 'start_time');
+        $data['is_active'] = $request->has('is_active') ? 1 : 0; // اگر چک‌باکس تیک نخورده باشد، 0 می‌شود
+
         // Update the exam
-        $exam->update($request->only('department_id', 'subject_id', 'exam_title', 'start_time'));
+        $exam->update($data);
 
         // Redirect back with success message
         return redirect()->route('all.exam')->with([

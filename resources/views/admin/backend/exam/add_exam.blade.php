@@ -86,6 +86,29 @@
 
                             </div>
 
+                            <div class="row mb-3 pt-3 align-items-center">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label class="col-4 col-form-label">Exam Status</label>
+                                        <div class="col-8">
+                                            <div class="form-check">
+                                                <input 
+                                                    class="form-check-input" 
+                                                    type="checkbox" 
+                                                    name="is_active" 
+                                                    value="1"
+                                                    id="is_active"
+                                                >
+                                                <label class="form-check-label text-white" for="is_active">
+                                                    Active (Students can start exam)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             {{-- <div class="row mb-3 pt-3 align-items-center">
                                 <div class="col-md-6">
                                     <div class="row">

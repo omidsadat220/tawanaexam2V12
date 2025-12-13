@@ -724,54 +724,48 @@
                             
                             <!-- card start-->
                             @if($exams->count() > 0)
-                            
-                              @foreach($exams as $exam)
-                
-                            <div class="rounded-xl bg-dark shadow-md overflow-hidden exam-card" id="subject_card">
-                                <div class="bg-gradient-to-r from-green-500 to-green-400 h-2"></div>
-                                <div class="p-6">
-                                    <div class="flex items-center justify-between mb-4">
-                                        <h3 class="text-lg font-bold text-gray-800 text-white">
-                                          {{ $exam->exam_title }}
-                                        </h3>
-                                        <div
-                                            class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
-                                            
-                                        </div>
-                                    </div>
-                                    
+                                @foreach($exams as $exam)
+                                    @if($exam->is_active) <!-- شرط اضافه شد -->
+                                    <div class="rounded-xl bg-dark shadow-md overflow-hidden exam-card" id="subject_card">
+                                        <div class="bg-gradient-to-r from-green-500 to-green-400 h-2"></div>
+                                        <div class="p-6">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <h3 class="text-lg font-bold text-gray-800 text-white">
+                                                    {{ $exam->exam_title }}
+                                                </h3>
+                                                <div class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                                    <!-- Optional badge -->
+                                                </div>
+                                            </div>
 
-                                    <div class="flex items-center mb-4">
-                                        <i class="fas fa-calendar-alt text-green-400 mr-2"></i>
-                                        <span class="text-sm text-white-500"> {{ \Carbon\Carbon::parse($exam->created_at)->setTimezone('Asia/Kabul')->format('F d, Y - h:i A') }}</span>
-                                    </div>
-                                    <span class="text-sm text-white-500">
-                                        Score: {{ $exam->correct_answers }}/{{ $exam->total_questions }}
-                                    </span>
-                                    {{-- <div class="mt-6">
-                                        <div class="flex justify-between mb-1">
-                                            <span class="text-sm font-sm text-white-500">Performance</span>
-                                            <span class="text-sm font-sm text-white-500">97%</span>
-                                        </div>
-                                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 97%"></div>
-                                        </div>
-                                    </div> --}}
+                                            <div class="flex items-center mb-4">
+                                                <i class="fas fa-calendar-alt text-green-400 mr-2"></i>
+                                                <span class="text-sm text-white-500">
+                                                    {{ \Carbon\Carbon::parse($exam->created_at)->setTimezone('Asia/Kabul')->format('F d, Y - h:i A') }}
+                                                </span>
+                                            </div>
 
-                                    <div class="mt-6 flex space-x-3">
-                                        <a href="{{ route('mock.exam.start',$exam->id) }}" class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Start Exam</a>
-                                        <button
-                                            class="p-2 text-green-500 hover:bg-gray-100 rounded-lg focus:outline-none">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </button>
+                                            <span class="text-sm text-white-500">
+                                                Score: {{ $exam->correct_answers }}/{{ $exam->total_questions }}
+                                            </span>
+
+                                            <div class="mt-6 flex space-x-3">
+                                                <a href="{{ route('mock.exam.start', $exam->id) }}" class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                                                    Start Exam
+                                                </a>
+
+                                                <button class="p-2 text-green-500 hover:bg-gray-100 rounded-lg focus:outline-none">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                             @endforeach
-                             <!-- card end-->
-                             @else
+                                    @endif
+                                @endforeach
+                            @else
                                 <p>You are not assigned to any department yet.</p>
                             @endif
+
                         </div>
                     </div>
                 </div>
