@@ -45,9 +45,10 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($exams as $exam)
+                                @foreach ($exams as $key => $exam)
                                     <tr>
-                                        <td scope="row">{{ $exam->id }}</td>
+                                        {{-- <td scope="row">{{ $exam->id }}</td> --}}
+                                        <td>{{ $key + 1 }}</td>
                                         <td>{{ $exam->department->depart_name ?? 'N/A' }}</td>
                                         <td>{{ $exam->subject->subject_name ?? 'N/A' }}</td>
                                         <td>{{ $exam->exam_title }}</td>
