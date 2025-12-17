@@ -9,7 +9,6 @@
                     <div class="row">
                         <div class="col-12 d-flex align-items-center justify-content-between mb-4">
                             <h3 class="m-0">New Questions</h3>
-
                             <div class="d-flex align-items-center gap-2">
                                 <form class="d-none d-md-flex">
                                     <input class="form-control bg-dark border-0 " type="search" placeholder="Search" />
@@ -23,8 +22,6 @@
                             </div>
                         </div>
                     </div>
-
-
                     <div class="table-responsive">
                         <table class="paginated table table-bordered" id="datatable">
                             <thead>
@@ -35,7 +32,6 @@
                                     <th scope="col" class="all">Action</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 <tbody>
                                     @foreach ($examQuestions as $key => $item)
@@ -48,7 +44,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-
                             </tbody>
                         </table>
                         <div id="pagination" class="mt-3 d-flex gap-2"></div>
