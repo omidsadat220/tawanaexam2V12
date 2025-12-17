@@ -1141,11 +1141,13 @@
                             <span class="checkmark mr-3"></span>
                             <span class="text-sm text-gray-300">Remember me</span>
                         </label>
-                        <button id="forgotPasswordBtn"
+                        <a href="{{ url('/forgot-password') }}">Forgot Password?</a>
+
+                        {{-- <a id="forgotPasswordBtn"
                             class="text-sm text-green-500 hover:text-green-400 link-hover font-medium"
                             onclick="showPage('forgotPasswordPage')">
                             Forgot Password?
-                        </button>
+                        </a> --}}
                     </div>
 
                     <button type="submit" class="auth-btn text-lg">

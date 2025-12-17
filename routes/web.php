@@ -23,6 +23,10 @@ use App\Models\TeacherExam;
 
 use function Pest\Laravel\get;
 
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->name('forgot-password');
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::controller(AdminController::class)->group(function () {
