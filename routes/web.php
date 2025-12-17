@@ -18,6 +18,7 @@ use App\Http\Controllers\teacher\QestionController as TeacherQestionController;
 use App\Http\Controllers\teacher\StudentController;
 use App\Http\Controllers\teacher\TeacherController;
 use App\Http\Controllers\user\UserController;
+use App\Http\Controllers\VerifyotpController;
 use App\Models\AddExam;
 use App\Models\TeacherExam;
 
@@ -26,6 +27,9 @@ use function Pest\Laravel\get;
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->name('forgot-password');
+
+
+
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
@@ -229,7 +233,8 @@ Route::middleware(['auth', 'role:teacher'])->group(function () {
 
 
 
-
+Route::get('/verify-account', [VerifyotpController::class, 'verifyaccount'])->name('verify.account');
+Route::post('/verify-otp', [VerifyotpController::class, 'verifyotp'])->name('verify.otp');
 
 //  user routs group  start
 Route::middleware(['auth', 'role:user'])->group(function () {
