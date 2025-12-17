@@ -45,9 +45,9 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($new as $data)
+                                @foreach ($new as $key => $data)
                                     <tr>
-                                        <td scope="row">{{ $data->id }}</td>
+                                        <td scope="row">{{ $key+1 }}</td>
                                         <td>{{ $data->department->depart_name ?? 'N/A' }}</td>
                                         <td>{{ $data->subject->subject_name ?? 'N/A' }}</td>
                                         <td>{{ \Illuminate\Support\Str::limit($data->question, 15) }}...</td>

@@ -58,10 +58,10 @@
                                     <td>{{ $item->correct_answer }}</td> --}}
 
                                     <td>
-                                        <a title="Edit" href="{{ route('edit.answer', $item->id) }}"
+                                        {{-- <a title="Edit" href="{{ route('edit.answer', $item->id) }}"
                                             class="btn btn-success btn-sm"> <span
                                                 class="mdi mdi-book-edit mdi-18px">edit</span>
-                                        </a>
+                                        </a> --}}
 
                                         <a title="Delete" href="{{ route('delete.answer', $item->id) }}"
                                             class="btn btn-danger btn-sm" id="delete"><span

@@ -40,9 +40,9 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($users as $key => $user)
                                     <tr>
-                                        <td scope="row">{{ $user->id }}</td>
+                                        <td scope="row">{{ $key+1 }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
 
