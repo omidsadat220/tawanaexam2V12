@@ -47,7 +47,12 @@
                             <tbody>
                                 @foreach ($new as $key => $data)
                                     <tr>
+<<<<<<< HEAD
                                         <td scope="row">{{ $key+1 }}</td>
+=======
+                                        {{-- <td scope="row">{{ $data->id }}</td> --}}
+                                        <td>{{ $key + 1 }}</td>
+>>>>>>> 19763086e993a67a7bc85cd7d83a311a494d9592
                                         <td>{{ $data->department->depart_name ?? 'N/A' }}</td>
                                         <td>{{ $data->subject->subject_name ?? 'N/A' }}</td>
                                         <td>{{ \Illuminate\Support\Str::limit($data->question, 15) }}...</td>

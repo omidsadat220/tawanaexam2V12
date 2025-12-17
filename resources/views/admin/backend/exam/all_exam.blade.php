@@ -40,9 +40,16 @@
                             </thead>
 
                             <tbody>
+<<<<<<< HEAD
                                 @foreach ($exams as $key =>$exam)
                                     <tr>
                                         <td scope="row">{{ $key + 1 }}</td>
+=======
+                                @foreach ($exams as $key => $exam)
+                                    <tr>
+                                        {{-- <td scope="row">{{ $exam->id }}</td> --}}
+                                        <td>{{ $key + 1 }}</td>
+>>>>>>> 19763086e993a67a7bc85cd7d83a311a494d9592
                                         <td>{{ $exam->department->depart_name ?? 'N/A' }}</td>
                                         <td>{{ $exam->subject->subject_name ?? 'N/A' }}</td>
                                         <td>{{ $exam->exam_title }}</td>

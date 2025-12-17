@@ -38,9 +38,10 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($std as $user)
+                                @foreach ($std as $key => $user)
                                     <tr>
-                                        <td scope="row">{{ $user->id }}</td>
+                                        <td>{{ $key + 1 }}</td>
+                                        {{-- <td scope="row">{{ $user->id }}</td> --}}
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td><a href="{{ route('set.teacher', $user->id) }}">Set Teacher</a></td>
