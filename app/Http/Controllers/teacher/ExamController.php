@@ -58,6 +58,7 @@ class ExamController extends Controller
             'subject_id' => $request->subject_id,
             'exam_title' => $request->exam_title,
             'start_time' => $request->start_time,
+            'is_active'     => $request->has('is_active') ? 1 : 0,
         ]);
 
         $notification = [
@@ -102,7 +103,9 @@ class ExamController extends Controller
                     ->firstOrFail();
 
         // Update the exam (teacher_id is NOT updated)
-        $exam->update($request->only('department_id', 'subject_id', 'exam_title', 'start_time'));
+        $exam->update($request->only('department_id', 'subject_id', 'exam_title', 'start_time') + [
+            'is_active' => $request->has('is_active') ? 1 : 0
+        ]);
 
         return redirect()->route('all.teacher.exam')->with([
             'message' => 'Exam updated successfully',

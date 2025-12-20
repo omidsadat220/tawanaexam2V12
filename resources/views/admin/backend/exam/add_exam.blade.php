@@ -96,8 +96,9 @@
                                                     class="form-check-input" 
                                                     type="checkbox" 
                                                     name="is_active" 
-                                                    value="1"
+                                                    value="0"
                                                     id="is_active"
+                                                    checked
                                                 >
                                                 <label class="form-check-label text-white" for="is_active">
                                                     Active (Students can start exam)

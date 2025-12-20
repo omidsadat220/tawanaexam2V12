@@ -79,10 +79,11 @@
                                     <label class="col-2 col-form-label text-white">Active</label>
                                     <div class="col-10 d-flex align-items-center">
                                         <input type="checkbox" name="is_active" id="is_active" class="form-check-input me-2"
-                                            {{ $exam->is_active ? 'checked' : '' }}>
+                                            value="1" {{ $exam->is_active ? 'checked' : '' }}>
                                         <label for="is_active" class="text-white mb-0">Make this exam available</label>
                                     </div>
                                 </div>
+
 
 
                                 <div class="col-md-6">

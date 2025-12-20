@@ -186,9 +186,8 @@ class examcontroller extends Controller
         ]);
 
         // Find the exam
-        $exam = Exam::where('id', $examId)
-                    ->where('teacher_id', auth()->id())
-                    ->firstOrFail();
+        $exam = Exam::where('id', $examId)->firstOrFail();
+
 
         // Prepare data for update
         $data = $request->only('department_id', 'subject_id', 'exam_title', 'start_time');
