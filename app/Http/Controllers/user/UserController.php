@@ -222,7 +222,7 @@ class UserController extends Controller
 
     $voucher = VoucherCode::where('code', $request->code)
         ->where('category_id', $request->category_id)
-        ->where('is_used', false)
+        ->where('is_used', 0)
         ->first();
 
     if (!$voucher) {
@@ -236,17 +236,18 @@ class UserController extends Controller
     }
 
     // Mark voucher as used
-    $voucher->is_used = true;
-    $voucher->save();
+    // $voucher->is_used = true;
+    // $voucher->save();
 
     // Correct redirect to match route parameter
     return redirect()->route('user.uniexam', ['id' => $request->category_id]);
         }
 
-        //SubmitExam
+        // SubmitExam
         public function SubmitExam(Request $request)
         {
-            $userId = auth()->id() ?? 1;
+            $userId = auth()->id();
+
             foreach ($request->answers as $questionId => $answer) {
                 $question = \App\Models\uni_answer_q::find($questionId);
 
@@ -257,9 +258,17 @@ class UserController extends Controller
                 ]);
             }
 
+            // 🔥 consume voucher HERE
+            VoucherCode::where('user_id', $userId)
+                ->where('category_id', $request->category_id)
+                ->where('is_used', 0)
+                ->update(['is_used' => 1]);
+
             return redirect()->route('user.examresult');
         }
-    //End Method
+
+        // End Method
+
 
     //Start UserExamResult
 

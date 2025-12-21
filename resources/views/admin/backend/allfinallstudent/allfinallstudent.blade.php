@@ -42,12 +42,7 @@
                             <tbody>
                                 @foreach ($users as $key => $user)
                                     <tr>
-<<<<<<< HEAD
                                         <td scope="row">{{ $key+1 }}</td>
-=======
-                                        {{-- <td scope="row">{{ $user->id }}</td> --}}
-                                        <td>{{ $key + 1 }}</td>
->>>>>>> 19763086e993a67a7bc85cd7d83a311a494d9592
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
 

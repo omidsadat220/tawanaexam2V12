@@ -104,7 +104,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 
                 <div class="lg:col-span-9 order-1 lg:order-1">
-                    <form method="POST" action="{{ route('mock.exam.submit', $exam->id) }}">
+                    <form method="POST" action="{{ route('mock.exam.submit', $exam->id) }}" id="examForm">
                         @csrf
                         <div class="gradient-border">
                             <div class="bg-gray rounded-2xl p-6 md:p-8 relative overflow-hidden">
@@ -559,11 +559,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <script>
     // هشدار قبل از ترک یا رفرش صفحه
-    window.addEventListener('beforeunload', function (e) {
-        e.preventDefault();
-        e.returnValue = "You cannot refresh the page during the exam!";
-        return "You cannot refresh the page during the exam!";
-    });
+    // window.addEventListener('beforeunload', function (e) {
+    //     e.preventDefault();
+    //     e.returnValue = "You cannot refresh the page during the exam!";
+    //     return "You cannot refresh the page during the exam!";
+    // });
 
     // جلوگیری از رفرش با کلیدهای کیبورد
     document.addEventListener('keydown', function(e) {

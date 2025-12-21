@@ -63,6 +63,7 @@ body { background-color: rgb(38,38,38); color: #e2e8f0; min-height: 100vh; }
 <div class="gradient-border">
 <div class="bg-gray rounded-2xl p-6 md:p-8 relative overflow-hidden">
 
+    <input type="hidden" name="category_id" value="{{ request()->route('id') }}">
     
 @php $answers = \App\Models\uni_answer_q::all(); @endphp
 <div id="questionsContainer">
