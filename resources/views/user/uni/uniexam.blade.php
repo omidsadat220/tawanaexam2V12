@@ -65,7 +65,7 @@ body { background-color: rgb(38,38,38); color: #e2e8f0; min-height: 100vh; }
 
     <input type="hidden" name="category_id" value="{{ request()->route('id') }}">
     
-@php $answers = \App\Models\uni_answer_q::all(); @endphp
+{{-- @php $answers = \App\Models\uni_answer_q::all(); @endphp --}}
 <div id="questionsContainer">
 @foreach ($answers as $index => $item)
 <div class="question-item {{ $index==0?'block':'hidden' }}" data-index="{{ $index }}">

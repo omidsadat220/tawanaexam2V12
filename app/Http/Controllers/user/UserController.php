@@ -183,12 +183,12 @@ class UserController extends Controller
 
 
     //Exam Page
-    public function UserUniexam($id)
-    {
-
+    public function UserUniexam($id){
         $category = Category::findOrFail($id);
         $timer = $category->timer;
-        return view('user.uni.uniexam', compact('category', 'timer'));
+        $answers = $category->questions;
+
+        return view('user.uni.uniexam', compact('category', 'timer', 'answers'));
     }
 
     public function UpdateExam(Request $request)
