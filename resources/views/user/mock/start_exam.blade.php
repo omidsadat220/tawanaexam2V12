@@ -236,344 +236,181 @@
     <div class="floating-particles" id="particles"></div>
 
     <script>
-
-    document.addEventListener("DOMContentLoaded", function() {
-        // مقدار زمان از سرور (دقیقه) - فرضاً از exam.start_time
-        let durationMinutes = {{ $exam->start_time ?? 30 }}; // اگر start_time در دقیقه ذخیره شده
-        let time = durationMinutes * 60; // تبدیل به ثانیه
-
-        const timerElement = document.getElementById('exam-timer');
-        const examForm = document.getElementById('exam-form');
-
-        // بروزرسانی تایمر
-        function updateTimer() {
-            let minutes = Math.floor(time / 60);
-            let seconds = time % 60;
-
-            // فرمت 2 رقمی
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            timerElement.textContent = `${minutes}:${seconds}`;
-
-            if (time <= 0) {
-                clearInterval(timerInterval);
-                // ارسال خودکار فرم
-                alert('Time is over! Your answers will be submitted.');
-                examForm.submit();
-            }
-
-            time--;
-        }
-
-        updateTimer(); // شروع تایمر فوراً
-        const timerInterval = setInterval(updateTimer, 1000);
-    });
-
-
-
-        // Timer
-        function startTimer(duration, display) {
-            let timer = duration, minutes, seconds;
-            setInterval(function() {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-                display.textContent = minutes + ":" + seconds;
-                if (--timer < 0) { timer = 0; }
-            }, 1000);
-        }
-        window.onload = function() {
-            const fortyFiveMinutes = 45 * 60;
-            const display = document.querySelector("#timer");
-            startTimer(fortyFiveMinutes, display);
-        };
-
-        // Particles
-        function createParticles(count = 50) {
-            const container = document.getElementById("particles");
-            container.innerHTML = "";
-            for (let i = 0; i < count; i++) {
-                const p = document.createElement("div");
-                p.className = "particle";
-                p.style.left = Math.random() * 100 + "%";
-                p.style.animationDelay = Math.random() * 5 + "s";
-                p.style.animationDuration = Math.random() * 3 + 3 + "s";
-                container.appendChild(p);
-            }
-        }
-        document.addEventListener("DOMContentLoaded", () => { createParticles(20); });
-
-        // Image Modal
-        function openModal(src) {
-            document.getElementById('modalImage').src = src;
-            document.getElementById('imageModal').style.display = 'flex';
-        }
-        function closeModal() {
-            document.getElementById('imageModal').style.display = 'none';
-        }
-
-        // Option click style
-  // وقتی روی کل باکس گزینه کلیک شد، رادیو انتخاب شود
-document.querySelectorAll('.option-hover').forEach(box => {
-    box.addEventListener('click', function() {
-        const radio = this.querySelector('input[type="radio"]');
-        if (radio) radio.checked = true;
-
-        const allOptions = this.closest('.space-y-4').querySelectorAll('.option-hover');
-        allOptions.forEach(option => {
-            option.classList.remove('bg-green-600');
-            const circle = option.querySelector('.w-3');
-            if (circle) circle.style.opacity = '0';
-        });
-
-        this.classList.add('bg-green-600');
-        const circle = this.querySelector('.w-3');
-        if (circle) circle.style.opacity = '1';
-
-        updateStats();
-    });
-});
-
-
-
-        // Next and Previous Button
         document.addEventListener("DOMContentLoaded", function() {
+            // تایمر امتحان
+            const timerElement = document.getElementById('exam-timer');
+            const examForm = document.getElementById('examForm');
+            const durationMinutes = {{ $exam->start_time ?? 30 }};
+            const durationSeconds = durationMinutes * 60;
+
+            let time = localStorage.getItem('examTime');
+            if (time === null) {
+                time = durationSeconds;
+            } else {
+                time = parseInt(time);
+            }
+
+            function updateTimer() {
+                let minutes = Math.floor(time / 60);
+                let seconds = time % 60;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                timerElement.textContent = `${minutes}:${seconds}`;
+
+                if (time <= 0) {
+                    clearInterval(timerInterval);
+                    localStorage.removeItem('examTime');
+                    alert('Time is over! Your answers will be submitted.');
+                    examForm.submit();
+                } else {
+                    time--;
+                    localStorage.setItem('examTime', time);
+                }
+            }
+
+            updateTimer();
+            const timerInterval = setInterval(updateTimer, 1000);
+
+            // مودال تصویر
+            window.openModal = function(src) {
+                document.getElementById('modalImage').src = src;
+                document.getElementById('imageModal').style.display = 'flex';
+            }
+
+            window.closeModal = function() {
+                document.getElementById('imageModal').style.display = 'none';
+            }
+
+            // ایجاد ذرات شناور
+            function createParticles(count = 50) {
+                const container = document.getElementById("particles");
+                container.innerHTML = "";
+                for (let i = 0; i < count; i++) {
+                    const p = document.createElement("div");
+                    p.className = "particle";
+                    p.style.left = Math.random() * 100 + "%";
+                    p.style.animationDelay = Math.random() * 5 + "s";
+                    p.style.animationDuration = Math.random() * 3 + 3 + "s";
+                    container.appendChild(p);
+                }
+            }
+            createParticles(20);
+
+            // انتخاب گزینه‌ها و استایل آن‌ها
+            document.querySelectorAll('.option-hover').forEach(box => {
+                box.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    if (radio) radio.checked = true;
+
+                    const allOptions = this.closest('.space-y-4').querySelectorAll('.option-hover');
+                    allOptions.forEach(option => {
+                        option.classList.remove('bg-green-600');
+                        const circle = option.querySelector('.w-3');
+                        if (circle) circle.style.opacity = '0';
+                    });
+
+                    this.classList.add('bg-green-600');
+                    const circle = this.querySelector('.w-3');
+                    if (circle) circle.style.opacity = '1';
+
+                    updateStats();
+                });
+            });
+
+            // بروزرسانی آمار
+            function updateStats() {
+                const blocks = document.querySelectorAll(".question-block");
+                let answered = 0;
+                let withImages = 0;
+
+                blocks.forEach((block, index) => {
+                    const checked = block.querySelector('input[type="radio"]:checked');
+                    const qNum = document.querySelectorAll(".q-number")[index];
+
+                    if (checked) {
+                        answered++;
+                        if (qNum) {
+                            qNum.classList.add("bg-green-600");
+                            qNum.classList.remove("bg-gray-700");
+                        }
+                    } else {
+                        if (qNum) {
+                            qNum.classList.remove("bg-green-600");
+                            qNum.classList.add("bg-gray-700");
+                        }
+                    }
+
+                    if (block.querySelector("img")) withImages++;
+                });
+
+                const remaining = blocks.length - answered;
+
+                document.getElementById("answeredCount").textContent = answered + " questions";
+                document.getElementById("withImagesCount").textContent = withImages + " questions";
+                document.getElementById("remainingCount").textContent = remaining + " questions";
+            }
+
+            updateStats();
+
+            document.querySelectorAll("input[type='radio']").forEach(input => {
+                input.addEventListener("change", updateStats);
+            });
+
+            // مدیریت سوال‌ها، دکمه‌های بعدی و قبلی و شماره‌های سایدبار
             let current = 0;
             const blocks = document.querySelectorAll(".question-block");
             const nextBtn = document.getElementById("nextBtn");
             const prevBtn = document.getElementById("prevBtn");
             const submitBtn = document.getElementById("submitBtn");
 
-            nextBtn.addEventListener("click", () => {
-                const curBlock = blocks[current];
-                const chosen = curBlock.querySelector('input[type="radio"]:checked');
-
-                curBlock.style.display = "none";
-                current++;
-
-                if (current < blocks.length) {
-                    blocks[current].style.display = "block";
-                    prevBtn.style.display = "inline-block"; // 👈 اینجا ظاهر شود
-                }
-
-                if (current === blocks.length - 1) {
-                    nextBtn.style.display = "none";
-                    submitBtn.style.display = "inline-block";
-                }
-            });
-
-            prevBtn.addEventListener("click", () => {
-                blocks[current].style.display = "none";
-                current--;
-                blocks[current].style.display = "block";
-
-                nextBtn.style.display = "inline-block";
-                submitBtn.style.display = "none";
-
-                if (current === 0) {
-                    prevBtn.style.display = "none";
-                }
-            });
-        });
-
-        // Question Number Click
-        // Click on sidebar numbers
-        document.querySelectorAll(".q-number").forEach((num) => {
-            num.addEventListener("click", function() {
-                const index = parseInt(this.getAttribute("data-index"));
-                const blocks = document.querySelectorAll(".question-block");
-
+            function showQuestion(index) {
                 blocks.forEach((b, i) => {
                     b.style.display = i === index ? "block" : "none";
                 });
-
-                // Update active color
-                document.querySelectorAll(".q-number").forEach(n => {
-                    n.classList.remove("bg-green-600");
-                    n.classList.add("bg-gray-700");
-                });
-                this.classList.add("bg-green-600");
-
-                // Update buttons visibility
-                const prevBtn = document.getElementById("prevBtn");
-                const nextBtn = document.getElementById("nextBtn");
-                const submitBtn = document.getElementById("submitBtn");
 
                 prevBtn.style.display = index === 0 ? "none" : "inline-block";
                 nextBtn.style.display = index === blocks.length - 1 ? "none" : "inline-block";
                 submitBtn.style.display = index === blocks.length - 1 ? "inline-block" : "none";
 
-                current = index; // Update current for next/prev buttons
+                current = index;
+            }
+
+            // نمایش سوال اول
+            showQuestion(0);
+
+            nextBtn.addEventListener("click", () => {
+                if (current < blocks.length - 1) {
+                    showQuestion(current + 1);
+                }
+                updateStats();
+            });
+
+            prevBtn.addEventListener("click", () => {
+                if (current > 0) {
+                    showQuestion(current - 1);
+                }
+                updateStats();
+            });
+
+            // کلیک روی شماره‌ها
+            const qNumbers = document.querySelectorAll(".q-number");
+            qNumbers.forEach((num, index) => {
+                num.addEventListener("click", () => {
+                    showQuestion(index);
+                    updateStats();
+                });
+            });
+
+            // جلوگیری از رفرش
+            document.addEventListener('keydown', function(e) {
+                if (e.key === "F5" || 
+                    ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "r") || 
+                    ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "r")) {
+                    e.preventDefault();
+                    alert("Refresh is disabled during the exam!");
+                }
             });
         });
-
-        // Update Stats
-function updateStats() {
-    const blocks = document.querySelectorAll(".question-block");
-    let answered = 0;
-    let withImages = 0;
-
-    blocks.forEach((block, index) => {
-        const checked = block.querySelector('input[type="radio"]:checked');
-        if (checked) {
-            answered++;
-            // شماره پاسخ داده شده سبز شود
-            const qNum = document.querySelectorAll(".q-number")[index];
-            if (qNum) {
-                qNum.classList.add("bg-green-600");
-                qNum.classList.remove("bg-gray-700");
-            }
-        } else {
-            // اگر پاسخ داده نشده، خاکستری باشد
-            const qNum = document.querySelectorAll(".q-number")[index];
-            if (qNum) {
-                qNum.classList.remove("bg-green-600");
-                qNum.classList.add("bg-gray-700");
-            }
-        }
-
-        // بررسی وجود تصویر
-        const img = block.querySelector("img");
-        if (img) withImages++;
-    });
-
-    const remaining = blocks.length - answered;
-
-    document.getElementById("answeredCount").textContent = answered + " questions";
-    document.getElementById("withImagesCount").textContent = withImages + " questions";
-    document.getElementById("remainingCount").textContent = remaining + " questions";
-}
-
-// اجرای اولیه Stats
-updateStats();
-
-// آپدیت Stats هر بار که کاربر گزینه‌ای انتخاب کند
-document.querySelectorAll("input[type='radio']").forEach(input => {
-    input.addEventListener("change", updateStats);
-});
-
-// مدیریت Next و Previous بدون محدودیت انتخاب
-document.addEventListener("DOMContentLoaded", function() {
-    let current = 0;
-    const blocks = document.querySelectorAll(".question-block");
-    const nextBtn = document.getElementById("nextBtn");
-    const prevBtn = document.getElementById("prevBtn");
-    const submitBtn = document.getElementById("submitBtn");
-
-    // نمایش سوال فعلی
-    blocks.forEach((b, i) => b.style.display = i === current ? "block" : "none");
-    prevBtn.style.display = "none";
-    submitBtn.style.display = blocks.length === 1 ? "inline-block" : "none";
-
-    nextBtn.addEventListener("click", () => {
-        blocks[current].style.display = "none";
-        current++;
-        if (current >= blocks.length) current = blocks.length - 1; // جلوگیری از overflow
-        blocks[current].style.display = "block";
-
-        prevBtn.style.display = current === 0 ? "none" : "inline-block";
-        nextBtn.style.display = current === blocks.length - 1 ? "none" : "inline-block";
-        submitBtn.style.display = current === blocks.length - 1 ? "inline-block" : "none";
-
-        updateStats();
-    });
-
-    prevBtn.addEventListener("click", () => {
-        blocks[current].style.display = "none";
-        current--;
-        if (current < 0) current = 0;
-        blocks[current].style.display = "block";
-
-        prevBtn.style.display = current === 0 ? "none" : "inline-block";
-        nextBtn.style.display = current === blocks.length - 1 ? "none" : "inline-block";
-        submitBtn.style.display = current === blocks.length - 1 ? "inline-block" : "none";
-
-        updateStats();
-    });
-
-   // کلیک روی شماره سوال‌ها
-    const qNumbers = document.querySelectorAll(".q-number");
-    qNumbers.forEach((num, index) => {
-        num.addEventListener("click", () => {
-            blocks.forEach(b => b.style.display = "none");
-            current = index;
-            blocks[current].style.display = "block";
-
-            prevBtn.style.display = current === 0 ? "none" : "inline-block";
-            nextBtn.style.display = current === blocks.length - 1 ? "none" : "inline-block";
-            submitBtn.style.display = current === blocks.length - 1 ? "inline-block" : "none";
-
-            updateStats();
-        });
-    });
-});
-
-
-</script>
-
-{{--   Timer --}}
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const timerElement = document.getElementById('exam-timer');
-    const examForm = document.getElementById('exam-form');
-
-    // زمان شروع (مثلاً 30 دقیقه) به ثانیه
-    const durationMinutes = {{ $exam->start_time ?? 30 }};
-    const durationSeconds = durationMinutes * 60;
-
-    // بررسی LocalStorage
-    let time = localStorage.getItem('examTime');
-    if (time === null) {
-        time = durationSeconds; // اگر صفحه تازه باز شد
-    } else {
-        time = parseInt(time); // ادامه از زمان قبل
-    }
-
-    function updateTimer() {
-        let minutes = Math.floor(time / 60);
-        let seconds = time % 60;
-
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
-
-        timerElement.textContent = `${minutes}:${seconds}`;
-
-        if (time <= 0) {
-            clearInterval(timerInterval);
-            localStorage.removeItem('examTime'); // پاک کردن تایمر بعد از پایان
-            alert('Time is over! Your answers will be submitted.');
-            examForm.submit();
-        } else {
-            time--;
-            localStorage.setItem('examTime', time); // ذخیره زمان باقی‌مانده
-        }
-    }
-
-    updateTimer();
-    const timerInterval = setInterval(updateTimer, 1000);
-});
-
-</script>
-
-<script>
-    // هشدار قبل از ترک یا رفرش صفحه
-    // window.addEventListener('beforeunload', function (e) {
-    //     e.preventDefault();
-    //     e.returnValue = "You cannot refresh the page during the exam!";
-    //     return "You cannot refresh the page during the exam!";
-    // });
-
-    // جلوگیری از رفرش با کلیدهای کیبورد
-    document.addEventListener('keydown', function(e) {
-        if (e.key === "F5" || 
-            ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "r") || 
-            ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "r")) {
-            e.preventDefault();
-            alert("Refresh is disabled during the exam!");
-        }
-    });
 </script>
 
 
