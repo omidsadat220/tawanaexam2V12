@@ -235,7 +235,11 @@ Route::middleware(['auth', 'role:teacher'])->group(function () {
 
 Route::get('/verify-account', [VerifyotpController::class, 'verifyaccount'])->name('verify.account');
 Route::post('/verify-otp', [VerifyotpController::class, 'verifyotp'])->name('verify.otp');
+
+
 Route::post('/resend-otp', [VerifyotpController::class, 'resend'])->name('resend.otp');
+
+
 
 //  user routs group  start
 Route::middleware(['auth', 'role:user'])->group(function () {

@@ -34,6 +34,7 @@
     </div>
 
     <p id="msg" class="text-green-600 text-center mt-2"></p>
+    <a href="">this add for demo you can remove this</a>
 
 <script>
 document.getElementById('resendBtn').addEventListener('click', function () {
