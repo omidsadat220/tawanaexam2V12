@@ -1,7 +1,7 @@
 <?php return array (
   'broadcasting' => 
   array (
-    'default' => 'log',
+    'default' => 'null',
     'connections' => 
     array (
       'reverb' => 
@@ -24,14 +24,14 @@
       'pusher' => 
       array (
         'driver' => 'pusher',
-        'key' => NULL,
-        'secret' => NULL,
-        'app_id' => NULL,
+        'key' => '',
+        'secret' => '',
+        'app_id' => '',
         'options' => 
         array (
-          'cluster' => NULL,
+          'cluster' => 'mt1',
           'host' => 'api-mt1.pusher.com',
-          'port' => 443,
+          'port' => '443',
           'scheme' => 'https',
           'encrypted' => true,
           'useTLS' => true,
@@ -92,7 +92,7 @@
     'driver' => 'bcrypt',
     'bcrypt' => 
     array (
-      'rounds' => '12',
+      'rounds' => 12,
       'verify' => true,
       'limit' => NULL,
     ),
@@ -109,13 +109,13 @@
   array (
     'paths' => 
     array (
-      0 => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\resources\\views',
+      0 => 'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\resources\\views',
     ),
-    'compiled' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\framework\\views',
+    'compiled' => 'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\storage\\framework\\views',
   ),
   'app' => 
   array (
-    'name' => 'TawanaTechnology',
+    'name' => 'tawanastudent',
     'env' => 'local',
     'debug' => true,
     'url' => 'http://localhost',
@@ -126,7 +126,7 @@
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
     'cipher' => 'AES-256-CBC',
-    'key' => 'base64:mitOv3f5uvay4YeUrwBpBrKwoTz14i0jLExvZl5Yrb4=',
+    'key' => 'base64:uiqVNrActno2Ii9ayhjDxoqIV+QXncDQoYXKQo9DFuc=',
     'previous_keys' => 
     array (
     ),
@@ -273,8 +273,8 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\framework/cache/data',
-        'lock_path' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\framework/cache/data',
+        'path' => 'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\storage\\framework/cache/data',
+        'lock_path' => 'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -327,7 +327,7 @@
         ),
       ),
     ),
-    'prefix' => 'tawanatechnology-cache-',
+    'prefix' => 'tawanastudent-cache-',
   ),
   'database' => 
   array (
@@ -338,7 +338,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'tawana_exam2v12',
+        'database' => 'exam',
         'prefix' => '',
         'foreign_key_constraints' => true,
         'busy_timeout' => NULL,
@@ -351,7 +351,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'tawana_exam2v12',
+        'database' => 'exam',
         'username' => 'root',
         'password' => '',
         'unix_socket' => '',
@@ -371,7 +371,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'tawana_exam2v12',
+        'database' => 'exam',
         'username' => 'root',
         'password' => '',
         'unix_socket' => '',
@@ -391,7 +391,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'tawana_exam2v12',
+        'database' => 'exam',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',
@@ -406,7 +406,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'tawana_exam2v12',
+        'database' => 'exam',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',
@@ -425,7 +425,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'tawanatechnology-database-',
+        'prefix' => 'tawanastudent-database-',
         'persistent' => false,
       ),
       'default' => 
@@ -456,7 +456,7 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\app/private',
+        'root' => 'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\storage\\app/private',
         'serve' => true,
         'throw' => false,
         'report' => false,
@@ -464,7 +464,7 @@
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\app/public',
+        'root' => 'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
         'throw' => false,
@@ -486,7 +486,7 @@
     ),
     'links' => 
     array (
-      'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\public\\storage' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\app/public',
+      'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\public\\storage' => 'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\storage\\app/public',
     ),
   ),
   'logging' => 
@@ -511,14 +511,14 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\storage\\logs/laravel.log',
         'level' => 'debug',
         'replace_placeholders' => true,
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
         'replace_placeholders' => true,
@@ -583,7 +583,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -599,8 +599,8 @@
         'url' => NULL,
         'host' => 'sandbox.smtp.mailtrap.io',
         'port' => '2525',
-        'username' => '60158fbb393008',
-        'password' => 'efd7c6b375a401',
+        'username' => '5424182bd958e0',
+        'password' => '31a536bc3eebe2',
         'timeout' => NULL,
         'local_domain' => 'localhost',
       ),
@@ -653,21 +653,21 @@
     ),
     'from' => 
     array (
-      'address' => 'hello@example.com',
-      'name' => 'TawanaTechnology',
+      'address' => 'tawana@gmail.com',
+      'name' => 'tawanastudent',
     ),
     'markdown' => 
     array (
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\resources\\views/vendor/mail',
+        0 => 'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\resources\\views/vendor/mail',
       ),
     ),
   ),
   'queue' => 
   array (
-    'default' => 'database',
+    'default' => 'sync',
     'connections' => 
     array (
       'sync' => 
@@ -765,11 +765,11 @@
   ),
   'session' => 
   array (
-    'driver' => 'database',
+    'driver' => 'file',
     'lifetime' => 120,
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\framework/sessions',
+    'files' => 'C:\\Users\\alawodddin\\Desktop\\tawana\\otp\\tawanaexam2V12\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -778,7 +778,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'tawanatechnology-session',
+    'cookie' => 'tawanastudent-session',
     'path' => '/',
     'domain' => NULL,
     'secure' => NULL,

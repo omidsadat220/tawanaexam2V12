@@ -27,30 +27,33 @@ class AuthenticatedSessionController extends Controller
 
 public function store(Request $request)
 {
-    // Validate input
     $request->validate([
         'email' => 'required|email',
         'password' => 'required|string',
     ]);
 
-    $credentials = $request->only('email', 'password');
+    if (auth()->attempt($request->only('email', 'password'))) {
 
-    if (auth()->attempt($credentials)) {
         $user = auth()->user();
 
         if ($user->is_active == 0) {
+
+            // ✅ STORE EMAIL IN SESSION
+            session(['email' => $user->email]);
+
+            // logout AFTER storing session
             auth()->logout();
+
             return redirect()->route('verify.account')
-                ->with('otp_email', $user->email)
-                ->with('error', 'Please verify your account before logging in.');
+                ->with('error', 'Please verify your account.');
         }
 
-        // Successful login
         return redirect()->intended('dashboard');
     }
 
-    // Failed login
-    return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
+    return back()->withErrors([
+        'email' => 'Invalid credentials'
+    ]);
 }
 
   
