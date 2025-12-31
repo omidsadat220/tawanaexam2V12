@@ -109,9 +109,9 @@
   array (
     'paths' => 
     array (
-      0 => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\resources\\views',
+      0 => 'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\resources\\views',
     ),
-    'compiled' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\framework\\views',
+    'compiled' => 'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\storage\\framework\\views',
   ),
   'app' => 
   array (
@@ -126,7 +126,7 @@
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
     'cipher' => 'AES-256-CBC',
-    'key' => 'base64:mitOv3f5uvay4YeUrwBpBrKwoTz14i0jLExvZl5Yrb4=',
+    'key' => 'base64:NBl1rzRiVn8f3gr4OXl8cXhW1GwEbeYP4R0sS5hhvxs=',
     'previous_keys' => 
     array (
     ),
@@ -273,8 +273,8 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\framework/cache/data',
-        'lock_path' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\framework/cache/data',
+        'path' => 'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\storage\\framework/cache/data',
+        'lock_path' => 'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -338,7 +338,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'tawana_exam2v12',
+        'database' => 'examtst_4',
         'prefix' => '',
         'foreign_key_constraints' => true,
         'busy_timeout' => NULL,
@@ -351,7 +351,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'tawana_exam2v12',
+        'database' => 'examtst_4',
         'username' => 'root',
         'password' => '',
         'unix_socket' => '',
@@ -371,7 +371,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'tawana_exam2v12',
+        'database' => 'examtst_4',
         'username' => 'root',
         'password' => '',
         'unix_socket' => '',
@@ -391,7 +391,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'tawana_exam2v12',
+        'database' => 'examtst_4',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',
@@ -406,7 +406,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'tawana_exam2v12',
+        'database' => 'examtst_4',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',
@@ -456,7 +456,7 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\app/private',
+        'root' => 'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\storage\\app/private',
         'serve' => true,
         'throw' => false,
         'report' => false,
@@ -464,7 +464,7 @@
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\app/public',
+        'root' => 'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
         'throw' => false,
@@ -486,7 +486,7 @@
     ),
     'links' => 
     array (
-      'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\public\\storage' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\app/public',
+      'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\public\\storage' => 'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\storage\\app/public',
     ),
   ),
   'logging' => 
@@ -511,14 +511,14 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\storage\\logs/laravel.log',
         'level' => 'debug',
         'replace_placeholders' => true,
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
         'replace_placeholders' => true,
@@ -583,7 +583,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -597,10 +597,10 @@
         'transport' => 'smtp',
         'scheme' => NULL,
         'url' => NULL,
-        'host' => 'sandbox.smtp.mailtrap.io',
-        'port' => '2525',
-        'username' => '60158fbb393008',
-        'password' => 'efd7c6b375a401',
+        'host' => 'mail.tawanatechnology.com',
+        'port' => '465',
+        'username' => 'mail@tawanatechnology.com',
+        'password' => 'your_NEW_strong_password_here',
         'timeout' => NULL,
         'local_domain' => 'localhost',
       ),
@@ -653,15 +653,15 @@
     ),
     'from' => 
     array (
-      'address' => 'hello@example.com',
-      'name' => 'TawanaTechnology',
+      'address' => 'mail@tawanatechnology.com',
+      'name' => 'Tawana Exam Center',
     ),
     'markdown' => 
     array (
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\resources\\views/vendor/mail',
+        0 => 'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -769,7 +769,7 @@
     'lifetime' => 120,
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'D:\\Web Development\\Real_Projects\\tawanaexam2V12\\storage\\framework/sessions',
+    'files' => 'C:\\Users\\K.C.M\\Desktop\\tawana\\tawanaexam2V12\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,

@@ -626,7 +626,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   // pagination ----------------------------------------------
-function setupPaginationForAllTables(rowsPerPage = 8) {
+function setupPaginationForAllTables(rowsPerPage = 10) {
   document.querySelectorAll("table.paginated").forEach((table) => {
     const tbody = table.querySelector("tbody");
     const rows = tbody.querySelectorAll("tr");
@@ -711,4 +711,4 @@ function setupPaginationForAllTables(rowsPerPage = 8) {
   });
 }
 
-setupPaginationForAllTables(8);
+setupPaginationForAllTables(10);

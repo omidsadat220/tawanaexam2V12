@@ -32,6 +32,14 @@
         justify-content: center;
         align-items: center;
         padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      #network-bg {
+          position: fixed;
+          inset: 0;
+          z-index: 0;
       }
 
       .container {
@@ -42,6 +50,9 @@
         width: 100%;
         max-width: 500px;
         transition: all 0.3s ease;
+        osition: relative;
+        z-index: 2;
+        backdrop-filter: blur(6px);
       }
 
       h1 {
@@ -230,72 +241,77 @@
         height: 20px;
         fill: currentColor;
       }
+
+
+
     </style>
   </head>
   <body>
    
+   
+<canvas id="network-bg"></canvas>
     <div class="container">
-      <form action="{{ route('user.varifycode') }}" method="POST">
-       @csrf
-      <h1>
-        <div class="select-wrapper">
-          <select name="category_id" id="category_id" class="form-control" required>
-            <option value="">Select Category</option>
-            @foreach($categories as $cat)
-              <option value="{{ $cat->id }}">{{ $cat->uni_name }}</option>
-            @endforeach
-          </select>
-        </div>
-      </h1>
+        <form action="{{ route('user.varifycode') }}" method="POST">
+        @csrf
+        <h1>
+          <div class="select-wrapper">
+            <select name="category_id" id="category_id" class="form-control" required>
+              <option value="">Select Category</option>
+              @foreach($categories as $cat)
+                <option value="{{ $cat->id }}">{{ $cat->uni_name }}</option>
+              @endforeach
+            </select>
+          </div>
+        </h1>
 
-      <p class="description">
-        Enter your voucher code below to check its validity and applicable
-        benefits
-      </p>
+        <p class="description">
+          Enter your voucher code below to check its validity and applicable
+          benefits
+        </p>
 
      
-      <div class="input-group">
-        <label for="voucher">Voucher Code || <a href="{{ route('user.dashboard') }}" style="text-decoration: none; color:red"><span >Back</span></a></label>
-        <div class="input-wrapper">
-          <span class="icon">
-            <svg class="svg-icon" viewBox="0 0 24 24">
-              <path
-                d="M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M10,9.5C10,10.3 9.3,11 8.5,11C7.7,11 7,10.3 7,9.5C7,8.7 7.7,8 8.5,8C9.3,8 10,8.7 10,9.5M17,9.5C17,10.3 16.3,11 15.5,11C14.7,11 14,10.3 14,9.5C14,8.7 14.7,8 15.5,8C16.3,8 17,8.7 17,9.5M12,17.23C10.25,17.23 8.71,16.5 7.81,15.42L9.23,14C9.68,14.72 10.75,15.23 12,15.23C13.25,15.23 14.32,14.72 14.77,14L16.19,15.42C15.29,16.5 13.75,17.23 12,17.23Z"
-              />
-            </svg>
-          </span>
-          <input
-              type="text"
-              id="voucher"
-              name="code"
-              placeholder="Enter voucher code"
-              class="form-control mb-3"
-              required
-          />
-        </div>
-      </div>
-
-      <button id="verify-btn" type="submit">
-        <svg class="svg-icon" viewBox="0 0 24 24" style="color: white">
-          <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-        </svg>
-        Verify Code
-      </button>
-
-    </form>
-      <div class="result" id="result">
-        <div class="result-content">
-          <div class="result-icon">
-            <svg class="svg-icon" viewBox="0 0 24 24">
-              <path id="status-icon" d="" />
-            </svg>
-          </div>
-          <div class="result-text">
-            <h3 id="result-title">Title</h3>
-            <p id="result-message">Message will appear here</p>
+        <div class="input-group">
+          <label for="voucher">Voucher Code || <a href="{{ route('user.dashboard') }}" style="text-decoration: none; color:red"><span >Back</span></a></label>
+          <div class="input-wrapper">
+            <span class="icon">
+              <svg class="svg-icon" viewBox="0 0 24 24">
+                <path
+                  d="M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M10,9.5C10,10.3 9.3,11 8.5,11C7.7,11 7,10.3 7,9.5C7,8.7 7.7,8 8.5,8C9.3,8 10,8.7 10,9.5M17,9.5C17,10.3 16.3,11 15.5,11C14.7,11 14,10.3 14,9.5C14,8.7 14.7,8 15.5,8C16.3,8 17,8.7 17,9.5M12,17.23C10.25,17.23 8.71,16.5 7.81,15.42L9.23,14C9.68,14.72 10.75,15.23 12,15.23C13.25,15.23 14.32,14.72 14.77,14L16.19,15.42C15.29,16.5 13.75,17.23 12,17.23Z"
+                />
+              </svg>
+            </span>
+            <input
+                type="text"
+                id="voucher"
+                name="code"
+                placeholder="Enter voucher code"
+                class="form-control mb-3"
+                required
+            />
           </div>
         </div>
-      </div>
+
+        <button id="verify-btn" type="submit">
+          <svg class="svg-icon" viewBox="0 0 24 24" style="color: white">
+            <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+          </svg>
+          Verify Code
+        </button>
+
+      </form>
+        <div class="result" id="result">
+          <div class="result-content">
+            <div class="result-icon">
+              <svg class="svg-icon" viewBox="0 0 24 24">
+                <path id="status-icon" d="" />
+              </svg>
+            </div>
+            <div class="result-text">
+              <h3 id="result-title">Title</h3>
+              <p id="result-message">Message will appear here</p>
+            </div>
+          </div>
+        </div>
     </div>
 
     <script>
@@ -389,6 +405,77 @@
       });
 </script>
 
+
+
+
+
+<script>
+    const canvas = document.getElementById("network-bg");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const nodes = [];
+    const NODE_COUNT = 80;
+
+    // ایجاد نودها
+    for (let i = 0; i < NODE_COUNT; i++) {
+        nodes.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.6,
+            vy: (Math.random() - 0.5) * 0.6,
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // رسم نودها
+        nodes.forEach(n => {
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = "#22c55e"; // سبز
+            ctx.fill();
+        });
+
+        // رسم خطوط بین نودها
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x;
+                const dy = nodes[i].y - nodes[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 120) {
+                    ctx.strokeStyle = "rgba(34, 197, 94, 0.15)"; // سبز شفاف
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // حرکت نودها
+        nodes.forEach(n => {
+            n.x += n.vx;
+            n.y += n.vy;
+
+            if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+            if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+        });
+
+        requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+</script>
 
   </body>
 </html>

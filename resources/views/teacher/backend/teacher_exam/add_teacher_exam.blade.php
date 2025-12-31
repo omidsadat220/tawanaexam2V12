@@ -9,7 +9,7 @@
         <div class="row bg-secondary">
             <div class="col-12 text-center">
                 <div class="form-container container-form" id="add-category-page" style="display: block;">
-                    <div class="d-flex flex-row justify-content-around">
+                    <div class="d-flex flex-row justify-content-between">
                         <h3 class="text-white">Add Student Exam</h3>
                         <a href="{{ route('all.teacher.exam') }}" class="back-link d-block text-start" id="backBtn">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -87,7 +87,7 @@
                                 <div class="col-md-6">
                                     <div class="row">
                                         <label class="col-4 col-form-label">Exam Status</label>
-                                        <div class="col-8">
+                                        <div class="col-8 mt-2">
                                             <div class="form-check">
                                                 <input 
                                                     class="form-check-input" 
@@ -97,7 +97,7 @@
                                                     id="is_active"
                                                     checked
                                                 >
-                                                <label class="form-check-label text-white" for="is_active">
+                                                <label class="form-check-label text-white fs-6" for="is_active">
                                                     Active (Students can start exam)
                                                 </label>
                                             </div>

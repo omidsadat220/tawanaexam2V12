@@ -6,93 +6,145 @@
 
 <style>
     #select-all-questions {
-    accent-color: #39ff14; /* رنگ دلخواه تیک */
-    width: 18px; /* اندازه چک‌باکس */
-    height: 18px;
-}
+        accent-color: #39ff14;
+        width: 18px;
+        height: 18px;
+    }
 
+    .bg-auto-style {
+    min-height: 100vh;
+    max-height:100vh;
+    overflow-y: auto;
+    }
+
+    /* ===== Custom Scrollbar ===== */
+
+    /* Chrome, Edge, Safari */
+    .custom-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: #00c61eff #383b3eff; /* green thumb | secondary track */
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-track {
+        background: #6c757d; /* Bootstrap secondary */
+        border-radius: 10px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #0b8900ff, #01d80cff);
+        border-radius: 10px;
+        border: 2px solid #6c757d;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #0b8900ff, #01d80cff);
+    }
 </style>
 
+
 <div class="container-fluid pt-4 px-4">
-    <div class="row bg-secondary pt-5 position-relative">
+    <div class="row bg-secondary rounded mx-0 p-4 bg-auto-style custom-scroll" >
         <div class="col-12 text-center">
-            <h2>Add New Question</h2>
-        </div>
 
-        <!-- LEFT SIDE -->
-        <div class="col-6">
-            <form action="{{ route('store.answer') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="row mb-3 pt-5 align-items-center">
-                    <label for="category_id" class="col-2 col-form-label text-white">Select Category</label>
-                    <div class="col-10">
-                        <select name="category_id" id="exam-dropdown" class="form-select" required>
-                            <option value="">Select Exam</option>
-                             @foreach ($category as $item)
-                                <option value="{{ $item->id }}">{{ $item->uni_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mt-4 bg-dark text-white p-3 rounded" id="selected-questions" style="display:none; max-height:500px; overflow-y:auto; overflow-x:hidden;">
-                    <h5>✅ Selected Questions</h5>
-                    <ul id="selected-list" class="text-start" style="padding-left:20px; margin:0;"></ul>
-                </div>
-
-                <div class="btn-group mt-3" style="width: 100px;height: 40px;">
-                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- RIGHT SIDE -->
-        <div class="col-6 text-center">
-            <div class="form-container container-form" id="add-category-page" style="display: block; margin-top: -18px;">
-                
-
-                <div class="container text-start p-4 bg-secondary rounded" style="overflow-x:hidden;">
-                    <!-- Department -->
-                    <div class="row mb-3 align-items-center">
-                        <label for="department-dropdown" class="col-sm-3 col-form-label text-white">Department</label>
-                        <div class="col-sm-9">
-                            <select name="department_id" id="department-dropdown" class="form-select">
-                                <option value="">Select</option>
-                                @foreach ($depart as $info)
-                                    <option value="{{ $info->id }}">{{ $info->depart_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Subject -->
-                    <div class="row mb-3 pt-3 align-items-center">
-                        <label for="subject-dropdown" class="col-sm-3 col-form-label text-white">Subject</label>
-                        <div class="col-sm-9">
-                            <select name="subject_id" class="form-select" id="subject-dropdown">
-                                <option value="">Select Subject</option>
-                                @foreach ($subjects as $subject)
-                                    <option value="{{ $subject->id }}">{{ $subject->subject_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Questions list container -->
-                    <div id="questions-container" class="bg-dark text-white p-3 rounded mt-4" 
-                        style="display:none; width:100%; box-sizing:border-box; max-height:500px; overflow-y:auto; overflow-x:hidden;">
-                        <h5 class="mb-3">Questions of this Subject</h5>
-
-                        <!-- Select All Checkbox -->
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="select-all-questions">
-                            <label class="form-check-label text-white fw-normal" for="select-all-questions">Select All Questions</label>
-                        </div>
-
-                        <div id="questions-list" style="width:100%;"></div>
-                    </div>
-                </div>
+            {{-- Header --}}
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="text-white">Add New Question</h3>
+                <a href="{{ route('all.answer') }}" class="text- d-flex align-items-center">
+                    <svg width="24" height="24" fill="none">
+                        <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Back to Categories
+                </a>
             </div>
+
+
+            <div class="row justify-content-center">   
+
+                <!-- RIGHT SIDE -->
+                <div class="col-lg-6 col-md-12">
+                        <div class="bg-secondary rounded text-start">
+
+                            <!-- Department -->
+                            <div class="row mb-3 align-items-center">
+                                <label for="department-dropdown" class="col-sm-3 col-form-label text-white">Department</label>
+                                <div class="col-sm-9">
+                                    <select name="department_id" id="department-dropdown" class="form-select">
+                                        <option value="">Select</option>
+                                        @foreach ($depart as $info)
+                                            <option value="{{ $info->id }}">{{ $info->depart_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Subject -->
+                            <div class="row mb-3 pt-3 align-items-center">
+                                <label for="subject-dropdown" class="col-sm-3 col-form-label text-white">Subject</label>
+                                <div class="col-sm-9">
+                                    <select name="subject_id" class="form-select" id="subject-dropdown">
+                                        <option value="">Select Subject</option>
+                                        @foreach ($subjects as $subject)
+                                            <option value="{{ $subject->id }}">{{ $subject->subject_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Questions list container -->
+                            <div id="questions-container" class="bg-dark text-white p-3 rounded mt-4" 
+                                style="display:none; width:100%; box-sizing:border-box; max-height:500px; overflow-y:auto; overflow-x:hidden;">
+                                <h5 class="mb-3">Questions of this Subject</h5>
+
+                                <!-- Select All Checkbox -->
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="select-all-questions">
+                                    <label class="form-check-label text-white fw-normal" for="select-all-questions">Select All Questions</label>
+                                </div>
+
+                                <div id="questions-list" style="width:100%;"></div>
+                            </div>
+                        </div>
+                    
+                </div>
+
+
+                <!-- LEFT SIDE -->
+                 <div class="col-lg-6 col-md-12">
+
+                    <form action="{{ route('store.answer') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row mb-3 align-items-center">
+                            <label for="category_id" class="col-sm-3 col-form-label text-white">Select Category</label>
+                            <div class="col-sm-9">
+                                <select name="category_id" id="exam-dropdown" class="form-select" required>
+                                    <option value="">Select Exam</option>
+                                    @foreach ($category as $item)
+                                        <option value="{{ $item->id }}">{{ $item->uni_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 bg-dark text-white p-3 rounded" id="selected-questions" style="display:none; max-height:500px; overflow-y:auto; overflow-x:hidden;">
+                            <h5>✅ Selected Questions</h5>
+                            <ul id="selected-list" class="text-start" style="padding-left:20px; margin:0;"></ul>
+                        </div>
+
+                       
+                            <button type="submit" class="btn btn-primary mt-3 d-block text-start btn-sm">Submit</button>
+                        
+                    </form>
+                </div>
+
+            
+        
+            </div>
+
+
         </div>
     </div>
 </div>

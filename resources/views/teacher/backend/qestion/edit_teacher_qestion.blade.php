@@ -7,7 +7,7 @@
     <div class="row bg-secondary">
         <div class="col-12 text-center">
             <div class="form-container container-form" id="add-category-page" style="display: block;">
-                <div class="d-flex flex-row justify-content-around align-items-center mb-3">
+                <div class="d-flex flex-row justify-content-between align-items-center mb-3">
                     <h3 class="text-white">Edit Teacher Question</h3>
                     <a href="{{ route('all.teacher.qestion') }}" class="back-link d-block text-start" id="backBtn">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

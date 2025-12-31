@@ -47,6 +47,7 @@
                                         <td>{{ $user->email }}</td>
 
                                      <td>
+                                     {{--
                                             <form action="{{ route('generate.voucher') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -60,6 +61,27 @@
 
                                                 <button class="btn btn-sm btn-primary">Generate Voucher</button>
                                             </form>
+                                    --}}
+
+                                            <form action="{{ route('generate.voucher') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="user_id" value="{{ $user->id }}">
+
+                                                <div class="row g-2 align-items-center">
+                                                    <div class="col-auto">
+                                                        <select name="category_id" class="form-control" required>
+                                                            <option value="">Select Category</option>
+                                                            @foreach ($category as $cat)
+                                                                <option value="{{ $cat->id }}">{{ $cat->uni_name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <button class="btn btn-sm btn-primary">Generate Voucher</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
                                         </td>
                                         <td><a href="{{ route('show.voucher', $user->id) }}">Show Voucher</a></td>
                                     </tr>

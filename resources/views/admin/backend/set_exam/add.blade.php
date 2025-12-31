@@ -1,214 +1,228 @@
 @extends('admin.admin_dashboard')
+
 @section('admin')
+
+{{-- Libraries --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+{{-- Custom Style --}}
 <style>
-    #select-all-questions {
-    accent-color: #39ff14; /* رنگ دلخواه تیک */
-    width: 18px; /* اندازه چک‌باکس */
-    height: 18px;
-}
+        #select-all-questions {
+            accent-color: #39ff14;
+            width: 18px;
+            height: 18px;
+        }
+
+        .bg-auto-style {
+        min-height: 100vh;
+        max-height:100vh;
+        overflow-y: auto;
+        }
+
+        /* ===== Custom Scrollbar ===== */
+
+    /* Chrome, Edge, Safari */
+    .custom-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: #00c61eff #383b3eff; /* green thumb | secondary track */
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-track {
+        background: #6c757d; /* Bootstrap secondary */
+        border-radius: 10px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #0b8900ff, #01d80cff);
+        border-radius: 10px;
+        border: 2px solid #6c757d;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #0b8900ff, #01d80cff);
+    }
 
 </style>
 
 <div class="container-fluid pt-4 px-4">
-    <div class="row bg-secondary pt-5 position-relative">
+    <div class="row bg-secondary rounded mx-0 p-4 bg-auto-style custom-scroll" >
         <div class="col-12 text-center">
-            <h2>Add Exam</h2>
-        </div>
 
-        <!-- LEFT SIDE -->
-        <div class="col-6">
-            <form action="{{ route('store.set.exam') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="row mb-3 pt-5 align-items-center">
-                    <label for="category_id" class="col-2 col-form-label text-white">Select Exam</label>
-                    <div class="col-10">
-                        <select name="exam_id" id="exam-dropdown" class="form-select" required>
-                            <option value="">Select Exam</option>
-                            @foreach ($exams as $exam)
-                                <option value="{{ $exam->id }}">{{ $exam->exam_title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+            {{-- Header --}}
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="text-white">Add Exam</h3>
+                <a href="{{ route('all.set.exam') }}" class="text-success d-flex align-items-center">
+                    <svg width="24" height="24" fill="none">
+                        <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Back to Categories
+                </a>
+            </div>
 
-                <div class="mt-4 bg-dark text-white p-3 rounded" id="selected-questions" style="display:none; max-height:500px; overflow-y:auto; overflow-x:hidden;">
-                    <h5>✅ Selected Questions</h5>
-                    <ul id="selected-list" class="text-start" style="padding-left:20px; margin:0;"></ul>
-                </div>
+            <div class="row justify-content-center">
 
-                <div class="btn-group mt-3">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </form>
-        </div>
+                {{-- RIGHT SIDE --}}
+                <div class="col-lg-6 col-md-12">
 
-        <!-- RIGHT SIDE -->
-        <div class="col-6 text-center">
-            <div class="form-container container-form" id="add-category-page" style="display: block;">
-                <div class="d-flex flex-row justify-content-around">
-                    <h3 class="text-white"></h3>
-                    <a href="{{ route('all.new.question') }}" class="back-link d-block text-start" id="backBtn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg" style="cursor: pointer">
-                            <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"></path>
-                        </svg>
-                        Back to All Set Exam
-                    </a>
-                </div>
+                    <div class="bg-secondary rounded text-start">
 
-                <div class="container text-start p-4 bg-secondary rounded" style="overflow-x:hidden;">
-                    <!-- Department -->
-                    <div class="row mb-3 pt-3 align-items-center">
-                        <label for="department-dropdown" class="col-sm-2 col-form-label text-white">Department</label>
-                        <div class="col-sm-10">
-                            <select name="department_id" id="department-dropdown" class="form-select">
-                                <option value="">Select</option>
-                                @foreach ($depart as $info)
-                                    <option value="{{ $info->id }}">{{ $info->depart_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Subject -->
-                    <div class="row mb-3 pt-3 align-items-center">
-                        <label for="subject-dropdown" class="col-sm-2 col-form-label text-white">Subject</label>
-                        <div class="col-sm-10">
-                            <select name="subject_id" class="form-select" id="subject-dropdown">
-                                <option value="">Select Subject</option>
-                                @foreach ($subjects as $subject)
-                                    <option value="{{ $subject->id }}">{{ $subject->subject_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Questions list container -->
-                    <div id="questions-container" class="bg-dark text-white p-3 rounded mt-4" 
-                        style="display:none; width:100%; box-sizing:border-box; max-height:500px; overflow-y:auto; overflow-x:hidden;">
-                        <h5 class="mb-3">Questions of this Subject</h5>
-
-                        <!-- Select All Checkbox -->
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="select-all-questions">
-                            <label class="form-check-label text-white fw-normal" for="select-all-questions">Select All Questions</label>
+                        {{-- Department --}}
+                        <div class="row mb-3 align-items-center">
+                            <label class="col-sm-3 col-form-label text-white">Department</label>
+                            <div class="col-sm-9">
+                                <select id="department-dropdown" class="form-select">
+                                    <option value="">Select</option>
+                                    @foreach ($depart as $info)
+                                        <option value="{{ $info->id }}">{{ $info->depart_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
-                        <div id="questions-list" style="width:100%;"></div>
+                        {{-- Subject --}}
+                        <div class="row mb-3 align-items-center">
+                            <label class="col-sm-3 col-form-label text-white">Subject</label>
+                            <div class="col-sm-9">
+                                <select id="subject-dropdown" class="form-select">
+                                    <option value="">Select Subject</option>
+                                    @foreach ($subjects as $subject)
+                                        <option value="{{ $subject->id }}">{{ $subject->subject_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- Questions --}}
+                        <div id="questions-container" class="bg-dark text-white p-3 rounded d-none">
+                            <h5>Questions of this Subject</h5>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input border border-1 border-success" type="checkbox" id="select-all-questions">
+                                <label class="form-check-label">Select All Questions</label>
+                            </div>
+
+                            <div id="questions-list"></div>
+                        </div>
+
                     </div>
+
+                </div>
+                
+                {{-- LEFT SIDE --}}
+                <div class="col-lg-6 col-md-12">
+
+                    <form action="{{ route('store.set.exam') }}" method="POST">
+                        @csrf
+
+                        {{-- Exam Select --}}
+                        <div class="row mb-3 align-items-center">
+                            <label class="col-sm-3 col-form-label text-white">Select Exam</label>
+                            <div class="col-sm-9">
+                                <select name="exam_id" class="form-select" required>
+                                    <option value="">Select Exam</option>
+                                    @foreach ($exams as $exam)
+                                        <option value="{{ $exam->id }}">{{ $exam->exam_title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- Selected Questions --}}
+                        <div id="selected-questions" class="bg-dark text-white p-3 mt-4 rounded d-none text-end">
+                            <h5>✅ Selected Questions</h5>
+                            <ul id="selected-list" class="text-start ps-3 mb-0"></ul>
+                        </div>
+
+                        {{-- Submit --}}
+                        <button type="submit" class="btn btn-primary mt-3 d-block text-start">Submit</button>
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+{{-- Scripts --}}
 <script>
-$(document).ready(function() {
+$(document).ready(function () {
 
-    // Load subjects dynamically
-    $('#department-dropdown').on('change', function() {
-        var depart_id = this.value;
-        $('#subject-dropdown').html('<option value="">Loading...</option>');
-        if (depart_id) {
-            $.ajax({
-                url: "/get-subjects/" + depart_id,
-                type: "GET",
-                success: function(res) {
-                    $('#subject-dropdown').html('<option value="">Select Subject</option>');
-                    $.each(res, function(key, value) {
-                        $('#subject-dropdown').append('<option value="' + value.id + '">' + value.name + '</option>');
-                    });
-                }
+    // Load subjects
+    $('#department-dropdown').change(function () {
+        let id = $(this).val();
+        $('#subject-dropdown').html('<option>Loading...</option>');
+
+        if (id) {
+            $.get(`/get-subjects/${id}`, function (res) {
+                let options = '<option value="">Select Subject</option>';
+                res.forEach(s => options += `<option value="${s.id}">${s.name}</option>`);
+                $('#subject-dropdown').html(options);
             });
-        } else {
-            $('#subject-dropdown').html('<option value="">Select Subject</option>');
         }
     });
 
-    // Load questions by subject
-    $('#subject-dropdown').on('change', function() {
-        var subject_id = $(this).val();
-        $('#questions-list').html('<p>Loading...</p>');
-        $('#questions-container').show();
-
-        // Reset select all checkbox
+    // Load questions
+    $('#subject-dropdown').change(function () {
+        let id = $(this).val();
+        $('#questions-container').removeClass('d-none');
+        $('#questions-list').html('Loading...');
         $('#select-all-questions').prop('checked', false);
 
-        if (subject_id) {
-            $.ajax({
-                url: '/get-question/' + subject_id,
-                type: 'GET',
-                success: function(res) {
-                    if (res.length === 0) {
-                        $('#questions-list').html('<p>No questions found.</p>');
-                        $('#select-all-questions').prop('disabled', true); // غیر فعال
-                    } else {
-                        $('#select-all-questions').prop('disabled', false); // فعال
-                        let html = '';
-                        res.forEach((q, i) => {
-                            html += `
-                                <div class="p-2 mb-3 border rounded bg-secondary text-start" 
-                                     style="width:100%; box-sizing:border-box; margin:0; padding:10px; overflow-x:hidden;">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <h6 style="margin:0; padding:0;">Q${i + 1}: ${q.question}</h6>
-                                        <input type="checkbox" class="select-question m-2 p-2 form-check-input" data-id="${q.id}" data-question="${q.question}">
-                                    </div>
-                                    <ul class="mt-2" style="margin:0; padding-left:20px;">
-                                        ${q.options.map(o => `<li>${o}</li>`).join('')}
-                                    </ul>
-                                    <p style="margin:5px 0;"><strong>✅ Correct:</strong> ${q.correct_answer}</p>
-                                    ${q.image ? `<img src="${q.image}" width="100" class="rounded mt-2">` : ''}
-                                </div>
-                            `;
-                        });
-                        $('#questions-list').html(html);
-                    }
-                },
-                error: function() {
-                    $('#questions-list').html('<p>Error loading questions.</p>');
-                    $('#select-all-questions').prop('disabled', true);
-                }
+        if (!id) return;
+
+        $.get(`/get-question/${id}`, function (res) {
+            if (!res.length) {
+                $('#questions-list').html('No questions found');
+                return;
+            }
+
+            let html = '';
+            res.forEach((q, i) => {
+                html += `
+                <div class="border rounded p-2 mb-3 bg-secondary">
+                    <div class="d-flex justify-content-between">
+                        <strong>Q${i+1}: ${q.question}</strong>
+                        <input type="checkbox" class="select-question border border-1 border-success form-check-input"
+                               data-id="${q.id}" data-question="${q.question}">
+                    </div>
+                    <ul class="ps-3 mt-2">
+                        ${q.options.map(o => `<li>${o}</li>`).join('')}
+                    </ul>
+                    <p><b>Correct:</b> ${q.correct_answer}</p>
+                </div>`;
             });
-        } else {
-            $('#questions-container').hide();
-            $('#select-all-questions').prop('checked', false).prop('disabled', true);
-        }
+            $('#questions-list').html(html);
+        });
     });
 
-    // ✅ Handle selected questions
-    $(document).on('change', '.select-question', function() {
-        let question = $(this).data('question');
-        let questionId = $(this).data('id');
+    // Select question
+    $(document).on('change', '.select-question', function () {
+        let id = $(this).data('id');
+        let q = $(this).data('question');
 
         if (this.checked) {
-            $('#selected-questions').show();
-            $('#selected-list').append(`<li data-id="${questionId}">${question}</li>`);
-            $('form').append(`<input type="hidden" name="question_ids[]" value="${questionId}" id="q-${questionId}">`);
+            $('#selected-questions').removeClass('d-none');
+            $('#selected-list').append(`<li data-id="${id}">${q}</li>`);
+            $('form').append(`<input type="hidden" name="question_ids[]" id="q-${id}" value="${id}">`);
         } else {
-            $('#selected-list li[data-id="' + questionId + '"]').remove();
-            $('#q-' + questionId).remove();
-            if ($('#selected-list li').length === 0) {
-                $('#selected-questions').hide();
-            }
+            $(`#q-${id}`).remove();
+            $(`#selected-list li[data-id="${id}"]`).remove();
+            if (!$('#selected-list li').length) $('#selected-questions').addClass('d-none');
         }
-
-        // Update select all checkbox
-        let total = $('.select-question').length;
-        let checked = $('.select-question:checked').length;
-        $('#select-all-questions').prop('checked', total === checked && total > 0);
     });
 
-    // ✅ Handle select all
-    $(document).on('change', '#select-all-questions', function() {
-        let isChecked = $(this).is(':checked');
-        $('.select-question').prop('checked', isChecked).trigger('change');
+    // Select all
+    $('#select-all-questions').change(function () {
+        $('.select-question').prop('checked', this.checked).trigger('change');
     });
 
 });
 </script>
+
 @endsection
