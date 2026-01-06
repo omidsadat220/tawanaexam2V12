@@ -204,14 +204,14 @@
                                 </div>
 
                                 <!-- Stats -->
-                                <div class="p-4 rounded-xl bg-[#1e293b]">
+                                <div class="p-4 rounded-xl bg-[#033817]">
                                     <div class="flex justify-between mb-2">
                                         <span class="text-xs text-gray-400">Answered:</span>
                                         <span id="answeredCount" class="text-xs text-green-400">0 questions</span>
                                     </div>
                                     <div class="flex justify-between mb-2">
                                         <span class="text-xs text-gray-400">With Images:</span>
-                                        <span id="withImagesCount" class="text-xs text-blue-400">0 questions</span>
+                                        <span id="withImagesCount" class="text-xs text-white-400">0 questions</span>
                                     </div>
                                     <div class="flex justify-between">
                                         <span class="text-xs text-gray-400">Remaining:</span>

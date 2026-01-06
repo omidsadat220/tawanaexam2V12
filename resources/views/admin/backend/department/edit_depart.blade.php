@@ -7,7 +7,7 @@
             <div class="col-12 text-center">
                 <div class="form-container container-form" id="add-category-page" style="display: block;">
                     <!-- Back Button -->
-                    <div class="d-flex flex-row justify-content-around">
+                    <div class="d-flex flex-row justify-content-between">
                         <h3 class="text-white">Edit Department & Subjects</h3>
                         <a href="{{ route('all.depart') }}" class="back-link d-block text-start">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -19,56 +19,63 @@
                         </a>
                     </div>
 
-                    <div class="col-12 col-lg-8 mx-auto">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <form action="{{ route('update.depart', $depart->id) }}" method="POST">
-                                @csrf
+                   <div class="row mb-3 mt-4">
 
-                                <!-- Department Name -->
-                                <div class="row mb-3">
-                                    <label for="depart_name" class="col-6 col-form-label">Department Name</label>
-                                    <div class="col-6">
-                                        <input type="text" name="depart_name" class="form-control catinput"
-                                            value="{{ $depart->depart_name }}" placeholder="Department name" required>
-                                    </div>
+                        <!-- Department Name -->
+                        <div class="col-12 col-lg-6">
+                            <div class="row align-items-center">
+                                <label class="col-sm-4 col-form-label">Department Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text"
+                                        name="depart_name"
+                                        class="form-control catinput"
+                                        value="{{ $depart->depart_name }}"
+                                        placeholder="Department name"
+                                        required>
                                 </div>
+                            </div>
+                        </div>
 
-                                <!-- Subjects -->
-                                <div class="row mb-3">
-                                    <label class="col-6 col-form-label">Department Subjects</label>
-                                    <div class="col-6">
-                                        <div class="d-flex justify-content-end mb-2">
-                                            <button type="button" class="btn btn-outline-primary btn-sm" id="add-subject">
-                                                + Add Subject
-                                            </button>
-                                        </div>
+                        <!-- Department Subjects -->
+                        <div class="col-12 col-lg-6">
+                            <div class="row align-items-start">
+                                <label class="col-sm-4 col-form-label">Department Subjects</label>
 
-                                        <div id="subject-container">
-                                            @foreach ($depart->subjects as $subject)
-                                                <div class="input-group mb-2">
-                                                    <input type="text" name="depart_subjects[]"
-                                                        class="form-control catinput" value="{{ $subject->subject_name }}"
-                                                        placeholder="Department subject" required>
-                                                    <button type="button"
-                                                        class="btn btn-danger remove-subject">Remove</button>
-                                                </div>
-                                            @endforeach
-                                        </div>
+                                <div class="col-sm-8">
+
+                                    
+
+                                    <div id="subject-container">
+                                        @foreach ($depart->subjects as $subject)
+                                            <div class="input-group mb-2">
+                                                <input type="text"
+                                                    name="depart_subjects[]"
+                                                    class="form-control catinput"
+                                                    value="{{ $subject->subject_name }}"
+                                                    placeholder="Department subject"
+                                                    required>
+                                                <button type="button"
+                                                        class="btn btn-danger remove-subject">
+                                                    Remove
+                                                </button>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                </div>
 
-                                <!-- Save Button -->
-                                <div class="row">
-                                    <div class="col-12 text-end">
-                                        <button style="--clr: #39ff14" type="submit" class="button-styleee">
-                                            <span>Update Department</span><i></i>
+                                    <div class="d-flex justify-content-end mb-2">
+                                        <button type="button"
+                                                class="btn btn-outline-primary btn-sm"
+                                                id="add-subject">
+                                            + Add Subject
                                         </button>
                                     </div>
-                                </div>
 
-                            </form>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
+
                 </div>
             </div>
         </div>

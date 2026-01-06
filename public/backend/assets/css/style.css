@@ -22,6 +22,41 @@ body{
 }
 
 
+
+/* =========================
+   GLOBAL SCROLLBAR DESIGN
+   ========================= */
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(2, 160, 26) #383b3eff; /* green thumb | secondary track */
+}
+
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+    width: 14px;
+}
+
+::-webkit-scrollbar-track {
+    background: #6c757d; /* Bootstrap secondary */
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #198754, #01790f);
+    border-radius: 10px;
+    border: 2px solid #6c757d;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #008b4a, #198754);
+    box-shadow: 0 0 6px rgba(25, 135, 84, 0.7);
+}
+
+
+
+
 /*** Spinner ***/
 #spinner {
     opacity: 0;

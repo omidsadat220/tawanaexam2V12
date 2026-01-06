@@ -8,7 +8,7 @@
         <div class="row bg-secondary">
             <div class="col-12 text-center">
                 <div class="form-container container-form" id="add-category-page" style="display: block;">
-                    <div class="d-flex flex-row justify-content-around">
+                    <div class="d-flex flex-row justify-content-between">
                         <h3 class="text-white">Edit Exam</h3>
                         <a href="{{ route('all.teacher.exam') }}" class="back-link d-block text-start" id="backBtn">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -19,8 +19,8 @@
                             Back to Categories
                         </a>
                     </div>
-                    <div class="col-12 col-lg-8 mx-auto">
-                        <div class="bg-secondary rounded p-4">
+                    <div class="col-12  mx-auto">
+                        <div class="bg-secondary rounded pt-4">
                             <form action="{{ route('update.teacher.exam') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
@@ -29,8 +29,8 @@
                                 <div class="row mb-3 pt-3 align-items-center">
                                     <div class="col-6 ">
                                         <div class="row">
-                                            <label class="col-4 col-form-label">Department</label>
-                                             <div class="col-8">
+                                            <label class="col-sm-3 col-form-label">Department</label>
+                                             <div class="col-sm-9">
                                                 <select name="department_id" class="form-select" id="department-dropdown">
                                                     <option value="">Select Department</option>
                                                     @foreach ($departments as $dept)
@@ -49,8 +49,8 @@
 
                                     <div class="col-6 ">
                                             <div class="row">
-                                                <label class="col-4 col-form-label">Subject</label>
-                                                 <div class="col-8">
+                                                <label class="col-sm-3 col-form-label">Subject</label>
+                                                 <div class="col-sm-9">
                                                     <select name="subject_id" class="form-select" id="subject-dropdown">
                                                         <option value="">Select Subject</option>
                                                         @foreach ($subjects as $subject)
@@ -70,10 +70,10 @@
                                 </div>
 
                                 <div class="row mb-3 align-items-center">
-                                   <div class="col-md-6">
+                                   <div class="col-6">
                                         <div class="row">
-                                                <label class="col-4 col-form-label">Exam Title</label>
-                                                <div class="col-8">
+                                                <label class="col-sm-3 col-form-label">Exam Title</label>
+                                                <div class="col-sm-9">
                                                     <input type="text" name="exam_title" class=" form-control"
                                                         value="{{ $exam->exam_title }}" placeholder="Exam Title">
                                                     @error('exam_title')
@@ -83,10 +83,10 @@
                                             </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-6">
                                         <div class="row">
-                                            <label class="col-4 col-form-label">Time</label>
-                                            <div class="col-8">
+                                            <label class="col-sm-3 col-form-label">Time</label>
+                                            <div class="col-sm-9">
                                                 <select name="start_time" class="form-select" required>
                                                     <option value="5" {{ $exam->start_time == 5 ? 'selected' : '' }}>5 Minutes</option>
                                                     <option value="10" {{ $exam->start_time == 10 ? 'selected' : '' }}>10 Minutes</option>
@@ -100,7 +100,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3 align-items-center">
+                                    <div class="row mb-3 mt-4 align-items-center">
                                         <label class="col-2 col-form-label text-white">Active</label>
                                         <div class="col-10 d-flex align-items-center">
                                             <input type="checkbox" name="is_active" id="is_active" class="form-check-input me-2"

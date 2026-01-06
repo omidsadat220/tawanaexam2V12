@@ -6,7 +6,7 @@
 
                 <div class="form-container container-form" id="add-category-page" style="display: block;">
                     <!-- Back Button -->
-                    <div class="d-flex flex-row justify-content-around">
+                    <div class="d-flex flex-row justify-content-between">
                         <h4 class="text-white">Edit Category</h4>
                         <a href="{{ route('all.category') }}" class="back-link d-block text-start" id="backBtn">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -19,7 +19,7 @@
                     </div>
 
                     <!-- Form Card -->
-                    <div class="col-12 col-lg-8 mx-auto">
+                    <div class="col-12  mx-auto">
                         <div class="bg-secondary rounded h-100 p-4">
                             <form id="categoryForm" action="{{ route('update.category', $category->id) }}" method="POST">
                                 @csrf

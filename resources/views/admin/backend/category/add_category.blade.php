@@ -5,7 +5,7 @@
             <div class="col-12 text-center">
 
                 <div class="form-container container-form" id="add-category-page" style="display: block;">
-                    <div class="d-flex flex-row justify-content-around">
+                    <div class="d-flex flex-row justify-content-between">
                         <h3 class="text-white">Add New Category</h3>
                         <a href="{{ route('all.category') }}" class="back-link d-block text-start" id="backBtn">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -17,7 +17,7 @@
                         </a>
                     </div>
 
-                    <div class="col-12 col-lg-8 mx-auto">
+                    <div class="col-12 mx-auto">
                         <div class="bg-secondary rounded h-100 p-4">
                             <form id="categoryForm" action="{{ route('store.category') }}" method="POST">
                                 @csrf

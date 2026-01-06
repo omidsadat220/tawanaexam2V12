@@ -1141,7 +1141,7 @@
                             <span class="checkmark mr-3"></span>
                             <span class="text-sm text-gray-300">Remember me</span>
                         </label>
-                        <a href="{{ url('/forgot-password') }}">Forgot Password?</a>
+                        <a href="{{ url('/forgot-password') }}" class="text-sm text-green-500 hover:text-green-400">Forgot Password?</a>
 
                         {{-- <a id="forgotPasswordBtn"
                             class="text-sm text-green-500 hover:text-green-400 link-hover font-medium"

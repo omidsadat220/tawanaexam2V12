@@ -1,6 +1,8 @@
 @extends('admin.admin_dashboard')
 @section('admin')
 
+ 
+
 <div class="container mt-4">
     <h3>Vouchers for: {{ $user->name }}</h3>
     
@@ -43,5 +45,8 @@
         </tbody>
     </table>
 </div>
+
+
+
 
 @endsection
