@@ -269,6 +269,10 @@
       });
     </script>
 
+    <script>
+        history.pushState(null, null, location.href);
+        window.onpopstate = () => location.replace('/user/dashboard');
+    </script>
 
 
 </body>

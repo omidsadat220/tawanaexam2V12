@@ -184,11 +184,17 @@ class UserController extends Controller
 
     //Exam Page
     public function UserUniexam($id){
+        if (session('exam_finished')) {
+            return redirect('/user/dashboard');
+        }
         $category = Category::findOrFail($id);
         $timer = $category->timer;
         $answers = $category->questions;
 
-        return view('user.uni.uniexam', compact('category', 'timer', 'answers'));
+        return response()
+        ->view('user.uni.uniexam', compact('category', 'timer', 'answers'))
+        ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+        ->header('Pragma', 'no-cache');
     }
 
     public function UpdateExam(Request $request)
@@ -258,11 +264,12 @@ class UserController extends Controller
                 ]);
             }
 
-            // 🔥 consume voucher HERE
             VoucherCode::where('user_id', $userId)
                 ->where('category_id', $request->category_id)
                 ->where('is_used', 0)
                 ->update(['is_used' => 1]);
+
+            session(['exam_finished' => true]);
 
             return redirect()->route('user.examresult');
         }
@@ -426,6 +433,12 @@ public function MockExamStart($exam_id)
     {
         $user_id = Auth::id();
 
+        // When a user submits an exam and retakes it, they will not be allowed to enter the exam page.
+
+        if (session('exam_finished_' . $exam_id)) {
+            return redirect('/user/dashboard');
+        }
+
         // گرفتن امتحان
         $exam = Exam::findOrFail($exam_id);
 
@@ -437,7 +450,10 @@ public function MockExamStart($exam_id)
                             return $item->question; // فقط رکورد اصلی سوال
                         });
 
-        return view('user.mock.start_exam', compact('exam', 'questions'));
+        return response()
+        ->view('user.mock.start_exam', compact('exam', 'questions'))
+        ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+        ->header('Pragma', 'no-cache');
     }
 
     // ثبت پاسخ‌ها
@@ -463,12 +479,17 @@ public function MockExamStart($exam_id)
             ]);
         }
 
+        session(['exam_finished_' . $exam_id => true]);
+
         return redirect()->route('mock.exam.results', $exam->id)
                          ->with('success', 'Your exam has been submitted successfully!');
     }
 
          public function examResults($exam_id)
         {
+            if (!session('exam_finished_' . $exam_id)) {
+                return redirect('/user/dashboard');
+            }
           $exam = Exam::findOrFail($exam_id);
 
     // get latest attempt of this user for this exam
@@ -490,7 +511,10 @@ public function MockExamStart($exam_id)
     ->get();
 
 
-    return view('user.mock.exam_results', compact('exam', 'userAnswers', 'latestAttempt'));
+    return response()
+        ->view('user.mock.exam_results', compact('exam', 'userAnswers', 'latestAttempt'))
+        ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+        ->header('Pragma', 'no-cache');
         }
 
     // User Get Certificate

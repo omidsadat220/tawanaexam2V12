@@ -113,5 +113,10 @@ $currectAnsower = App\Models\CorrectAns::where('correct_answer', 'correct_answer
 
 </div>
 
+<script>
+    history.pushState(null, null, location.href);
+    window.onpopstate = () => location.replace('/user/dashboard');
+</script>
+
 </body>
 </html>
